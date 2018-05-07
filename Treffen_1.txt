@@ -1,13 +1,13 @@
 Auto TS - 1. Treffen
 
 erste Ideen:
-- 1. Schritt Preprocessing (Stoppwörter entfernen, Tokenisierung, Lemmatisierung etc.)
-- Maschine Learning u.U. verwenden
-- gensim (framework für python) u.U. verwenden
-- relevante Sätze aus Korpus nehmen und Text daraus erstellen? 
+- 1. Schritt Preprocessing (StoppwÃ¶rter entfernen, Tokenisierung, Lemmatisierung etc.)
+- Machine Learning u.U. verwenden
+- gensim (framework fÃ¼r python) u.U. verwenden
+- relevante SÃ¤tze aus Korpus nehmen und Text daraus erstellen? 
 
 
-Fragen für Freitag:
+Fragen fÃ¼r Freitag:
 - genaue Aufgabenstellung???!!!
 - was ist die gesammte Pipeline genau? -> je nachdem wird bevorzugt, die gesammte Pipeline zu bearbeiten 
 - wie soll das Endergebnis aussehen? 
@@ -16,4 +16,4 @@ Fragen für Freitag:
 - sollen wir Hierarchien automatisch erstellen?
 
 
-nächstes Treffen: Mittwoch 10 Uhr LZI
+nÃ¤chstes Treffen: Mittwoch 10 Uhr LZI
