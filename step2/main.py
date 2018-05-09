@@ -2,8 +2,9 @@ from nugget import Nugget
 import reader
 import glob
 
-dof = dict([(ix, p) for ix, p in enumerate(glob.glob("*.txt"))])
-print(dof)
+dof = dict([(ix, p) for ix, p in enumerate(glob.glob("../Corpus/Trees/Input/*.txt"))])
+for k in dof:
+	print(k, dof[k])
 
 while True:
 	try:
@@ -14,7 +15,7 @@ while True:
 			break
 		else:
 			print('file not available!')
-	except (ValueError):
+	except (ValueError, NameError, TypeError):
 		print('Oops! Wrong input!')
 
 print([n.GetIX() for n in nuggets])
