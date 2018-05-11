@@ -30,23 +30,29 @@ nugget_ratios = np.zeros(10)
 number_full_sentence_nuggets = np.zeros(10)
 full_sentence_nuggets_ratio = np.zeros(10)
 
+# save labeled data as well as similar sentences and nugget stats in separate text files
+labeled_data_file = open('data_labels.txt', 'w')
+similar_sentences_file = open('similar_sentences.txt', 'w')
+nugget_stats_file = open('nugget_stats.txt', 'w')
+
 for i in range(10):
     xml_tree = xml.etree.ElementTree.parse(sentences_source_path + sentences_source_files[i])
     root = xml_tree.getroot()
     # save all sentences in a string and save the number of sentences
-    all_sentences = ''
     sentences_list = []
     number_sentences = 0
     for s in root.iter('s'):
         # ignore unknown unicode characters
         sentence_text = s.find('content').text.encode('ascii', 'ignore').decode('ascii')
-        all_sentences += sentence_text + '\n'
         sentences_list.append(sentence_text)
         number_sentences += 1
 
     nuggets_file = open(nugget_source_path + nugget_source_files[i], 'r')
     nuggets_string = nuggets_file.read()
     nuggets_list = nuggets_string.split('\n')
+    # remove last empty line
+    if nuggets_list[-1] == '':
+        nuggets_list = nuggets_list[:-1]
     number_nuggets = len(nuggets_list) - 1
     for j in range(number_nuggets):
         line = nuggets_list[j].split('\t')
@@ -57,13 +63,22 @@ for i in range(10):
     nugget_ratios[i] = number_nuggets / number_sentences
     # calculate number of nuggets which consists of a full sentence
     for k in range(number_sentences):
+        print(k + 1, 'out of', number_sentences, 'in document', i + 1)
+        current_label = 0
         for n in range(number_nuggets):
             # check if sentences match at least 95 percent
             if SequenceMatcher(None, sentences_list[k], nuggets_list[n]).ratio() > 0.95:
                 number_full_sentence_nuggets[i] += 1
+                current_label = 1
+                if SequenceMatcher(None, sentences_list[k], nuggets_list[n]).ratio() < 1:
+                    # save similar sentence for later knowledge
+                    similar_sentences_file.write(sentences_list[k] + '\n\t' + nuggets_list[n] + '\n')
+        # save sentence and label
+        labeled_data_file.write(sentences_list[k] + '\t' + str(current_label) + '\n')
     # save ratio of full sentence nuggets to all nuggets
     full_sentence_nuggets_ratio[i] = number_full_sentence_nuggets[i] / number_nuggets
 
-print('Sentences nugget ratios: ', nugget_ratios, '\nMean of ratios: ', np.mean(nugget_ratios))
-print('Ratios of full sentences nuggets to all nuggets: ', full_sentence_nuggets_ratio,
-      '\nMean of ratios: ', np.mean(full_sentence_nuggets_ratio))
+nugget_stats_file.write('Sentences nugget ratios: ' + str(nugget_ratios) +
+                        '\nMean of ratios: ' + str(np.mean(nugget_ratios)) +
+                        '\nRatios of full sentences to all nuggets: ' + str(full_sentence_nuggets_ratio) +
+                        '\nMean of ratios: ' + str(np.mean(full_sentence_nuggets_ratio)))
