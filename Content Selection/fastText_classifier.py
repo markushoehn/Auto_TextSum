@@ -4,7 +4,7 @@ import random
 
 TRAINING_DATA_EMBEDDINGS = "data/full_corpus_preprocessed.txt"
 LABELED_DATA = "data/labeled_data_binary_fastText.txt"
-LABELED_DATA_TEMP =  "data/labeled_data_fastText_temp.txt"
+LABELED_DATA_STRETCHED =  "data/labeled_data_fastText_stretched.txt"
 TRAINING_DATA = "data/training_temp.txt"
 VALIDATION_DATA = "data/validation_temp.txt"
 SUPERVISED_MODEL_TEMP = "data/supervised_model_temp"
@@ -47,7 +47,7 @@ class dataset_manipulator:
         if desired_ratio < 0:
             return
         with open(LABELED_DATA, "r") as labeled_data:
-            with open(LABELED_DATA_TEMP, "x") as labeled_data_stretched:
+            with open(LABELED_DATA_STRETCHED, "x") as labeled_data_stretched:
                 # first read all Nugget instances into a list, also count the current ratio
                 # While doing that, already copy all instances into the new file
                 nugget_lines = []
@@ -132,8 +132,8 @@ class dataset_manipulator:
         """
         deletes temporary files
         """
-        if os.path.isfile(LABELED_DATA_TEMP):
-            os.remove(LABELED_DATA_TEMP)
+        if os.path.isfile(LABELED_DATA_STRETCHED):
+            os.remove(LABELED_DATA_STRETCHED)
         if os.path.isfile(TRAINING_DATA):
             os.remove(TRAINING_DATA)
         if os.path.isfile(VALIDATION_DATA):
@@ -151,7 +151,7 @@ class fastText_classifier:
         # this code is only temporarily here, it trains and evaluates a model
         print("Testing on validation data")
         n, precision, recall = model.test(VALIDATION_DATA)
-        print("On a Validationset of size %d, the model obtained a Precision of %1.4f"%(n, precision))      # precision is around 89.7% :)
+        print("On a Validationset of size %d, the model obtained a Precision of %1.4f"%(n, precision))      # precision is around 89.7% for original labeled dataset :)
         print("Saving model")
         model.save_model(SUPERVISED_MODEL_TEMP)
 
