@@ -52,12 +52,12 @@ def create_fasttext_data():
                         # similarity > 95% -> label as nugget and extract the nugget from the Sentence Sourcefile in order to ignore their tokenization
                         # additionally: put into context and label the resulting string as containing a nugget
                         if SequenceMatcher(None, sentence_text, nugget_parts[1]).ratio() > 0.95:
-                            labeled_data.write(LABEL_ISNUGGET + ", " + nugget_parts[1] + "\n")
-                            labeled_data.write(LABEL_CONTAINSNUGGET + ", " + " ".join([nugget_parts[2], nugget_parts[1], nugget_parts[3]]) + "\n")
+                            labeled_data.write(LABEL_ISNUGGET + " " + nugget_parts[1] + "\n")
+                            labeled_data.write(LABEL_CONTAINSNUGGET + " " + " ".join([nugget_parts[2], nugget_parts[1], nugget_parts[3]]) + "\n")
                             nugget_found = True
                     
                     # if no corresponding nugget was found -> store as not containing a nugget
                     if not nugget_found:
-                        labeled_data.write(LABEL_NONUGGET + ", " + sentence_text + "\n")
+                        labeled_data.write(LABEL_NONUGGET + " " + sentence_text + "\n")
 
 create_fasttext_data()
