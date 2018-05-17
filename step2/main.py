@@ -1,8 +1,10 @@
 from nugget import Nugget
 import reader
 import glob
+from BubbleTree import Tree 
 
-dof = dict([(ix, p) for ix, p in enumerate(glob.glob("*.txt"))])
+filepath = "../Corpus/Trees/Input/"
+dof = dict([(ix, p) for ix, p in enumerate(glob.glob(filepath + "*.txt"))])
 print(dof)
 
 while True:
@@ -18,3 +20,6 @@ while True:
 		print('Oops! Wrong input!')
 
 print([n.GetIX() for n in nuggets])
+
+tree = Tree.createListTree(nuggets)
+Tree.write([tree])
