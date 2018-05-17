@@ -29,6 +29,17 @@ class Tree(object):
 
 		ET.dump(root)
 
+	def createListTree(list):
+		print("creating Tree of Length: "  + str(len(list)))
+		tree = Tree()
+		sub = tree
+		for s in list:
+			newtree = Tree()
+			sub.bubbles.append(newtree)
+			sub.bubbles[0].nuggets.append(str(s.GetIX()))
+			sub = newtree
+		return tree
+
 def test():
 	tree = Tree()
 	tree.bubbles.append(Tree())
