@@ -2,19 +2,21 @@ import tensorflow as tf
 import numpy as np
 
 # load data
-id_train = np.load('data/numpy_data/id_train2.npy')
-x_train = np.load('data/numpy_data/x_train2.npy')
-y_train = np.load('data/numpy_data/y_train2.npy')
-id_test = np.load('data/numpy_data/id_test2.npy')
-x_test = np.load('data/numpy_data/x_test2.npy')
-y_test = np.load('data/numpy_data/y_test2.npy')
-dictionary = np.load('data/numpy_data/dictionary2.npy').item()
+id_train = np.load('data/numpy_data/id_train.npy')
+x_train = np.load('data/numpy_data/x_train100_5.npy')
+y_train = np.load('data/numpy_data/y_train100_5.npy')
+id_test = np.load('data/numpy_data/id_test.npy')
+x_test = np.load('data/numpy_data/x_test100_5.npy')
+y_test = np.load('data/numpy_data/y_test100_5.npy')
+dictionary = np.load('data/numpy_data/dictionary.npy').item()
+size_training = x_train.shape[0]
+size_testing = x_test.shape[0]
 
 # define hyper parameters
 batch_size = 10
 learning_rate = 0.005
-no_epochs = 50
-layer_dimensions = [100, 50, 2]
+no_epochs = 100
+layer_dimensions = [100, 30, 2]
 optimizer = tf.train.AdamOptimizer
 no_layers = len(layer_dimensions)
 layers = [None] * no_layers
@@ -27,8 +29,8 @@ print('Hyper parameter setup:\n', 'Batch size =', batch_size, ';', 'Learning rat
 
 # placeholders for id, input and output data
 ids = tf.placeholder(tf.float32, [None, 2])
-x = tf.placeholder(tf.float32, [None, 100])
-y = tf.placeholder(tf.float32, [None, 2])
+x = tf.placeholder(tf.float32, [None, layer_dimensions[0]])
+y = tf.placeholder(tf.float32, [None, layer_dimensions[-1]])
 
 # input layer
 layers[0] = tf.layers.dense(inputs=x, units=layer_dimensions[0], activation=activation_functions[0],
@@ -83,14 +85,25 @@ with tf.Session() as sess:
             epoch_loss += step_loss
         # print training progress
         print('Loss on training data after epoch', current_epoch + 1, ':', np.round(epoch_loss, 2))
+        test_loss, prec_t, rec_t = sess.run([loss, precision, recall], feed_dict={x: x_test, y: y_test})
+        print('Test loss:', test_loss, 'Precision:', prec_t, 'Recall:', rec_t)
 
     # results
     loss_train, acc_train, prec_train, rec_train, f1_train = sess.run([loss, accuracy, precision, recall, f1],
                                                                       feed_dict={x: x_train, y: y_train})
-    loss_test, acc_test, prec_test, rec_test, f1_test = sess.run([loss, accuracy, precision, recall, f1],
-                                                                 feed_dict={x: x_test, y: y_test})
+    loss_test, acc_test, prec_test, rec_test, f1_test, pred_test \
+        = sess.run([loss, accuracy, precision, recall, f1, prediction], feed_dict={x: x_test, y: y_test})
+    # print nuggets
+    nugget_count_test = 0
+    for k in range(size_testing):
+        if int(np.argmax(pred_test[k])) == 1:
+            nugget_count_test += 1
+            id_string = str(int(id_test[k][0])) + '/' + str(int(id_test[k][1]))
+            # print(dictionary[id_string])
     # print results
     print('\nTraining data: Loss =', loss_train, ';', 'Accuracy =', acc_train,
           ';', 'Precision =', prec_train, ';', 'Recall =', rec_train, ';', 'F1 score = ', f1_train)
     print('Test data: Loss =', loss_test, ';', 'Accuracy =', acc_test,
           ';', 'Precision =', prec_test, ';', 'Recall =', rec_test, ';', 'F1 score = ', f1_test)
+    print('Total nuggets on test data:', nugget_count_test,
+          'Nugget ratio on test data:', nugget_count_test / size_testing)
