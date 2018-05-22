@@ -11,8 +11,8 @@ class Nugget:
 	def GetSentence(self):
 		return self.sentence
 
-	def GetPreSentece(self):
+	def GetPreContext(self):
 		return self.pre
 
-	def GetPostSentence(self):
+	def GetPostContext(self):
 		return self.post

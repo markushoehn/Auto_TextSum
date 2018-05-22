@@ -1,6 +1,6 @@
 from nugget import Nugget
 import reader
-import glob
+import glob, nltk
 
 dof = dict([(ix, p) for ix, p in enumerate(glob.glob("../Corpus/Trees/Input/*.txt"))])
 for k in dof:
@@ -18,4 +18,17 @@ while True:
 	except (ValueError, NameError, TypeError):
 		print('Oops! Wrong input!')
 
-print([n.GetIX() for n in nuggets])
+
+
+tmp =  [nltk.word_tokenize(n.GetSentence()) for n in nuggets]
+print(type(tmp))
+print(len(tmp))
+
+li = []
+for i in tmp:
+	for j in i:
+		li.append(j.lower())
+print(len(li))
+
+fdist = nltk.FreqDist(li)
+print(fdist.most_common(50))
