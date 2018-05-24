@@ -23,3 +23,6 @@
 #   Vectoren of words, sentences, sort them and create tree
 # 7 WordNet Synonyms
 #   find most common synonyms in sentences, create tree with most common on top
+
+from nltk.corpus import wordnet as ws
+

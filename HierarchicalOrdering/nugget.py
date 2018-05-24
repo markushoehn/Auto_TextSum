@@ -1,3 +1,8 @@
+import nltk
+from nltk.corpus import stopwords
+
+sw = set(stopwords.words('english'))
+
 class Nugget:
 	def __init__(self, tuple):
 		self.ix = int(tuple[0])
@@ -16,3 +21,9 @@ class Nugget:
 
 	def GetPostContext(self):
 		return self.post
+
+	def GetWords(self):
+		return nltk.word_tokenize(self.GetSentence())
+
+	def GetWordsWithoutStopwords(self):
+		return [w for w in self.GetWords() if w.lower() not in sw and w not in ".,;:-_#'~/!/&()?'"]
