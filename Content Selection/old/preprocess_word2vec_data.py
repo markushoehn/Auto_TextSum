@@ -73,11 +73,11 @@ id_test, x_test, y_test, dict2 = load_data('data/nugget_metdata_results/data_tes
 dict1.update(dict2)
 # save arrays
 # np.save('data/numpy_data/id_train.npy', id_train)
-np.save('data/numpy_data/x_train100_5.npy', x_train)
-np.save('data/numpy_data/y_train100_5.npy', y_train)
+####np.save('data/numpy_data/x_train100_5.npy', x_train)
+###np.save('data/numpy_data/y_train100_5.npy', y_train)
 # np.save('data/numpy_data/id_test.npy', id_test)
-np.save('data/numpy_data/x_test100_5.npy', x_test)
-np.save('data/numpy_data/y_test100_5.npy', y_test)
+###np.save('data/numpy_data/x_test100_5.npy', x_test)
+###np.save('data/numpy_data/y_test100_5.npy', y_test)
 # np.save('data/numpy_data/dictionary.npy', dict1)
 
 
