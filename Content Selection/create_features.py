@@ -9,7 +9,7 @@ k = 2
 
 # load stopword list
 stopword_file = open('data/stopwords.txt', 'r')
-stopword_list = stopword_file.readlines()
+stopword_list = stopword_file.read().split('\n')
 
 # create raw and preprocessed feature file
 feature_file_raw = open('data/complete_feature_file_raw_window_size_' + str(k) + '.txt', 'a')
