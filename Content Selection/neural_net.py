@@ -1,5 +1,48 @@
 import tensorflow as tf
 import numpy as np
+from keras.models import Sequential
+from keras.layers import Dense, Activation
+from keras import backend as K
+
+
+def tp(y_true, y_pred):
+    return tf.count_nonzero(tf.argmax(y_true, 1) * tf.argmax(y_pred, 1))
+
+
+def fp(y_true, y_pred):
+    return tf.count_nonzero((tf.argmax(y_true, 1) - 1) * tf.argmax(y_pred, 1))
+
+
+def tn(y_true, y_pred):
+    return tf.count_nonzero((tf.argmax(y_true, 1) - 1) * (tf.argmax(y_pred, 1) - 1))
+
+
+def fn(y_true, y_pred):
+    return tf.count_nonzero(tf.argmax(y_true, 1) * (tf.argmax(y_pred, 1) - 1))
+
+
+'''
+def recall(y_true, y_pred):
+    # only computes a batch-wise average of recall
+    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
+    rec = true_positives / (possible_positives + K.epsilon())
+    return rec
+
+
+def precision(y_true, y_pred):
+    # only computes a batch-wise average of precision
+    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
+    prec = true_positives / (predicted_positives + K.epsilon())
+    return prec
+
+
+def f1(y_true, y_pred):
+    prec = precision(y_true, y_pred)
+    rec = recall(y_true, y_pred)
+    return 2*((prec*rec)/(prec+rec+K.epsilon()))
+'''
 
 # load data
 id_train = np.load('data/numpy_data/id_train.npy')
@@ -14,96 +57,40 @@ size_testing = x_test.shape[0]
 
 # define hyper parameters
 batch_size = 10
-learning_rate = 0.005
-no_epochs = 100
-layer_dimensions = [100, 30, 2]
-optimizer = tf.train.AdamOptimizer
-no_layers = len(layer_dimensions)
-layers = [None] * no_layers
-activation_functions = [tf.nn.sigmoid] * no_layers
+number_epochs = 30
 
-# print hyper parameter setup
-print('Hyper parameter setup:\n', 'Batch size =', batch_size, ';', 'Learning rate =', learning_rate, ';',
-      'Number of epochs =', no_epochs, ';', 'Network structure =', layer_dimensions, '\n',
-      'Optimizer =', optimizer, '\n')
+# define keras model
+model = Sequential()
+model.add(Dense(units=50, input_dim=100))
+model.add(Activation('relu'))
+model.add(Dense(units=2))
+model.add(Activation('softmax'))
 
-# placeholders for id, input and output data
-ids = tf.placeholder(tf.float32, [None, 2])
-x = tf.placeholder(tf.float32, [None, layer_dimensions[0]])
-y = tf.placeholder(tf.float32, [None, layer_dimensions[-1]])
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=[tp, fp, tn, fn])
+model.fit(x_train, y_train, epochs=number_epochs, batch_size=batch_size)
+loss_and_metrics = model.evaluate(x_test, y_test, batch_size=2000)
+true_pos = loss_and_metrics[1]
+false_pos = loss_and_metrics[2]
+true_neg = loss_and_metrics[3]
+false_neg = loss_and_metrics[4]
+precision = true_pos / (true_pos + false_pos)
+recall = true_pos / (true_pos + false_neg)
+f1_score = 2 * precision * recall / (precision + recall)
+test_prediction = model.predict(x_test)
+print('Evaluation:',
+      '\n\tLoss:', loss_and_metrics[0],
+      '\n\tPrecision:', precision,
+      '\n\tRecall:', recall,
+      '\n\tF1_Score:', f1_score)
+'''
+# print nuggets
+nugget_count_test = 0
+for k in range(size_testing):
+    if int(np.argmax(test_prediction[k])) == 1:
+        nugget_count_test += 1
+        id_string = str(int(id_test[k][0])) + '/' + str(int(id_test[k][1]))
+        print(dictionary[id_string])
 
-# input layer
-layers[0] = tf.layers.dense(inputs=x, units=layer_dimensions[0], activation=activation_functions[0],
-                            kernel_initializer=tf.random_normal_initializer,
-                            bias_initializer=tf.random_normal_initializer)
-# hidden layers
-if no_layers > 2:
-    for layer in range(1, no_layers - 1):
-        layers[layer] = tf.layers.dense(inputs=layers[layer - 1], units=layer_dimensions[layer],
-                                        activation=activation_functions[layer],
-                                        kernel_initializer=tf.random_normal_initializer,
-                                        bias_initializer=tf.random_normal_initializer)
-# output layer
-layers[no_layers - 1] = tf.layers.dense(inputs=layers[no_layers - 2], units=layer_dimensions[no_layers - 1],
-                                        activation=activation_functions[no_layers - 1],
-                                        kernel_initializer=tf.random_normal_initializer,
-                                        bias_initializer=tf.random_normal_initializer)
-prediction = layers[no_layers - 1]
-
-# define loss, optimizer and accuracy
-# TODO: try different loss functions (cross entropy loss with softmax)
-loss = tf.reduce_sum(tf.square(y - prediction))
-# loss = tf.nn.softmax_cross_entropy_with_logits_v2(labels=y, logits=prediction)
-opt = optimizer(learning_rate=learning_rate).minimize(loss=loss)
-accuracy = tf.reduce_mean(tf.cast(tf.equal(y, tf.round(prediction)), 'float'))
-# compute F1 score
-argmax_prediction = tf.argmax(prediction, 1)
-argmax_y = tf.argmax(y, 1)
-
-tp = tf.count_nonzero(argmax_prediction * argmax_y, dtype=tf.float32)
-tn = tf.count_nonzero((argmax_prediction - 1) * (argmax_y - 1), dtype=tf.float32)
-fp = tf.count_nonzero(argmax_prediction * (argmax_y - 1), dtype=tf.float32)
-fn = tf.count_nonzero((argmax_prediction - 1) * argmax_y, dtype=tf.float32)
-precision = tp / (tp + fp)
-recall = tp / (tp + fn)
-f1 = 2 * precision * recall / (precision + recall)
-
-# begin session
-with tf.Session() as sess:
-    sess.run(tf.global_variables_initializer())
-    N = x_train.shape[0]
-    # run epochs
-    for current_epoch in range(no_epochs):
-        # save current loss
-        epoch_loss = 0
-        no_update_steps = int(np.floor(N / batch_size))
-        for current_update in range(no_update_steps):
-            # shuffle data
-            indices = np.random.choice(N, batch_size)
-            x_batch, y_batch = x_train[indices], y_train[indices]
-            _, step_loss = sess.run([opt, loss], feed_dict={x: x_batch, y: y_batch})
-            epoch_loss += step_loss
-        # print training progress
-        print('Loss on training data after epoch', current_epoch + 1, ':', np.round(epoch_loss, 2))
-        test_loss, prec_t, rec_t = sess.run([loss, precision, recall], feed_dict={x: x_test, y: y_test})
-        print('Test loss:', test_loss, 'Precision:', prec_t, 'Recall:', rec_t)
-
-    # results
-    loss_train, acc_train, prec_train, rec_train, f1_train = sess.run([loss, accuracy, precision, recall, f1],
-                                                                      feed_dict={x: x_train, y: y_train})
-    loss_test, acc_test, prec_test, rec_test, f1_test, pred_test \
-        = sess.run([loss, accuracy, precision, recall, f1, prediction], feed_dict={x: x_test, y: y_test})
-    # print nuggets
-    nugget_count_test = 0
-    for k in range(size_testing):
-        if int(np.argmax(pred_test[k])) == 1:
-            nugget_count_test += 1
-            id_string = str(int(id_test[k][0])) + '/' + str(int(id_test[k][1]))
-            # print(dictionary[id_string])
-    # print results
-    print('\nTraining data: Loss =', loss_train, ';', 'Accuracy =', acc_train,
-          ';', 'Precision =', prec_train, ';', 'Recall =', rec_train, ';', 'F1 score = ', f1_train)
-    print('Test data: Loss =', loss_test, ';', 'Accuracy =', acc_test,
-          ';', 'Precision =', prec_test, ';', 'Recall =', rec_test, ';', 'F1 score = ', f1_test)
-    print('Total nuggets on test data:', nugget_count_test,
-          'Nugget ratio on test data:', nugget_count_test / size_testing)
+print('Total nuggets on test data:', nugget_count_test,
+      'Nugget ratio on test data:', nugget_count_test / size_testing)
+'''
