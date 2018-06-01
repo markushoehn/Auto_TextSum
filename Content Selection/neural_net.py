@@ -1,8 +1,10 @@
 import tensorflow as tf
 import numpy as np
 from keras.models import Sequential
-from keras.layers import Dense, Activation
-from keras import backend as K
+from keras.layers import Dense, Activation, Dropout
+import random
+
+# METRIC FUNCTIONS FOR LATER EVALUATION (TRUE POSITIVES, FALSE POSITIVES, TRUE NEGATIVES, FALSE NEGATIVES)
 
 
 def tp(y_true, y_pred):
@@ -21,76 +23,47 @@ def fn(y_true, y_pred):
     return tf.count_nonzero(tf.argmax(y_true, 1) * (tf.argmax(y_pred, 1) - 1))
 
 
-'''
-def recall(y_true, y_pred):
-    # only computes a batch-wise average of recall
-    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-    possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
-    rec = true_positives / (possible_positives + K.epsilon())
-    return rec
+# load data directly as numpy arrays
+x_train = np.load('data/numpy_data/x_train_wsize_2_embsize_50.npy')
+y_train = np.load('data/numpy_data/y_train_wsize_2_embsize_50.npy')
+x_test = np.load('data/numpy_data/x_test_wsize_2_embsize_50.npy')
+y_test = np.load('data/numpy_data/y_test_wsize_2_embsize_50.npy')
 
+# define hyper parameters of NN
+batch_size = 20
+number_epochs = 10
+optimizer = 'adam'
+# dropout rate: ratio of weights which are randomly set inactive for one epoch (prevent overfitting)
+dropout_rate = 0.2
 
-def precision(y_true, y_pred):
-    # only computes a batch-wise average of precision
-    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-    predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
-    prec = true_positives / (predicted_positives + K.epsilon())
-    return prec
-
-
-def f1(y_true, y_pred):
-    prec = precision(y_true, y_pred)
-    rec = recall(y_true, y_pred)
-    return 2*((prec*rec)/(prec+rec+K.epsilon()))
-'''
-
-# load data
-id_train = np.load('data/numpy_data/id_train.npy')
-x_train = np.load('data/numpy_data/x_train100_5.npy')
-y_train = np.load('data/numpy_data/y_train100_5.npy')
-id_test = np.load('data/numpy_data/id_test.npy')
-x_test = np.load('data/numpy_data/x_test100_5.npy')
-y_test = np.load('data/numpy_data/y_test100_5.npy')
-dictionary = np.load('data/numpy_data/dictionary.npy').item()
-size_training = x_train.shape[0]
-size_testing = x_test.shape[0]
-
-# define hyper parameters
-batch_size = 10
-number_epochs = 30
-
-# define keras model
+# define keras model and NN architecture
 model = Sequential()
-model.add(Dense(units=50, input_dim=100))
+model.add(Dense(units=100, input_dim=250))
+model.add(Dropout(dropout_rate))
+model.add(Activation('relu'))
+model.add(Dense(units=100))
+model.add(Dropout(dropout_rate))
 model.add(Activation('relu'))
 model.add(Dense(units=2))
 model.add(Activation('softmax'))
 
-model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=[tp, fp, tn, fn])
+# specify
+model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=[tp, fp, tn, fn, 'accuracy'])
 model.fit(x_train, y_train, epochs=number_epochs, batch_size=batch_size)
+# choose large batch size for evaluating since the metrics are applied batch-wise and then averaged
 loss_and_metrics = model.evaluate(x_test, y_test, batch_size=2000)
-true_pos = loss_and_metrics[1]
-false_pos = loss_and_metrics[2]
-true_neg = loss_and_metrics[3]
-false_neg = loss_and_metrics[4]
+# get metrics
+[loss, true_pos, false_pos, true_neg, false_neg, accuracy] = loss_and_metrics
+# calculate precision, recall and f1 score
 precision = true_pos / (true_pos + false_pos)
 recall = true_pos / (true_pos + false_neg)
 f1_score = 2 * precision * recall / (precision + recall)
+# get predictions
 test_prediction = model.predict(x_test)
-print('Evaluation:',
-      '\n\tLoss:', loss_and_metrics[0],
+# print results
+print('Evaluation on test set:',
+      '\n\tLoss:', loss,
+      '\n\tAccuracy:', accuracy,
       '\n\tPrecision:', precision,
       '\n\tRecall:', recall,
       '\n\tF1_Score:', f1_score)
-'''
-# print nuggets
-nugget_count_test = 0
-for k in range(size_testing):
-    if int(np.argmax(test_prediction[k])) == 1:
-        nugget_count_test += 1
-        id_string = str(int(id_test[k][0])) + '/' + str(int(id_test[k][1]))
-        print(dictionary[id_string])
-
-print('Total nuggets on test data:', nugget_count_test,
-      'Nugget ratio on test data:', nugget_count_test / size_testing)
-'''
