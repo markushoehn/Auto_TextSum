@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+from random import randint
 		
 class Tree(object):
 	""" tree class for bubbles and nuggets and trash """
@@ -39,6 +40,42 @@ class Tree(object):
 			sub.bubbles[0].nuggets.append(str(s.GetIX()))
 			sub = newtree
 		return tree
+
+	def compare(first, second):
+		test = randint(0,3)
+		# TODO: make constants for strings
+		# TODO: implement this function
+		# TODO: move this function to blackbox
+		if(test == 0):
+			return "specific"
+		if(test==1):
+			return "general"
+		if(test==2):
+			return "newtopic"
+
+	def insert(self, item):
+		if self.bubbles:
+			for (x,i) in self.bubbles:
+				res = compare(x,item)
+				if(res == "specific"):
+					# go down
+					insert(x, item)
+					return
+				if(res == "general"):
+					# insert ahead
+					newtree = Tree()
+					newtree.bubbles.append(x)
+					self.bubbles[i] = newtree
+				if(res == "newtopic"):
+					# check if this is the last item, then insert and break
+					if(len(self.bubbles)-1 == i):
+						self.bubbles.append(item)
+						return
+					# else go to next
+				
+		else:
+			self.bubbles.append(item)
+
 
 def test():
 	tree = Tree()

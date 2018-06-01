@@ -23,9 +23,10 @@ print(nuggets[0].GetWords());
 print(nuggets[0].GetWordsWithoutStopwords());
 
 
+'''
 # word 2 vec
 # https://datascience.stackexchange.com/questions/23969/sentence-similarity-prediction
-'''
+
 tmp =  [nltk.word_tokenize(n.GetSentence()) for n in nuggets]
 print(type(tmp))
 print(len(tmp))
