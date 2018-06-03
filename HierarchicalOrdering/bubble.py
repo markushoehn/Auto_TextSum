@@ -1,5 +1,5 @@
 import xml.etree.ElementTree as ET
-from blackbox import compare, which
+from blackbox import compare, which, SENTENCE_SPECIFIC, SENTENCE_GENERAL, SENTENCE_SIMILAR
 		
 class Bubble(object):
 	""" tree class for bubbles and nuggets and trash """
@@ -58,18 +58,17 @@ class Bubble(object):
 		index = str(item.GetIX())
 		if self.nuggets:
 			res = compare(self.nuggets, index)
-			if(res == "specific"):
+			if(res == SENTENCE_SPECIFIC):
 				# go down
 				if self.bubbles:
 					num = which(self.bubbles, item)
 					if(num >= 0):
-						print("Going deeper")
 						self.bubbles[num].insert(item)
 						return
 				newtree = Bubble()
 				newtree.nuggets.append(index)
 				self.bubbles.append(newtree)
-			if(res == "general"):
+			if(res == SENTENCE_GENERAL):
 				# insert ahead
 				newtree = Bubble()
 				newtree.nuggets = self.nuggets
@@ -78,7 +77,7 @@ class Bubble(object):
 				self.nuggets.append(index)
 				self.bubbles = []
 				self.bubbles.append(newtree)
-			if(res == "similar"):
+			if(res == SENTENCE_SIMILAR):
 				self.nuggets.append(index)
 		else:
 			self.nuggets.append(index)

@@ -27,6 +27,9 @@
 from nltk.corpus import wordnet as ws
 from random import randint
 
+SENTENCE_SIMILAR = "similar"
+SENTENCE_GENERAL = "general"
+SENTENCE_SPECIFIC = "speficic"
 
 # compares two sentences
 # returns similar, if they are similar in meaning
@@ -37,11 +40,11 @@ def compare(first, second):
 	# TODO: make constants for strings
 	# TODO: implement this function
 	if(test == 0):
-		return "similar"
+		return SENTENCE_SIMILAR
 	if(test==1):
-		return "general"
+		return SENTENCE_GENERAL
 
-	return "specific"
+	return SENTENCE_SPECIFIC
 
 # compares a list of Bubbles against an item
 # return which is the best fit for the item
