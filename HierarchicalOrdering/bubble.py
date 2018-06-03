@@ -1,10 +1,10 @@
 import xml.etree.ElementTree as ET
-from random import randint
+from blackbox import compare
 		
-class Tree(object):
+class Bubble(object):
 	""" tree class for bubbles and nuggets and trash """
 	def __init__(self):
-		super(Tree, self).__init__()
+		super(Bubble, self).__init__()
 		self.nuggets = []
 		self.bubbles = []
 		self.trash = []
@@ -14,7 +14,7 @@ class Tree(object):
 
 		""" TOOD: should add Nuggets and Bubbles objects individually"""
 		def traverse(root, sub):
-			if type(sub) is Tree:
+			if type(sub) is Bubble:
 				for n in sub.nuggets:
 					ET.SubElement(root, 'Nugget', id=n)
 				for bubble in sub.bubbles:
@@ -32,65 +32,78 @@ class Tree(object):
 
 	def createListTree(list):
 		print("creating Tree of Length: "  + str(len(list)))
-		tree = Tree()
+		tree = Bubble()
 		sub = tree
 		for s in list:
-			newtree = Tree()
+			newtree = Bubble()
 			sub.bubbles.append(newtree)
 			sub.bubbles[0].nuggets.append(str(s.GetIX()))
 			sub = newtree
 		return tree
 
-	def compare(first, second):
-		test = randint(0,3)
-		# TODO: make constants for strings
-		# TODO: implement this function
-		# TODO: move this function to blackbox
-		if(test == 0):
-			return "specific"
-		if(test==1):
-			return "general"
-		if(test==2):
-			return "newtopic"
+	def draw(self):
+		print("Tree:")
+		def draw_rec(i, sub):
+			space = (i * "  ")
+			print(space + "Bubbles: (" + str(len(sub.bubbles)) + ")")
+			for x in sub.nuggets:
+				print(space + "Nugget: " + x)
+			for x in sub.bubbles:
+				draw_rec(i+1, x)
+			return
+		draw_rec(0, self)
+		print("Trash: (" + str(len(self.trash)) + ")")
 
 	def insert(self, item):
-		if self.bubbles:
-			for (x,i) in self.bubbles:
-				res = compare(x,item)
+		index = str(item.GetIX())
+		if self.nuggets:
+			for (x,i) in enumerate(self.nuggets):
+				res = compare(x, index)
 				if(res == "specific"):
 					# go down
-					insert(x, item)
+					self.bubbles.append(Bubble())
+					self.bubbles[len(self.bubbles)-1].insert(item)
 					return
 				if(res == "general"):
 					# insert ahead
-					newtree = Tree()
-					newtree.bubbles.append(x)
-					self.bubbles[i] = newtree
+					newtree = Bubble()
+					newtree.nuggets = self.nuggets
+					newtree.bubbles = self.bubbles
+					self.nuggets = []
+					self.nuggets.append(index)
+					self.bubbles = []
+					self.bubbles.append(newtree)
 				if(res == "newtopic"):
 					# check if this is the last item, then insert and break
-					if(len(self.bubbles)-1 == i):
-						self.bubbles.append(item)
+					if(len(self.nuggets)-1 == i):
+						newtree = Bubble()
+						newtree.nuggets.append(index)
+						self.bubbles.append(newtree)
 						return
 					# else go to next
-				
 		else:
-			self.bubbles.append(item)
+			self.nuggets.append(index)
 
 
 def test():
-	tree = Tree()
-	tree.bubbles.append(Tree())
+	tree = Bubble()
+	tree.bubbles.append(Bubble())
 	tree.bubbles[0].nuggets.append("195")
 	tree.bubbles[0].nuggets.append("9")
 
-	tree.bubbles[0].bubbles.append(Tree())
+	tree.bubbles[0].bubbles.append(Bubble())
 	tree.bubbles[0].bubbles[0].nuggets.append("140")
-	tree.bubbles[0].bubbles[0].bubbles.append(Tree())
+	tree.bubbles[0].bubbles[0].bubbles.append(Bubble())
 	tree.bubbles[0].bubbles[0].bubbles[0].nuggets.append("142")
-	tree.bubbles[0].bubbles.append(Tree())
+	tree.bubbles[0].bubbles.append(Bubble())
 	tree.bubbles[0].bubbles[0].nuggets.append("10")
 	tree.bubbles[0].bubbles[0].nuggets.append("11")
 
 	Tree.write([tree])
 
-test()
+def main():
+	print("Wrtiing demo tree:")
+	test()
+
+if __name__ == "__main__":
+    main()

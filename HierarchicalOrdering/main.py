@@ -1,27 +1,38 @@
 from nugget import Nugget
-from BubbleTree import Tree 
+from bubble import Bubble 
 import reader
 import glob, nltk
 
-dof = dict([(ix, p) for ix, p in enumerate(glob.glob("../Corpus/Trees/Input/*.txt"))])
-for k in dof:
-	print(k, dof[k])
 
-while True:
-	try:
-		file_no = int(input('Enter the number of the desired file: '))
-		
-		if file_no in dof:
-			nuggets = reader.read(dof[file_no])
-			break
-		else:
-			print('file not available!')
-	except (ValueError, NameError, TypeError):
-		print('Oops! Wrong input!')
+def main():
+	dof = dict([(ix, p) for ix, p in enumerate(glob.glob("../Corpus/Trees/Input/*.txt"))])
+	for k in dof:
+		print(k, dof[k])
 
-print(nuggets[0].GetWords());
-print(nuggets[0].GetWordsWithoutStopwords());
+	while True:
+		try:
+			file_no = int(input('Enter the number of the desired file: '))
+			
+			if file_no in dof:
+				nuggets = reader.read(dof[file_no])
+				break
+			else:
+				print('file not available!')
+		except (ValueError, NameError, TypeError):
+			print('Oops! Wrong input!')
 
+	print(nuggets[0].GetWords());
+	print(nuggets[0].GetWordsWithoutStopwords());
+
+
+	tree = Bubble()
+	for x in nuggets[0:50]:
+		tree.insert(x)
+	#Bubble.write([tree])
+	tree.draw()
+
+if __name__ == "__main__":
+    main()
 
 '''
 # word 2 vec
@@ -42,8 +53,6 @@ print(fdist.most_common(50))
 
 print([n.GetIX() for n in nuggets])
 
-tree = Tree.createListTree(nuggets)
-Tree.write([tree])
 
 
 ## similarity between two sentences with nltk:
