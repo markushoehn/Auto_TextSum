@@ -1,5 +1,5 @@
 import xml.etree.ElementTree as ET
-from blackbox import compare
+from blackbox import compare, which
 		
 class Bubble(object):
 	""" tree class for bubbles and nuggets and trash """
@@ -45,9 +45,9 @@ class Bubble(object):
 		print("Tree:")
 		def draw_rec(i, sub):
 			space = (i * "  ")
-			print(space + "Bubbles: (" + str(len(sub.bubbles)) + ")")
 			for x in sub.nuggets:
 				print(space + "Nugget: " + x)
+			print(space + "Bubbles: (" + str(len(sub.bubbles)) + ")")
 			for x in sub.bubbles:
 				draw_rec(i+1, x)
 			return
@@ -57,30 +57,29 @@ class Bubble(object):
 	def insert(self, item):
 		index = str(item.GetIX())
 		if self.nuggets:
-			for (x,i) in enumerate(self.nuggets):
-				res = compare(x, index)
-				if(res == "specific"):
-					# go down
-					self.bubbles.append(Bubble())
-					self.bubbles[len(self.bubbles)-1].insert(item)
-					return
-				if(res == "general"):
-					# insert ahead
-					newtree = Bubble()
-					newtree.nuggets = self.nuggets
-					newtree.bubbles = self.bubbles
-					self.nuggets = []
-					self.nuggets.append(index)
-					self.bubbles = []
-					self.bubbles.append(newtree)
-				if(res == "newtopic"):
-					# check if this is the last item, then insert and break
-					if(len(self.nuggets)-1 == i):
-						newtree = Bubble()
-						newtree.nuggets.append(index)
-						self.bubbles.append(newtree)
+			res = compare(self.nuggets, index)
+			if(res == "specific"):
+				# go down
+				if self.bubbles:
+					num = which(self.bubbles, item)
+					if(num >= 0):
+						print("Going deeper")
+						self.bubbles[num].insert(item)
 						return
-					# else go to next
+				newtree = Bubble()
+				newtree.nuggets.append(index)
+				self.bubbles.append(newtree)
+			if(res == "general"):
+				# insert ahead
+				newtree = Bubble()
+				newtree.nuggets = self.nuggets
+				newtree.bubbles = self.bubbles
+				self.nuggets = []
+				self.nuggets.append(index)
+				self.bubbles = []
+				self.bubbles.append(newtree)
+			if(res == "similar"):
+				self.nuggets.append(index)
 		else:
 			self.nuggets.append(index)
 

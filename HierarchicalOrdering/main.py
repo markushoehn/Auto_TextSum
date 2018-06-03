@@ -24,11 +24,11 @@ def main():
 	print(nuggets[0].GetWords());
 	print(nuggets[0].GetWordsWithoutStopwords());
 
-
+	print([x.GetIX() for x in nuggets[0:50]])
 	tree = Bubble()
 	for x in nuggets[0:50]:
 		tree.insert(x)
-	#Bubble.write([tree])
+	Bubble.write([tree])
 	tree.draw()
 
 if __name__ == "__main__":

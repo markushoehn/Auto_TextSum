@@ -27,13 +27,25 @@
 from nltk.corpus import wordnet as ws
 from random import randint
 
+
+# compares two sentences
+# returns similar, if they are similar in meaning
+# return genereal when the first is more summarizing
+# return specific when the second is mor summarizing
 def compare(first, second):
-	test = randint(0,3)
+	test = randint(0,9)
 	# TODO: make constants for strings
 	# TODO: implement this function
 	if(test == 0):
-		return "specific"
+		return "similar"
 	if(test==1):
 		return "general"
-	if(test==2):
-		return "newtopic"
+
+	return "specific"
+
+# compares a list of Bubbles against an item
+# return which is the best fit for the item
+# returning -1 means that none fit
+def which(list, item):
+	test = randint(-len(list),len(list)-1)
+	return test
