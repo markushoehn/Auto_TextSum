@@ -57,22 +57,6 @@ print([n.GetIX() for n in nuggets])
 
 ## similarity between two sentences with nltk:
 
-def sim(x,y):
-	try:
-		a = wn.synsets(y)[0]
-		b = wn.synsets(x)[0]
-		res = a.path_similarity(b)
-	except Exception as e:
-		return 0
-	return res
-
-def both(a,b):
-	return [[sim(x,y) for y in b] for x in a]
-
-both(stops(nltk.word_tokenize(a)), stops(nltk.word_tokenize(b)))
-
-from functools import reduce
-reduce((lambda x, y: x + y), [a for b in result for a in b if a]) / len([a for b in result for a in b])
 
 
 '''

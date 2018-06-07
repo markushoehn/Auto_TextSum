@@ -26,7 +26,9 @@
 
 from nltk.corpus import wordnet as wn
 from random import randint
+from functools import reduce
 
+# TODO: make constant .py file for strings
 SENTENCE_SIMILAR = "similar"
 SENTENCE_GENERAL = "general"
 SENTENCE_SPECIFIC = "speficic"
@@ -37,14 +39,30 @@ SENTENCE_SPECIFIC = "speficic"
 # return specific when the second is mor summarizing
 def compare(first, second):
 	test = randint(0,9)
-	# TODO: make constants for strings
-	# TODO: implement this function
-	if(test == 0):
-		return SENTENCE_SIMILAR
-	if(test==1):
-		return SENTENCE_GENERAL
+	stopa = first.GetStemmedWordsWithoutStopwords()
+	stopb = second[0].GetStemmedWordsWithoutStopwords()
+	def sim(x,y):
+		try:
+			a = wn.synsets(y)[0]
+			b = wn.synsets(x)[0]
+			res = a.path_similarity(b)
+		except Exception as e:
+			return 0
+		return res
 
-	return SENTENCE_SPECIFIC
+	def both(a,b):
+		return [[sim(x,y) for y in b] for x in a]
+
+	result = both(stopa, stopb)
+
+	value = reduce((lambda x, y: x + y), [a for b in result for a in b if a]) / len([a for b in result for a in b])
+
+	if(value >= 0.66 ):
+		return SENTENCE_GENERAL
+	if(value <= 0.33):
+		return SENTENCE_SPECIFIC
+
+	return SENTENCE_SIMILAR
 
 # compares a list of Bubbles against an item
 # return which is the best fit for the item

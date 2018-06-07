@@ -16,7 +16,8 @@ class Bubble(object):
 		def traverse(root, sub):
 			if type(sub) is Bubble:
 				for n in sub.nuggets:
-					ET.SubElement(root, 'Nugget', id=n)
+					index = str(n.GetIX())
+					ET.SubElement(root, 'Nugget', id=index)
 				for bubble in sub.bubbles:
 					b = ET.SubElement(root, 'Bubble', name="name")
 					traverse(b, bubble)
@@ -46,7 +47,7 @@ class Bubble(object):
 		def draw_rec(i, sub):
 			space = (i * "  ")
 			for x in sub.nuggets:
-				print(space + "Nugget: " + x)
+				print(space + "Nugget: " + str(x.GetIX()))
 			print(space + "Bubbles: (" + str(len(sub.bubbles)) + ")")
 			for x in sub.bubbles:
 				draw_rec(i+1, x)
@@ -55,9 +56,8 @@ class Bubble(object):
 		print("Trash: (" + str(len(self.trash)) + ")")
 
 	def insert(self, item):
-		index = str(item.GetIX())
 		if self.nuggets:
-			res = compare(self.nuggets, index)
+			res = compare(item, self.nuggets)
 			if(res == SENTENCE_SPECIFIC):
 				# go down
 				if self.bubbles:
@@ -66,7 +66,7 @@ class Bubble(object):
 						self.bubbles[num].insert(item)
 						return
 				newtree = Bubble()
-				newtree.nuggets.append(index)
+				newtree.nuggets.append(item)
 				self.bubbles.append(newtree)
 			if(res == SENTENCE_GENERAL):
 				# insert ahead
@@ -74,13 +74,13 @@ class Bubble(object):
 				newtree.nuggets = self.nuggets
 				newtree.bubbles = self.bubbles
 				self.nuggets = []
-				self.nuggets.append(index)
+				self.nuggets.append(item)
 				self.bubbles = []
 				self.bubbles.append(newtree)
 			if(res == SENTENCE_SIMILAR):
-				self.nuggets.append(index)
+				self.nuggets.append(item)
 		else:
-			self.nuggets.append(index)
+			self.nuggets.append(item)
 
 
 def test():

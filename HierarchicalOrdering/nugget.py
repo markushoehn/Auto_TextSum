@@ -1,9 +1,10 @@
+## hmmmm, chicken mc nuggets
+
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem.porter import *
 
-sw = set(stopwords.words('english').extend(".,;:-_#'~/!/&()?'"))
-stemmer = PorterStemmer()
+
 
 class Nugget:
 	def __init__(self, tuple):
@@ -28,7 +29,10 @@ class Nugget:
 		return nltk.word_tokenize(self.GetSentence())
 
 	def GetWordsWithoutStopwords(self):
+		#sw = set(stopwords.words('english').extend(".,;:-_#'~/!/&()?'"))
+		sw = stopwords.words('english')
 		return [w for w in self.GetWords() if w.lower() not in sw]
 
 	def GetStemmedWordsWithoutStopwords(self):
-		return [stemmer.stem(w) for w in GetWordsWithoutStopwords(self)]
+		stemmer = PorterStemmer()
+		return [stemmer.stem(w) for w in self.GetWordsWithoutStopwords()]
