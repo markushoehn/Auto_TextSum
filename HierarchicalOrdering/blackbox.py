@@ -58,6 +58,7 @@ def same_words(lista,listb):
 		for y in listb:
 			if(x.lower() == y.lower()):
 				count = count + 1
+
 	return count
 
 # compares two sentences
@@ -91,10 +92,9 @@ def which(sentence, bubbles):
 	valueIndex = -1
 	value = 0
 	for (index,x) in enumerate(result):
-		if(x > 1):
+		if(x > 2):
 			if(value < x):
 				valueIndex = index
 				value = x
 	
-	print(value, valueIndex)
 	return valueIndex

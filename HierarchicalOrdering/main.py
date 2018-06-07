@@ -1,5 +1,6 @@
 from nugget import Nugget
-from bubble import Bubble 
+from bubble import Bubble
+from random import shuffle
 import reader
 import glob, nltk
 
@@ -21,12 +22,11 @@ def main():
 		except (ValueError, NameError, TypeError):
 			print('Oops! Wrong input!')
 
-	print(nuggets[0].GetWords());
-	print(nuggets[0].GetWordsWithoutStopwords());
+	shuffled = [i for i in nuggets[0:50]]
+	shuffle(shuffled)
 
-	print([x.GetIX() for x in nuggets[0:50]])
 	tree = Bubble()
-	for x in nuggets[0:50]:
+	for x in shuffled:
 		tree.insert(x)
 	Bubble.write([tree])
 	tree.draw()
