@@ -24,7 +24,7 @@
 # 7 WordNet Synonyms
 #   find most common synonyms in sentences, create tree with most common on top
 
-from nltk.corpus import wordnet as ws
+from nltk.corpus import wordnet as wn
 from random import randint
 
 SENTENCE_SIMILAR = "similar"
