@@ -47,7 +47,7 @@ class Bubble(object):
 		def draw_rec(i, sub):
 			space = (i * "  ")
 			for x in sub.nuggets:
-				print(space + "Nugget: " + str(x.GetIX()))
+				print(space + "Nugget: " + str(x.GetIX()) + " = " + x.GetSentence())
 			print(space + "Bubbles: (" + str(len(sub.bubbles)) + ")")
 			for x in sub.bubbles:
 				draw_rec(i+1, x)
@@ -61,7 +61,7 @@ class Bubble(object):
 			if(res == SENTENCE_SPECIFIC):
 				# go down
 				if self.bubbles:
-					num = which(self.bubbles, item)
+					num = which(item, self.bubbles)
 					if(num >= 0):
 						self.bubbles[num].insert(item)
 						return

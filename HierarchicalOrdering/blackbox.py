@@ -33,14 +33,7 @@ SENTENCE_SIMILAR = "similar"
 SENTENCE_GENERAL = "general"
 SENTENCE_SPECIFIC = "speficic"
 
-# compares two sentences
-# returns similar, if they are similar in meaning
-# return genereal when the first is more summarizing
-# return specific when the second is mor summarizing
-def compare(first, second):
-	test = randint(0,9)
-	stopa = first.GetStemmedWordsWithoutStopwords()
-	stopb = second[0].GetStemmedWordsWithoutStopwords()
+def nltk_path_similarity(lista,listb):
 	def sim(x,y):
 		try:
 			a = wn.synsets(y)[0]
@@ -53,20 +46,55 @@ def compare(first, second):
 	def both(a,b):
 		return [[sim(x,y) for y in b] for x in a]
 
-	result = both(stopa, stopb)
+	result = both(lista, listb)
 
 	value = reduce((lambda x, y: x + y), [a for b in result for a in b if a]) / len([a for b in result for a in b])
+	return value
+	
 
-	if(value >= 0.66 ):
+def same_words(lista,listb):
+	count = 0
+	for x in lista:
+		for y in listb:
+			if(x.lower() == y.lower()):
+				count = count + 1
+	return count
+
+# compares two sentences
+# returns similar, if they are similar in meaning
+# return genereal when the first is more summarizing
+# return specific when the second is mor summarizing
+def compare(sentence, nuggets):
+	wordListFirst = sentence.GetWordsWithoutStopwords()
+	wordListSecond = nuggets[0].GetWordsWithoutStopwords()
+
+	result = nltk_path_similarity(wordListFirst, wordListSecond)
+
+	if(result >= 0.100 ):
+		return SENTENCE_SIMILAR
+	if(result >= 0.08 ):
 		return SENTENCE_GENERAL
-	if(value <= 0.33):
-		return SENTENCE_SPECIFIC
 
-	return SENTENCE_SIMILAR
+	return SENTENCE_SPECIFIC
+
 
 # compares a list of Bubbles against an item
 # return which is the best fit for the item
 # returning -1 means that none fit
-def which(list, item):
-	test = randint(-len(list),len(list)-1)
-	return test
+def which(sentence, bubbles):
+	wordListFirst = sentence.GetWordsWithoutStopwords()
+	result = []
+	for x in bubbles:
+		wordListSecond = x.nuggets[0].GetWordsWithoutStopwords()
+		result.append(same_words(wordListFirst,wordListSecond))
+
+	valueIndex = -1
+	value = 0
+	for (index,x) in enumerate(result):
+		if(x > 1):
+			if(value < x):
+				valueIndex = index
+				value = x
+	
+	print(value, valueIndex)
+	return valueIndex

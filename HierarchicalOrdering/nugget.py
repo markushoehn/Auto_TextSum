@@ -5,13 +5,17 @@ from nltk.corpus import stopwords
 from nltk.stem.porter import *
 
 
-
 class Nugget:
 	def __init__(self, tuple):
 		self.ix = int(tuple[0])
 		self.sentence = tuple[1]
 		self.pre = tuple[2]
-		self.post = tuple[3]
+
+		# golden standart sometimes doesnt have post sentences
+		if(len(tuple) == 4):
+			self.post = tuple[3]
+		else:
+			self.post = ""
 
 	def GetIX(self):
 		return self.ix
@@ -29,10 +33,10 @@ class Nugget:
 		return nltk.word_tokenize(self.GetSentence())
 
 	def GetWordsWithoutStopwords(self):
-		#sw = set(stopwords.words('english').extend(".,;:-_#'~/!/&()?'"))
 		sw = stopwords.words('english')
-		return [w for w in self.GetWords() if w.lower() not in sw]
+		sw.extend(".,;:-_#'~/!/&()?'")
+		return [w.lower() for w in self.GetWords() if w.lower() not in sw and len(w) > 2]
 
 	def GetStemmedWordsWithoutStopwords(self):
 		stemmer = PorterStemmer()
-		return [stemmer.stem(w) for w in self.GetWordsWithoutStopwords()]
+		return [stemmer.stem(w) for w in GetWordsWithoutStopwords(self)]
