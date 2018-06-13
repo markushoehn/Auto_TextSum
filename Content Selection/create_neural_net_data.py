@@ -1,6 +1,7 @@
 import numpy as np
 import random
 
+
 # METHOD FOR AVERAGING THE WORD EMBEDDINGS OF A SENTENCE
 
 
@@ -10,7 +11,7 @@ def average_embedding(sentence):
     # save sentence length
     sentence_length = len(word_list)
     # initial embedding matrix (gets averaged later on along axis 0, e.h. along the single word embeddings)
-    embeddings = np.zeros((sentence_length, 50))
+    embeddings = np.zeros((sentence_length, embedding_size))
     # iterate over words
     for word_index in range(sentence_length):
         try:
@@ -23,17 +24,17 @@ def average_embedding(sentence):
 
 
 # specify window size and embedding size
-k = 2
-embedding_size = 50
+k = 4
+embedding_size = 300
 # load preprocessed data
-data_file = open('data/complete_feature_file_preprocessed_window_size_2.txt', 'r')
+data_file = open('data/complete_feature_file_preprocessed_window_size_4.txt', 'r')
 data_lines = data_file.read().split('\n')
 
 # create list of labeled sentences (list of (list, label))
 labeled_sentences = []
 for line in data_lines:
     line_split = line.split('\t')
-    labeled_sentences.append([line_split[1:6], line_split[6]])
+    labeled_sentences.append([line_split[1:(2*k+2)], line_split[(2*k+2)]])
 # shuffle data
 random.shuffle(labeled_sentences)
 
@@ -49,8 +50,8 @@ x_test = np.zeros((len(labeled_test), (2*k + 1)*embedding_size))
 y_test = np.zeros((len(labeled_test), 2))
 
 # load embedding matrix and dictionary
-embedding_matrix = np.load('data/embedding_matrix.npy')
-embedding_dict = np.load('data/embedding_dictionary.npy').item()
+embedding_matrix = np.load('data/embedding_matrix300.npy')
+embedding_dict = np.load('data/embedding_dictionary300.npy').item()
 
 
 # fill training data
@@ -58,7 +59,7 @@ for i in range(len(labeled_train)):
     # loop over sentences
     for j in range(2*k + 1):
         # concatenate the averaged sentence embeddings
-        x_train[i][j*50:(j+1)*50] = average_embedding(labeled_train[i][0][j])
+        x_train[i][j*embedding_size:(j+1)*embedding_size] = average_embedding(labeled_train[i][0][j])
     # get label
     label = labeled_train[i][1]
     # create one-hot vector for y data
@@ -75,7 +76,7 @@ for i in range(len(labeled_test)):
     # loop over sentences
     for j in range(2 * k + 1):
         # concatenate the averaged sentence embeddings
-        x_test[i][j*50:(j+1)*50] = average_embedding(labeled_test[i][0][j])
+        x_test[i][j*embedding_size:(j+1)*embedding_size] = average_embedding(labeled_test[i][0][j])
     # get label
     label = labeled_test[i][1]
     # create one-hot vector for y data

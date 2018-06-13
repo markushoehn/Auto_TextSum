@@ -5,7 +5,7 @@ complete_list = complete_labeled_data_file.readlines()
 number_instances = len(complete_list)
 
 # window size
-k = 2
+k = 4
 
 # load stopword list
 stopword_file = open('data/stopwords.txt', 'r')
@@ -39,7 +39,6 @@ for i in range(number_instances):
                 window += complete_list[j].split('\t')[1] + '\t'
                 # append to preprocess window
                 preprocessed_sentence_tokens = gensim.utils.simple_preprocess(complete_list[j].split('\t')[1])
-                # TODO: remove stopwords
                 preprocessed_sentence = ' '.join([token for token in preprocessed_sentence_tokens
                                                   if token not in stopword_list])
                 window_preprocessed += preprocessed_sentence + '\t'

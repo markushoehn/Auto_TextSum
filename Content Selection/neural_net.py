@@ -26,12 +26,18 @@ def f1_score(y_true, y_pred):
 
 
 # load data directly as numpy arrays
-x_train = np.load('data/numpy_data/x_train_wsize_2_embsize_50.npy')
-y_train = np.load('data/numpy_data/y_train_wsize_2_embsize_50.npy')
-x_test = np.load('data/numpy_data/x_test_wsize_2_embsize_50.npy')
-y_test = np.load('data/numpy_data/y_test_wsize_2_embsize_50.npy')
+x_train = np.load('data/numpy_data/x_train_wsize_4_embsize_300.npy')
+y_train = np.load('data/numpy_data/y_train_wsize_4_embsize_300.npy')
+x_test = np.load('data/numpy_data/x_test_wsize_4_embsize_300.npy')
+y_test = np.load('data/numpy_data/y_test_wsize_4_embsize_300.npy')
 train_size = x_train.shape[0]
 test_size = x_test.shape[0]
+# window size
+k = 4
+# embedding size
+emb_size = 300
+
+def train_model(batch_size, number_epoch)
 
 # define hyper parameters of NN
 batch_size = 20
@@ -42,7 +48,7 @@ dropout_rate = 0.2
 
 # define keras model and NN architecture
 model = Sequential()
-model.add(Dense(units=100, input_dim=250))
+model.add(Dense(units=100, input_dim=(2*k+1)*emb_size))
 model.add(Dropout(dropout_rate))
 model.add(Activation('relu'))
 model.add(Dense(units=100))
