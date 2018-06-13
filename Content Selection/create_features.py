@@ -1,6 +1,6 @@
 import gensim
 
-complete_labeled_data_file = open('data/labeled_data_complete_new.txt', 'r')
+complete_labeled_data_file = open('data/labeled_data_complete.txt', 'r')
 complete_list = complete_labeled_data_file.readlines()
 number_instances = len(complete_list)
 
