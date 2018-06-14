@@ -6,7 +6,7 @@ from keras.preprocessing.sequence import pad_sequences
 # take raw sentences
 input_file = 'data/labeled_data_complete.txt'
 # load embedding dictionary
-emb_dict = np.load('data/embedding_dictionary300.npy').item()
+emb_dict = np.load('data/numpy_data/embedding_dictionary300.npy').item()
 data_x = []
 data_y = []
 vocab = {0}

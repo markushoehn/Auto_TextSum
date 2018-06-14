@@ -89,4 +89,5 @@ def hyper_parameter_opt(number_of_settings):
                   ', Activation functions:', act)
 
 
-hyper_parameter_opt(5)
+n_settings = input('Enter number of settings:')
+hyper_parameter_opt(n_settings)

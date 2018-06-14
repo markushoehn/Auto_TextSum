@@ -3,7 +3,7 @@ from gensim.utils import simple_preprocess
 
 # list of all source file paths
 sentences_source_files = ['..\AutoTS_Corpus\DIP2017_source_10' + str(format(i, '02d')) + '.xml'
-                          for i in range(1, 50)]
+                          for i in range(1, 51)]
 
 # load stopword list
 stopword_file = open('data/stopwords.txt', 'r')
@@ -16,7 +16,7 @@ def preprocess(sentence):
     return new_sentence
 
 
-for file_number in range(1, 50):
+for file_number in range(50, 51):
     # number 9 is missing
     if not file_number == 9:
         # open source file with xml reader
