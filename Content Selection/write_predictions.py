@@ -3,6 +3,7 @@ from keras.preprocessing.sequence import pad_sequences
 from keras.models import Sequential
 from keras.layers import *
 from gensim.utils import simple_preprocess
+import nltk
 
 
 def write_predictions(topic_number):
@@ -18,18 +19,26 @@ def write_predictions(topic_number):
     with open(source_txt) as f:
         for line in f:
             sent_id, sentence = line.split('\t')
-            id_list.append(sent_id)
             sentence_dict[sent_id] = sentence
             prep_sent_tokens = simple_preprocess(sentence)
-            indices = []
-            for tok in prep_sent_tokens:
-                try:
-                    indices.append(emb_dict[tok])
-                except KeyError:
-                    indices.append(emb_dict['__oov__'])
-            if len(indices) > 0:
-                data_x.append(indices)
-                vocab.update(indices)
+            pos_tags = nltk.pos_tag(prep_sent_tokens, tagset='universal')
+            contains_verb = False
+            for tag in pos_tags:
+                if tag[1] == 'VERB':
+                    contains_verb = True
+                    break
+            # only take sentence if there are between 5 and 50 and if there is a verb in it
+            if 5 <= len(prep_sent_tokens) <= 50 and contains_verb:
+                indices = []
+                for tok in prep_sent_tokens:
+                    try:
+                        indices.append(emb_dict[tok])
+                    except KeyError:
+                        indices.append(emb_dict['__oov__'])
+                if len(indices) > 0:
+                    data_x.append(indices)
+                    vocab.update(indices)
+                    id_list.append(sent_id)
     data_x = pad_sequences(data_x, maxlen=pad_length)
     vocab_size = max(vocab) + 1
     input_len = len(data_x)
@@ -54,8 +63,6 @@ def write_predictions(topic_number):
 
     predictions = model.predict(data_x)
 
-    nugget_count = 0
-
     id_and_pred = list(zip(id_list, predictions))
     def get_nugget_prob(list_elem):
         return list_elem[1][1]
@@ -63,17 +70,15 @@ def write_predictions(topic_number):
     id_sorted, _ = zip(*id_and_pred)
 
     ##########################
-    # set nugget percentage
-    ++++++++++
+    # SET NUGGET PERCENTAGE
+    nugget_percentage = 0.05
+    ##########################
     # write predictions on file
     prediction_file = open('data/predictions_cnn/nuggets_' + str(topic_number) + '.txt', mode='a')
-    for i in range(input_len):
-        if np.argmax(predictions[i]) == 1:
-            # prediction_file.write(id_list[i] + '\t' + sentence_dict[id_list[i]])
-            nugget_count += 1
-    print('Nugget ratio for topic ' + str(topic_number) + ':', nugget_count/input_len)
+    for i in range(int(input_len*nugget_percentage)):
+        prediction_file.write(id_sorted[i] + '\t' + sentence_dict[id_sorted[i]])
 
 
-for topic in range(1001, 1002):
+for topic in range(1012, 1020):
     if not topic == 1009:
         write_predictions(topic)

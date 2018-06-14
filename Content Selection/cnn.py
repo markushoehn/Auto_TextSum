@@ -67,19 +67,19 @@ def hyper_parameter_opt(number_of_settings):
     for i in range(1, number_of_settings + 1):
         print('Setting number', i, 'of', number_of_settings, 'running...')
         # create random hyperparameters
-        batch_s = random.randint(100, 150)
+        batch_s = random.randint(120, 180)
         opt = random.choice(['adam', 'sgd', 'adagrad'])
         number_cl = random.randint(1, 2)
         filters, kernel_s, act = [], [], []
         for _ in range(number_cl):
             filters.append(random.randint(30, 60))
-            kernel_s.append(random.randint(3, 7))
-            act.append(random.choice(['relu', 'tanh']))
+            kernel_s.append(random.randint(4, 7))
+            act.append('relu')
         # train model
         model, loss, acc, prec, rec, f1 = train_model(batch_s, opt, number_cl, filters, kernel_s, act)
 
         # update best model
-        if prec > best_prec:
+        if prec > best_prec and rec > 0.05:
             model.save(best_model_path)
             best_loss, best_acc, best_prec, best_rec, best_f1 = loss, acc, prec, rec, f1
             print('Updated best model', '\n', 'Loss:', loss, ', Accuracy:', acc, ', Precision:', prec,
