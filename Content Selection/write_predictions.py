@@ -79,6 +79,6 @@ def write_predictions(topic_number):
         prediction_file.write(id_sorted[i] + '\t' + sentence_dict[id_sorted[i]])
 
 
-for topic in range(1012, 1020):
+for topic in range(1045, 1050):
     if not topic == 1009:
         write_predictions(topic)
