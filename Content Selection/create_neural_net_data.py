@@ -24,25 +24,32 @@ def average_embedding(sentence):
 
 
 # specify window size and embedding size
-k = 4
+k = 5
 embedding_size = 300
 # load preprocessed data
-data_file = open('data/complete_feature_file_preprocessed_window_size_4.txt', 'r')
+data_file = open('data/complete_feature_file_preprocessed_window_size_' + str(k) + '.txt', 'r')
 data_lines = data_file.read().split('\n')
 
 # create list of labeled sentences (list of (list, label))
 labeled_sentences = []
+id_list = []
 for line in data_lines:
     line_split = line.split('\t')
     labeled_sentences.append([line_split[1:(2*k+2)], line_split[(2*k+2)]])
+    id_list.append(line_split[0])
 # shuffle data
+random.seed(42)
 random.shuffle(labeled_sentences)
+random.seed(42)
+random.shuffle(id_list)
 
 # split in training and test data
 train_test_split = 2/3
 splitline = int(len(labeled_sentences) * train_test_split)
 labeled_train = labeled_sentences[:splitline]
 labeled_test = labeled_sentences[splitline:]
+id_list_train = id_list[:splitline]
+id_list_test = id_list[splitline:]
 # create numpy placeholders for training and testing data
 x_train = np.zeros((len(labeled_train), (2*k + 1)*embedding_size))
 y_train = np.zeros((len(labeled_train), 2))
@@ -50,8 +57,8 @@ x_test = np.zeros((len(labeled_test), (2*k + 1)*embedding_size))
 y_test = np.zeros((len(labeled_test), 2))
 
 # load embedding matrix and dictionary
-embedding_matrix = np.load('data/embedding_matrix300.npy')
-embedding_dict = np.load('data/embedding_dictionary300.npy').item()
+embedding_matrix = np.load('data/numpy_data/embedding_matrix300.npy')
+embedding_dict = np.load('data/numpy_data/embedding_dictionary300.npy').item()
 
 
 # fill training data
@@ -93,3 +100,5 @@ np.save('data/numpy_data/x_train_wsize_' + str(k) + '_embsize_' + str(embedding_
 np.save('data/numpy_data/y_train_wsize_' + str(k) + '_embsize_' + str(embedding_size) + '.npy', y_train)
 np.save('data/numpy_data/x_test_wsize_' + str(k) + '_embsize_' + str(embedding_size) + '.npy', x_test)
 np.save('data/numpy_data/y_test_wsize_' + str(k) + '_embsize_' + str(embedding_size) + '.npy', y_test)
+np.save('id_list_train', id_list_train)
+np.save('id_list_test', id_list_test)

@@ -5,7 +5,7 @@ complete_list = complete_labeled_data_file.readlines()
 number_instances = len(complete_list)
 
 # window size
-k = 4
+k = 5
 
 # load stopword list
 stopword_file = open('data/stopwords.txt', 'r')
