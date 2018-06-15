@@ -9,7 +9,7 @@ class Bubble(object):
 		self.bubbles = []
 		self.trash = []
 
-	def write(trees):
+	def write(trees, path):
 		root = ET.Element('root')
 
 		""" TOOD: should add Nuggets and Bubbles objects individually"""
@@ -27,9 +27,12 @@ class Bubble(object):
 			traverse(b, bubbles)
 
 		trash = ET.SubElement(root, 'Trash')
-		""" TOOD: add any elements that are not added yet to trash"""
+		string = ET.tostring(root, encoding="unicode")
 
-		ET.dump(root)
+		with open(path, 'w') as f:
+			f.write(string)
+
+		# ET.dump(root)
 
 	def createListTree(list):
 		print("creating Tree of Length: "  + str(len(list)))
@@ -100,7 +103,7 @@ def test():
 	Tree.write([tree])
 
 def main():
-	print("Wrtiing demo tree:")
+	print("writing demo tree:")
 	test()
 
 if __name__ == "__main__":

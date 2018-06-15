@@ -4,9 +4,12 @@ from random import shuffle
 import reader
 import glob, nltk
 
+NUGGETS_SOURCE_PATH = "../Corpus/Trees/Input/*.txt"
+PIPELINE_SOURCE_PATH = "../Pipeline/01_selected_nuggets/*.txt"
+PIPELINE_OUTPUT_PATH = "../Pipeline/02_hierarchical_trees/"
 
 def main():
-	dof = dict([(ix, p) for ix, p in enumerate(glob.glob("../Corpus/Trees/Input/*.txt"))])
+	dof = dict([(ix, p) for ix, p in enumerate(glob.glob(NUGGETS_SOURCE_PATH))])
 	for k in dof:
 		print(k, dof[k])
 
@@ -31,8 +34,22 @@ def main():
 	Bubble.write([tree])
 	tree.draw()
 
+def run_pipeline():
+	dof = dict([(ix, p) for ix, p in enumerate(glob.glob(PIPELINE_SOURCE_PATH))])
+	print("Starting to write files")
+	for k in dof:
+		print(k, "/", len(dof))
+		nuggets = reader.read(dof[k])
+		filepath = PIPELINE_OUTPUT_PATH + "topic_" + dof[k][-8:-4] + ".xml"
+		tree = Bubble()
+		for x in nuggets:
+			#print("\t", index2, "/", len(nuggets))
+			tree.insert(x)
+		Bubble.write([tree], filepath)
+	print("done")
+
 if __name__ == "__main__":
-    main()
+    run_pipeline()
 
 '''
 # word 2 vec

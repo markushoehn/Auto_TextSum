@@ -7,12 +7,16 @@ from nltk.stem.porter import *
 
 class Nugget:
 	def __init__(self, tuple):
-		self.ix = int(tuple[0])
+		self.ix = tuple[0]
 		self.sentence = tuple[1]
-		self.pre = tuple[2]
+
+		if(len(tuple) > 2):
+			self.pre = tuple[2]
+		else:
+			self.pre = ""
 
 		# golden standart sometimes doesnt have post sentences
-		if(len(tuple) == 4):
+		if(len(tuple) >= 4):
 			self.post = tuple[3]
 		else:
 			self.post = ""
