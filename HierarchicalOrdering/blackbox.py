@@ -9,7 +9,7 @@ SENTENCE_GENERAL = "general"
 SENTENCE_SPECIFIC = "speficic"
 
 class Blackbox(object):
-	""" tree class for bubbles and nuggets and trash """
+	""" blackbox where the magic happens """
 	def __init__(self):
 		super(Blackbox, self).__init__()
 		self.table = []
@@ -35,16 +35,6 @@ class Blackbox(object):
 
 		value = reduce((lambda x, y: x + y), [a for b in result for a in b if a]) / len([a for b in result for a in b])
 		return value
-		
-
-	def same_words(self, lista,listb):
-		count = 0
-		for x in lista:
-			for y in listb:
-				if(x.lower() == y.lower()):
-					count = count + 1
-
-		return count
 
 	def tf(self, word, sentence):
 		return sentence.count(word) / len(sentence)
@@ -88,15 +78,17 @@ class Blackbox(object):
 	# returning -1 means that none fit
 	def which(self, sentence, bubbles):
 		wordListFirst = sentence.GetWordsWithoutStopwords()
-		result = []
+		bubbleValues = []
 		for x in bubbles:
 			wordListSecond = [item for sublist in x.nuggets for item in sublist.GetWordsWithoutStopwords()]
-			result.append(self.same_words(wordListFirst,wordListSecond))
+			bubbleValues.append(self.tfidf(wordListSecond))
+
+		sentenceValue = self.tfidf(wordListFirst)
 
 		valueIndex = -1
 		value = 0
-		for (index,x) in enumerate(result):
-			if(x > 2):
+		for (index,x) in enumerate(bubbleValues):
+			if(x > sentenceValue):
 				if(value < x):
 					valueIndex = index
 					value = x
