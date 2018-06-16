@@ -26,13 +26,21 @@ NUGGET_DATA = {}
 def get_nuggets_from_file(hierarchy_file_name):
     nugget_file_name = hierarchy_file_name[:-4]
     if not USING_TEST_DATA:
-        nugget_file_name = "nuggets_" + hierarchy_file_name[6:-4] + ".txt"
+        nugget_file_name = "nuggets_" + get_file_id(hierarchy_file_name) + ".txt"
     with open(NUGGETS_SOURCE_PATH + nugget_file_name, encoding="utf8") as file:
         global NUGGET_DATA
         NUGGET_DATA = {}
         for nugget in file.read().splitlines():
             data = nugget.split("\t")
             NUGGET_DATA[data[0]] = data[1:]
+
+
+# Returns the file ID for the given hierarchy file name.
+def get_file_id(hierarchy_file_name):
+    if USING_TEST_DATA:
+        return hierarchy_file_name[:4]
+    else:
+        return hierarchy_file_name[6:-4]
 
 
 # Create a simple baseline summary by just copy-pasting the sentences that belong to
@@ -47,7 +55,7 @@ def create_complete_overview_summary():
             get_nuggets_from_file(filename)
             xmldoc = minidom.parse(HIERARCHIES_SOURCE_PATH + filename)
             itemlist = xmldoc.getElementsByTagName('Nugget')
-            summary_file = open(SUMMARIES_PATH + filename[:4] + ".txt", "w", encoding='utf-8')
+            summary_file = open(SUMMARIES_PATH + "summary_" + get_file_id(filename) + ".txt", "w", encoding='utf-8')
             summary_file.write("Summary of document file " + filename + "\n\n")
             for i in range(0, len(itemlist)):
                 nugget = NUGGET_DATA[itemlist[i].attributes['id'].value][0]
@@ -76,7 +84,7 @@ def create_overview_summary(max_amount_of_sentences = math.inf, max_amount_of_wo
             print("amount of sentences: ", amount_of_sentences)
             print("amount of words: ", amount_of_words)
             print("amount of characters: ", amount_of_chars, "\n")
-            summary_file = open(SUMMARIES_PATH + filename[:4] + ".txt", "w", encoding='utf-8')
+            summary_file = open(SUMMARIES_PATH + "summary_" + get_file_id(filename) + ".txt", "w", encoding='utf-8')
             summary_file.write("Summary of document file " + filename + "\n\n")
             list_of_nugget_ids = flatten(sentences_tree)
             for i in range(0, len(list_of_nugget_ids)):
@@ -169,7 +177,7 @@ def create_overview_summary_2(max_amount_of_chars):
             print("amount of sentences: ", len(list_of_nugget_ids))
             # print("amount of words: ", amount_of_words)
             print("amount of characters: ", amount_of_chars, "\n")
-            summary_file = open(SUMMARIES_PATH + filename[:4] + ".txt", "w", encoding='utf-8')
+            summary_file = open(SUMMARIES_PATH + "summary_" + get_file_id(filename) + ".txt", "w", encoding='utf-8')
             summary_file.write("Summary of document file " + filename + "\n\n")
             for i in range(0, len(list_of_nugget_ids)):
                 nugget = NUGGET_DATA[list_of_nugget_ids[i]][0]
@@ -212,5 +220,5 @@ USING_TEST_DATA = False
 NUGGETS_SOURCE_PATH = "../Pipeline/01_selected_nuggets/"
 HIERARCHIES_SOURCE_PATH = "../Pipeline/02_hierarchical_trees/"
 # create_complete_overview_summary()
-# create_overview_summary(max_amount_of_chars = 600)
-create_overview_summary_2(max_amount_of_chars = 600)
+create_overview_summary(max_amount_of_chars = 600)
+# create_overview_summary_2(max_amount_of_chars = 600)
