@@ -53,13 +53,11 @@ def create_overview_summary(max_amount_of_sentences = math.inf, max_amount_of_wo
 
             first_layer_of_bubbles = xml_content.findall('Bubble')
             sentences_tree, amount_of_sentences, amount_of_words, amount_of_chars = get_bubbles_and_nuggets(first_layer_of_bubbles, max_amount_of_sentences, max_amount_of_words, max_amount_of_chars)  # The bubbles and their direct nuggets of the current layer of the xml data structure.
-            #print("\nfinished tree: ", sentences_tree)
+
             print("\nnugget IDs: ", flatten(sentences_tree))
             print("amount of sentences: ", amount_of_sentences)
             print("amount of words: ", amount_of_words)
             print("amount of characters: ", amount_of_chars, "\n")
-            #print(len(flatten(sentences_tree)), " sentences")
-
             for nugget_id in flatten(sentences_tree):
                 print(NUGGET_DATA[nugget_id][0], end=' ')
 
@@ -108,20 +106,13 @@ def get_bubbles_and_nuggets(list_of_bubbles, required_amount_of_sentences = math
             continue
         # Find all sub bubbles of the bubble to recursively extract the nuggets from them.
         bubbles = bubble.findall('Bubble')
-        #print("-----------\nbubble name: ", bubble.get("name"))
         new_required_sentences = required_amount_of_sentences - amount_of_sentences
         new_required_words = required_amount_of_words - amount_of_words
         new_required_chars = required_amount_of_chars - amount_of_chars
         next_layer, next_layer_sentences_amount, next_layer_words_amount, next_layer_chars_amount = get_bubbles_and_nuggets(bubble.findall('Bubble'), new_required_sentences, new_required_words, new_required_chars)
         if next_layer != []:
-            #print("new layer amount of sentences", next_layer_sentences_amount)
-            #print("new layer amount of words", next_layer_words_amount)
-            #print("new layer amount of chars", next_layer_chars_amount)
-            #print("new layer added ", next_layer)
             nuggets_tree.append([nuggets, next_layer])
         else:
-            #print("new layer amount of sentences", next_layer_sentences_amount)
-            #print("new layer amount of words", next_layer_words_amount)
             nuggets_tree.append([nuggets])
         amount_of_sentences += next_layer_sentences_amount
         amount_of_words += next_layer_words_amount
@@ -129,6 +120,64 @@ def get_bubbles_and_nuggets(list_of_bubbles, required_amount_of_sentences = math
     return nuggets_tree, amount_of_sentences, amount_of_words, amount_of_chars
 
 
+# Create a overview summary by selecting each bubble the shortest sentence
+# until the maximal amount of characters is reached. This is done to get
+# as much information into the summary as possible. The bubbles are
+# traversed in a way that the bubbles, which are the roots of the largest
+# trees are used first.
+def create_overview_summary_2(max_amount_of_chars):
+    for filename in os.listdir(TREES_SOURCE_PATH):
+        if filename.endswith(".xml"):
+            print("\n====================== " + filename + " ======================")
+            xml_content = xml.etree.ElementTree.parse(TREES_SOURCE_PATH + filename).getroot()
+            get_nuggets_from_file(filename[:-4])
+
+            sorted_list = getBubblesSortedByTreeSize(xml_content.findall('Bubble'))
+            list_of_nugget_ids = []
+            amount_of_chars = 0
+            for bubble in sorted_list:
+                shortest_nugget, shortest_nugget_size = getShortestNugget(bubble)
+                if amount_of_chars + shortest_nugget_size <= max_amount_of_chars:
+                    amount_of_chars += shortest_nugget_size
+                    list_of_nugget_ids.append(shortest_nugget)
+
+            print("\nnugget IDs: ", list_of_nugget_ids)
+            print("amount of sentences: ", len(list_of_nugget_ids))
+            # print("amount of words: ", amount_of_words)
+            print("amount of characters: ", amount_of_chars, "\n")
+            for nugget_id in list_of_nugget_ids:
+                print(NUGGET_DATA[nugget_id][0], end=' ')
+
+
+# Select from the given bubble the shortest nugget (sentence).
+def getShortestNugget(bubble):
+    shortest_nugget_id = None
+    shortest_nugget_size = math.inf
+    for nugget in bubble.findall('Nugget'):
+        size = len(NUGGET_DATA[nugget.get("id")][0])
+        if size < shortest_nugget_size:
+            shortest_nugget_id = nugget.get("id")
+            shortest_nugget_size = size
+    return shortest_nugget_id, shortest_nugget_size
+
+
+# Sort the bubbles at the root layer in such an order that the
+# bubbles which are the root of the largest trees are first
+# in the list.
+def getBubblesSortedByTreeSize(list_of_bubbles):
+    sorted_list = []
+    for bubble in list_of_bubbles:
+        amount_of_nuggets = len(bubble.findall('Nugget'))
+        list_of_sub_bubbles = bubble.findall('Bubble')
+        while list_of_sub_bubbles != []:
+            sub_bubble = list_of_sub_bubbles.pop()
+            amount_of_nuggets += len(sub_bubble.findall('Nugget'))
+            list_of_sub_bubbles.extend(sub_bubble.findall('Bubble'))
+        sorted_list.append((amount_of_nuggets, bubble))
+    sorted_list.sort(key = lambda x : x[0], reverse = True)
+    return [x for (y,x) in sorted_list]
+
 
 #create_complete_overview_summary()
-create_overview_summary(max_amount_of_chars = 600)
+# create_overview_summary(max_amount_of_chars = 600)
+create_overview_summary_2(max_amount_of_chars = 600)
