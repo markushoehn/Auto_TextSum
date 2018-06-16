@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
+import xml.dom.minidom
 from blackbox import SENTENCE_SPECIFIC, SENTENCE_GENERAL, SENTENCE_SIMILAR
-		
+
 class Bubble(object):
 	""" tree class for bubbles and nuggets and trash """
 	def __init__(self):
@@ -8,6 +9,10 @@ class Bubble(object):
 		self.nuggets = []
 		self.bubbles = []
 		self.trash = []
+
+	def pretty(string):
+		reparsed = xml.dom.minidom.parseString(string)
+		return reparsed.toprettyxml(indent="\t")
 
 	def write(trees, path):
 		root = ET.Element('root')
@@ -27,7 +32,7 @@ class Bubble(object):
 			traverse(b, bubbles)
 
 		trash = ET.SubElement(root, 'Trash')
-		string = ET.tostring(root, encoding="unicode")
+		string = Bubble.pretty(ET.tostring(root, encoding="unicode"))
 
 		with open(path, 'w') as f:
 			f.write(string)

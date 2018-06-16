@@ -7,6 +7,7 @@ from functools import reduce
 SENTENCE_SIMILAR = "similar"
 SENTENCE_GENERAL = "general"
 SENTENCE_SPECIFIC = "speficic"
+THRESHOLD = 0.09
 
 class Blackbox(object):
 	""" blackbox where the magic happens """
@@ -61,7 +62,7 @@ class Blackbox(object):
 
 		result = self.nltk_path_similarity(wordListFirst, wordListSecond)
 
-		if(result >= 0.09 ):
+		if(result >= THRESHOLD ):
 			return SENTENCE_SIMILAR
 		
 		resultFirst = self.tfidf(wordListFirst)
