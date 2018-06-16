@@ -1,5 +1,5 @@
 import xml.etree.ElementTree as ET
-from blackbox import compare, which, SENTENCE_SPECIFIC, SENTENCE_GENERAL, SENTENCE_SIMILAR
+from blackbox import SENTENCE_SPECIFIC, SENTENCE_GENERAL, SENTENCE_SIMILAR
 		
 class Bubble(object):
 	""" tree class for bubbles and nuggets and trash """
@@ -58,28 +58,28 @@ class Bubble(object):
 		draw_rec(0, self)
 		print("Trash: (" + str(len(self.trash)) + ")")
 
-	def insert(self, item):
+	def insert(self, item, blackbox):
 		if self.nuggets:
-			res = compare(item, self.nuggets)
+			res = blackbox.compare(item, self.nuggets)
 			if(res == SENTENCE_SPECIFIC):
 				# go down
 				if self.bubbles:
-					num = which(item, self.bubbles)
+					num = blackbox.which(item, self.bubbles)
 					if(num >= 0):
-						self.bubbles[num].insert(item)
+						self.bubbles[num].insert(item, blackbox)
 						return
-				newtree = Bubble()
-				newtree.nuggets.append(item)
-				self.bubbles.append(newtree)
+				temp = Bubble()
+				temp.nuggets.append(item)
+				self.bubbles.append(temp)
 			if(res == SENTENCE_GENERAL):
 				# insert ahead
-				newtree = Bubble()
-				newtree.nuggets = self.nuggets
-				newtree.bubbles = self.bubbles
+				temp = Bubble()
+				temp.nuggets = self.nuggets
+				temp.bubbles = self.bubbles
 				self.nuggets = []
 				self.nuggets.append(item)
 				self.bubbles = []
-				self.bubbles.append(newtree)
+				self.bubbles.append(temp)
 			if(res == SENTENCE_SIMILAR):
 				self.nuggets.append(item)
 		else:

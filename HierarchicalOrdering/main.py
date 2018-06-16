@@ -1,6 +1,7 @@
 from nugget import Nugget
 from bubble import Bubble
 from random import shuffle
+from blackbox import Blackbox
 import reader
 import glob, nltk
 
@@ -34,17 +35,26 @@ def main():
 	Bubble.write([tree])
 	tree.draw()
 
+def update_progress(progress):
+	print("[", progress, "]")
+
 def run_pipeline():
 	dof = dict([(ix, p) for ix, p in enumerate(glob.glob(PIPELINE_SOURCE_PATH))])
+	shuffle(dof)
 	print("Starting to write files")
 	for k in dof:
-		print(k, "/", len(dof))
+		print(k, "/", (len(dof)-1), " - " , dof[k])
+
 		nuggets = reader.read(dof[k])
 		filepath = PIPELINE_OUTPUT_PATH + "topic_" + dof[k][-8:-4] + ".xml"
+
+		table = Blackbox()
+		table.add(nuggets)
 		tree = Bubble()
-		for x in nuggets:
-			#print("\t", index2, "/", len(nuggets))
-			tree.insert(x)
+
+		for i, sentence in enumerate(nuggets):
+			print("[", i, " / ", len(nuggets))
+			tree.insert(sentence, table)
 		Bubble.write([tree], filepath)
 	print("done")
 
