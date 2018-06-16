@@ -4,20 +4,30 @@ import os
 import math
 
 
-# The path where files with the hierarchies and nuggets are stored.
-TREES_SOURCE_PATH = "../Corpus/Trees/FinishedTrees/FinalCorpusGoldTrees/"
+# The path where files with the nuggets are stored.
+NUGGETS_SOURCE_PATH = "../Corpus/Trees/FinishedTrees/FinalCorpusGoldTrees/"
+# The path where files with the hierarchies are stored.
+HIERARCHIES_SOURCE_PATH = "../Corpus/Trees/FinishedTrees/FinalCorpusGoldTrees/"
+# True if the test data with the source paths from above are used. False
+# if the file are used, that were created by our team in step 1 and 2 of
+# the pipeline. These file do have other names than the test data files.
+USING_TEST_DATA = True
 # The path where the summaries are stored to.
 SUMMARIES_PATH = "../Pipeline/03_final_summaries/"
 # The nugget data.
 NUGGET_DATA = {}
 
 
-# Get all nugget information from a file with the given name. Returned is a dictionary
-# of lists. The keys are the nugget IDs. Each list contains the information about a
-# nugget. In the list with the nugget information the first item is the nugget text,
-# the second the context before the nugget and the third the context after the nugget.
-def get_nuggets_from_file(nugget_file_name):
-    with open(TREES_SOURCE_PATH + nugget_file_name, encoding="utf8") as file:
+# Get all nugget information from a nugget file that matches with the given hierarchy
+# file name. Returned is a dictionary of lists. The keys are the nugget IDs. Each
+# list contains the information about a nugget. In the list with the nugget information
+# the first item is the nugget text, the second the context before the nugget and the
+# third the context after the nugget.
+def get_nuggets_from_file(hierarchy_file_name):
+    nugget_file_name = hierarchy_file_name[:-4]
+    if not USING_TEST_DATA:
+        nugget_file_name = "nuggets_" + hierarchy_file_name[6:-4] + ".txt"
+    with open(NUGGETS_SOURCE_PATH + nugget_file_name, encoding="utf8") as file:
         global NUGGET_DATA
         NUGGET_DATA = {}
         for nugget in file.read().splitlines():
@@ -31,11 +41,11 @@ def get_nuggets_from_file(nugget_file_name):
 # a realistic summarization style were the general information are elaborated more
 # and more specific before switching to the next sub topic.
 def create_complete_overview_summary():
-    for filename in os.listdir(TREES_SOURCE_PATH):
+    for filename in os.listdir(HIERARCHIES_SOURCE_PATH):
         if filename.endswith(".xml"):
             print("\n====================== " + filename + " ======================")
-            get_nuggets_from_file(filename[:-4])
-            xmldoc = minidom.parse(TREES_SOURCE_PATH + filename)
+            get_nuggets_from_file(filename)
+            xmldoc = minidom.parse(HIERARCHIES_SOURCE_PATH + filename)
             itemlist = xmldoc.getElementsByTagName('Nugget')
             summary_file = open(SUMMARIES_PATH + filename[:4] + ".txt", "w", encoding='utf-8')
             summary_file.write("Summary of document file " + filename + "\n\n")
@@ -53,11 +63,11 @@ def create_complete_overview_summary():
 # nuggets of the bottom part are cut off to reach the requested amount of sentences and
 # words).
 def create_overview_summary(max_amount_of_sentences = math.inf, max_amount_of_words = math.inf, max_amount_of_chars = math.inf):
-    for filename in os.listdir(TREES_SOURCE_PATH):
+    for filename in os.listdir(HIERARCHIES_SOURCE_PATH):
         if filename.endswith(".xml"):
             print("\n====================== " + filename + " ======================")
-            xml_content = xml.etree.ElementTree.parse(TREES_SOURCE_PATH + filename).getroot()
-            get_nuggets_from_file(filename[:-4])
+            xml_content = xml.etree.ElementTree.parse(HIERARCHIES_SOURCE_PATH + filename).getroot()
+            get_nuggets_from_file(filename)
 
             first_layer_of_bubbles = xml_content.findall('Bubble')
             sentences_tree, amount_of_sentences, amount_of_words, amount_of_chars = get_bubbles_and_nuggets(first_layer_of_bubbles, max_amount_of_sentences, max_amount_of_words, max_amount_of_chars)  # The bubbles and their direct nuggets of the current layer of the xml data structure.
@@ -140,11 +150,11 @@ def get_bubbles_and_nuggets(list_of_bubbles, required_amount_of_sentences = math
 # traversed in a way that the bubbles, which are the roots of the largest
 # trees are used first.
 def create_overview_summary_2(max_amount_of_chars):
-    for filename in os.listdir(TREES_SOURCE_PATH):
+    for filename in os.listdir(HIERARCHIES_SOURCE_PATH):
         if filename.endswith(".xml"):
             print("\n====================== " + filename + " ======================")
-            xml_content = xml.etree.ElementTree.parse(TREES_SOURCE_PATH + filename).getroot()
-            get_nuggets_from_file(filename[:-4])
+            xml_content = xml.etree.ElementTree.parse(HIERARCHIES_SOURCE_PATH + filename).getroot()
+            get_nuggets_from_file(filename)
 
             sorted_list = getBubblesSortedByTreeSize(xml_content.findall('Bubble'))
             list_of_nugget_ids = []
@@ -197,6 +207,10 @@ def getBubblesSortedByTreeSize(list_of_bubbles):
     return [x for (y,x) in sorted_list]
 
 
+
+USING_TEST_DATA = False
+NUGGETS_SOURCE_PATH = "../Pipeline/01_selected_nuggets/"
+HIERARCHIES_SOURCE_PATH = "../Pipeline/02_hierarchical_trees/"
 # create_complete_overview_summary()
 # create_overview_summary(max_amount_of_chars = 600)
 create_overview_summary_2(max_amount_of_chars = 600)
