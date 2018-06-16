@@ -6,6 +6,9 @@ import math
 
 # The path where files with the hierarchies and nuggets are stored.
 TREES_SOURCE_PATH = "../Corpus/Trees/FinishedTrees/FinalCorpusGoldTrees/"
+# The path where the summaries are stored to.
+SUMMARIES_PATH = "../Pipeline/03_final_summaries/"
+# The nugget data.
 NUGGET_DATA = {}
 
 
@@ -34,8 +37,13 @@ def create_complete_overview_summary():
             get_nuggets_from_file(filename[:-4])
             xmldoc = minidom.parse(TREES_SOURCE_PATH + filename)
             itemlist = xmldoc.getElementsByTagName('Nugget')
-            for s in itemlist:
-                print(NUGGET_DATA[s.attributes['id'].value][0], end=' ')
+            summary_file = open(SUMMARIES_PATH + filename[:4] + ".txt", "w", encoding='utf-8')
+            summary_file.write("Summary of document file " + filename + "\n\n")
+            for i in range(0, len(itemlist)):
+                nugget = NUGGET_DATA[itemlist[i].attributes['id'].value][0]
+                summary_file.write(nugget + "\n" if i < len(itemlist) - 1 else nugget)
+                print(nugget, end=' ')
+            summary_file.close()
 
 
 # Create a simple baseline summary by just copy-pasting the sentences that belong to
@@ -58,8 +66,14 @@ def create_overview_summary(max_amount_of_sentences = math.inf, max_amount_of_wo
             print("amount of sentences: ", amount_of_sentences)
             print("amount of words: ", amount_of_words)
             print("amount of characters: ", amount_of_chars, "\n")
-            for nugget_id in flatten(sentences_tree):
-                print(NUGGET_DATA[nugget_id][0], end=' ')
+            summary_file = open(SUMMARIES_PATH + filename[:4] + ".txt", "w", encoding='utf-8')
+            summary_file.write("Summary of document file " + filename + "\n\n")
+            list_of_nugget_ids = flatten(sentences_tree)
+            for i in range(0, len(list_of_nugget_ids)):
+                nugget = NUGGET_DATA[list_of_nugget_ids[i]][0]
+                summary_file.write(nugget + "\n" if i < len(list_of_nugget_ids) - 1 else nugget)
+                print(nugget, end=' ')
+            summary_file.close()
 
 
 # Flattens the given list recursively
@@ -145,8 +159,13 @@ def create_overview_summary_2(max_amount_of_chars):
             print("amount of sentences: ", len(list_of_nugget_ids))
             # print("amount of words: ", amount_of_words)
             print("amount of characters: ", amount_of_chars, "\n")
-            for nugget_id in list_of_nugget_ids:
-                print(NUGGET_DATA[nugget_id][0], end=' ')
+            summary_file = open(SUMMARIES_PATH + filename[:4] + ".txt", "w", encoding='utf-8')
+            summary_file.write("Summary of document file " + filename + "\n\n")
+            for i in range(0, len(list_of_nugget_ids)):
+                nugget = NUGGET_DATA[list_of_nugget_ids[i]][0]
+                summary_file.write(nugget + "\n" if i < len(list_of_nugget_ids) - 1 else nugget)
+                print(nugget, end=' ')
+            summary_file.close()
 
 
 # Select from the given bubble the shortest nugget (sentence).
@@ -178,6 +197,6 @@ def getBubblesSortedByTreeSize(list_of_bubbles):
     return [x for (y,x) in sorted_list]
 
 
-#create_complete_overview_summary()
+# create_complete_overview_summary()
 # create_overview_summary(max_amount_of_chars = 600)
 create_overview_summary_2(max_amount_of_chars = 600)
