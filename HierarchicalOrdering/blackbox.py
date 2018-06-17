@@ -40,16 +40,16 @@ class Blackbox(object):
 	def tf(self, word, sentence):
 		return sentence.count(word) / len(sentence)
 
-	def n_contain(self, word):
-		return sum(1 for blob in self.table if word in blob)
+	def n_contain(self, word, table):
+		return sum(1 for blob in table if word in blob)
 
-	def idf(self, word):
-		return math.log(len(self.table) / (1 + self.n_contain(word)))
+	def idf(self, word, table):
+		return math.log(len(table) / (1 + self.n_contain(word, table)))
 
-	def tfidf(self, sentence):
+	def tfidf(self, sentence, table):
 		value = 0
 		for word in sentence:
-			value += self.tf(word, sentence) * self.idf(word)
+			value += self.tf(word, sentence) * self.idf(word, table)
 		return value / len(sentence)
 
 	# compares two sentences
@@ -65,13 +65,23 @@ class Blackbox(object):
 		if(result >= THRESHOLD ):
 			return SENTENCE_SIMILAR
 		
-		resultFirst = self.tfidf(wordListFirst)
-		resultSecond = self.tfidf(wordListSecond)
+		resultFirst = self.tfidf(wordListFirst, self.table)
+		resultSecond = self.tfidf(wordListSecond, self.table)
 
 		if(resultFirst >= resultSecond):
 			return SENTENCE_SPECIFIC
 		else:
 			return SENTENCE_GENERAL
+
+	def get_all_words(self, bubble):
+		# TODO: go over all sub bubbles
+		listofwords = []
+		for x in bubble.nuggets:
+			listofwords.extend(x.GetWordsWithoutStopwords())
+		#if(bubble.bubbles):
+		#	for x in bubble.bubbles:
+		#		listofwords.extend(self.get_all_words(x))
+		return listofwords
 
 
 	# compares a list of Bubbles against an item
@@ -79,19 +89,26 @@ class Blackbox(object):
 	# returning -1 means that none fit
 	def which(self, sentence, bubbles):
 		wordListFirst = sentence.GetWordsWithoutStopwords()
+		
+		# calculate values for sentence and bubbles
 		bubbleValues = []
 		for x in bubbles:
-			wordListSecond = [item for sublist in x.nuggets for item in sublist.GetWordsWithoutStopwords()]
-			bubbleValues.append(self.tfidf(wordListSecond))
+			wordListSecond = self.get_all_words(x)
+			bubbleValues.append(self.tfidf(wordListSecond, self.table))
 
-		sentenceValue = self.tfidf(wordListFirst)
+		sentenceValue = self.tfidf(wordListFirst, self.table)
 
+		# find the hightest value
 		valueIndex = -1
-		value = 0
+		value = -1
 		for (index,x) in enumerate(bubbleValues):
-			if(x > sentenceValue):
-				if(value < x):
-					valueIndex = index
-					value = x
-		
-		return valueIndex
+			if(value < x):
+				valueIndex = index
+				value = x
+
+		# return either
+		if(value > sentenceValue):
+			return valueIndex
+
+
+		return -1

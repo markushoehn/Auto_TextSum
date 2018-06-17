@@ -24,11 +24,11 @@ class Bubble(object):
 					index = str(n.GetIX())
 					ET.SubElement(root, 'Nugget', id=index)
 				for bubble in sub.bubbles:
-					b = ET.SubElement(root, 'Bubble', name="name")
+					b = ET.SubElement(root, 'Bubble', name="")
 					traverse(b, bubble)
 
 		for bubbles in trees:
-			b = ET.SubElement(root, 'Bubble', name="name")
+			b = ET.SubElement(root, 'Bubble', name="")
 			traverse(b, bubbles)
 
 		trash = ET.SubElement(root, 'Trash')
