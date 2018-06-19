@@ -1,0 +1,138 @@
+1016/21/963	Some children with persistent insomnia will need further behavioral or pharmacological treatment to improve their sleep.
+1016/28/1089	Children with asthma or allergies are also more at risk of developing sleep apnea.
+1016/23/989	Children with behaviorally-based sleep disorders also often have significant sleep disturbance, with irregular sleep-wake schedules, and/or fragmented or insufficient sleep.
+1016/32/1190	Medical complications of untreated sleep apnea may include poor growth, high blood pressure, pulmonary hypertension , and heart failure .
+1016/12/773	Sleep apnea occurs when your child regularly stops breathing for 2 breath cycles or longer during sleep.
+1016/8/513	Young children who wake up early and who do not return to sleep can be a major burden on parents, especially those parents who themselves are of an 'evening' disposition.
+1016/32/1180	Obesity, nasal allergies, neuromuscular diseases , the use of medications with sedative effects, sickle cell anemia , and a family history of OSA are all risk factors for the development of sleep apnea in children.
+1016/4/117	Children can have just one type of problem or can have a mixture of problems.
+1016/12/741	Children with sleep terrors will often also talk in their sleep or sleepwalk.
+1016/5/288	Children with cerebral palsy or sickle cell disease may be more likely to develop OSA.
+1016/56/2193	Behavioral insomnia results in delayed sleep onset, fragmented nocturnal sleep, insufficient sleep, and daytime sleepiness.
+1016/21/931	Psychiatric issues frequently associated with ASD such as anxiety and/or depression can interfere with sleep.
+1016/6/333	Children who do not sleep well may have a sleep problem.
+1016/72/2681	Children learn to fall asleep in the conditions their parents set up for them.
+1016/12/784	Obesity is also a risk factor for sleep apnea in children, as are allergies, asthma, gastric reflux, and bone deformities of the face or jaw.
+1016/33/1196	Dietary intervention studies have shown convincing evidence of efficacy in reducing ADHD symptoms in children.
+1016/14/848	Sleep associations are everything your child associates with falling to sleep and are often the key to understanding your child's sleep problem.
+1016/34/1298	Certain stimulating drugs and caffeine can be responsible for difficulty in sleeping.
+1016/12/786	Children who have sleep apnea almost always snore or have heavy, labored breathing.
+1016/30/1124	Most parents are unaware of just how much sleep their children require in a 24-hour period.
+1016/12/799	Children can be misdiagnosed with a learning disorder or with ADHD when the problem is really an underlying sleep disorder.
+1016/41/1718	Children usually have bedtime problems because they are trying to test your limits or because of poor sleep habits.
+1016/12/739	Children experiencing sleep terrors may pose dangers to themselves or others because of limb movements.
+1016/56/2208	Breathing-related sleep disorder in children has been associated with daytime somnolence and symptoms of inattentiveness and hyperactivity.
+1016/19/899	If children have sleep apnea, they often have difficulty concentrating, paying attention and remembering what has been learned.
+1016/56/2286	Children should avoid sleep deprivation, stressful situations, and caffeine close to bedtime.
+1016/5/248	A sleep specialist at an accredited sleep disorders center can determine which treatment option is best for your child.
+1016/56/2211	Narcolepsy is a rare chronic neurologic disorder that presents with daytime sleepiness, cataplexy (sudden loss of muscle tone triggered by emotional arousal such as laughter), hypnagogic hallucinations, and sleep paralysis.
+1016/43/1808	Parents must be particularly sensitive to the fact that they must attend to both providing nurturing and to encouraging independence.
+1016/12/738	Children who have sleep terrors usually don't remember the events the next morning.
+1016/54/2145	Children not sleeping six consecutive hours by 17 months of age have greater difficulty consolidating a healthy sleep pattern as they grow older.
+1016/79/2926	As parents of young children, sleep is often in the forefront of our minds.
+1016/32/1193	When surgical treatment is ineffective, treatment with a continuous positive-airway pressure (CPAP) device can be useful for treatment of children with OSA.
+1016/5/241	Overweight or obese children will benefit from weight loss.
+1016/32/1187	Children may attempt to overcome the airway obstruction by sleeping with their necks hyper-extended, sleep sitting upright or using multiple pillows.
+1016/37/1484	Parents worry that if they allow their toddler to sleep with them, the child may still wish to do so when they are in their teens.
+1016/53/2087	Children who cannot engage themselves with classroom work assignments often disrupt and irritate their peers.
+1016/81/3002	Hyperactivity, increased motor activity, exhaustion, and general irritability may be manifestations of fatigue caused by sleep disturbance for children with and without diabetes.
+1016/13/841	Sleep problems have been related to psychopathology among children and adolescents.
+1016/66/2596	Some sleep problems may be normal at certain age levels and should not be a cause for alarm.
+1016/29/1111	"Attention deficit/hyperactivity disorder (ADHD), a common behavioural disorder in children, may be associated with comorbid physical and sleep complaints.
+1016/41/1697	Preschool age children may have sleep problems, including trouble getting to sleep, frequent night waking in the middle of the night and having irregular sleep patterns.
+1016/83/3058	Most babies are capable of sustained sleep (6-8 hours in a row) at night by age six months.
+1016/2/56	Daytime sleepiness and behavior problems may signal poor sleep or a sleep problem.
+1016/34/1240	Psychologists report that children who watch adults having intercourse either can become terrified or can develop undue curiosity about the same.
+1016/4/131	Sleep associations are all the things that your child associates with falling asleep and can be very relevant to this problem.
+1016/32/1191	The diagnosis of sleep apnea in children is best made with an overnight polysomnogram (sleep study) performed in a sleep laboratory.
+1016/6/361	Parents need to assert that they are the ones who decide when it is time for bed.
+1016/21/937	Teach your child to fall asleep alone : It is important that your child learn the skill of falling asleep without a parent present.
+1016/21/954	Establishing good sleep hygiene by addressing the following domains is a good first step.
+1016/56/2249	Nonpharmacologic interventions are the first line of therapy for children with sleep disorders.
+1016/30/1135	Since every child is different, sleep charts are not exact; however, there are some agreed-upon ranges for children of different ages*:
+1016/79/2914	Set nighttime expectations with limitations that are consistent, communicated and enforced.
+1016/45/1900	Resistance to going to sleep may be used as an attention-getting mechanism from a child who may not receive enough emotional support during the day.
+1016/8/506	Occasionally a sedative medication may be required and the preferred one is chloral hydrate 10 mg/kg given one hour before the child goes to bed.
+1016/21/961	Your child's medications might need adjustment if they affect his sleep.
+1016/78/2901	Talk to your pediatrician if your child is sleeping much more or less than this, although it may still be normal if your child is healthy, happy, and growing and developing normally.
+1016/6/324	Many parents are unsure of how much their child should sleep.
+1016/62/2408	"Some parental behaviors in turn predicted future bad dreams, total sleep time of less than 10 hours per night and sleep-onset latency [delays in falling asleep] of 15 minutes or more.
+1016/21/928	In typically developing children sleep problems and insufficient sleep can result in daytime sleepiness, learning problems and behavioral issues such as hyperactivity, inattentiveness and aggression.
+1016/56/2274	Specifically, children with narcolepsy should obtain adequate nocturnal sleep and maintain a consistent sleep-wake schedule, since alterations to sleep patterns can exacerbate daytime sleepiness.
+1016/11/696	Poor sleep habits in babies and children have been linked to obesity, hyperactivity, poor behaviour, slow growth and learning difficulties.
+1016/66/2580	Sleep problems may also affect family relationships, as well as financial resources, particularly if regular medication or therapy is prescribed for your child's treatment.
+1016/6/365	Parents need to give their children well-defined limits.
+1016/56/2251	[24] [25] The management of insomnia in children should include education about normal sleep development, the establishment of appropriate and realistic expectations for the parents and child, and clear treatment goals.
+1016/56/2281	Benzodiazepine hypnotics are rarely used in children with the exception of clonazepam , 0.25 to 0.5 mg, which is the drug of choice for treating those with parasomnias.
+1016/46/1924	When children have recurrent sleep problems, they and their families must deal with negative effects on behavior, mood, social interactions, physical stamina, and performance at school or work.
+1016/50/1996	Sleep problems can affect a child's learning, mood, attention, behavior and health.
+1016/23/1027	The behavioral manifestations of daytime sleepiness in young children, such as hyperactivity, clearly overlap with problematic behaviors that do not result from sleep deprivation/disruption.
+1016/66/2542	Sleep problems are some of the most common issues faced by parents with growing children.
+1016/53/2101	Behavior problem children have trouble making friends with others, so these children tend to congregate together.
+1016/6/377	Most sleep problems in children are not a result of bad parenting.
+1016/21/959	Naps are helpful for preschool children, but should not be taken late in the afternoon as they can interfere with bedtime.
+1016/13/823	Treatment consists of brief self-help booklets and support from a telephone coach.
+1016/9/581	children who do not have a learning disability, physical problem or mental health problem
+1016/56/2262	About 25% of children experience some type of sleep-related problem during their development.
+1016/5/285	Children with an abnormal facial structure are at risk for OSA.
+1016/54/2173	They involve difficulty falling asleep, are behavioural in nature, and can usually be solved by changing the parents responses.
+1016/35/1352	Children are sometimes subject to the same sleep disruptions as adults, with potentially serious consequences.
+1016/56/2273	Children and adolescents with narcolepsy should adhere to good sleep habits.
+1016/62/2401	Sleep problems in these children may be associated with poorer child psychosocial quality of life, child daily functioning, caregiver mental health and family functioning.
+1016/32/1177	Sleep apnea is more common in boys, overweight children and African American children.
+1016/73/2693	Teach and encourage the social skills that will enable your child to fit comfortably in his social world.
+1016/8/477	The key problem is that they cannot settle themselves to sleep when alone.
+1016/2/51	Many toddlers experience sleep problems including resisting going to bed and nighttime awakenings.
+1016/41/1706	Once your child has been put to bed, you should be strict about the rule of not leaving the bedroom.
+1016/2/54	Toddlers' drive for independence and an increase in their motor, cognitive and social abilities can interfere with sleep.
+1016/50/2001	Behavioral treatment has positive effects on how the child acts during the day.
+1016/5/269	In extreme cases a child with untreated OSA may develop a "funnel chest" over time.
+1016/5/265	The study requires your child to spend the night at the sleep center.
+1016/8/515	Naturally doctors are very reluctant to use medication for healthy children who have problems falling asleep or staying asleep.
+1016/53/2063	Children with poor social skills are at risk for delinquency, academic under-achievement, and school drop out.
+1016/50/2032	You should discuss your child's sleep problems with your child's doctor.
+1016/53/2068	ADHD children lack these positive interactions and thus are at risk for a number of emotional problems.
+1016/62/2386	Sleep problems affected 175 (73.3 percent) of the children, with a 28.5 percent prevalence of mild sleep problems and 44.8 percent prevalence of moderate or severe sleep problems.
+1016/5/249	Even brief apneas can cause a child to have low levels of oxygen in the blood.
+1016/28/1101	Sleep apnea can have serious, long-lasting consequences in the growth of a child both mentally and physically.
+1016/21/927	Sleep problems are very common, reportedly as high as 80% in children with ASD.
+1016/12/798	If a children have untreated sleep apnea, they are more likely to get high blood pressure (hypertension), high blood pressure in the lungs (pulmonary hypertension), and heart failure (in very severe cases).
+1016/28/1087	Approximately 1% to 3% of preschool-aged children have sleep apnea, which peaks between the ages of 2 and 6 because of enlargement of the tonsils and adenoids and a proportionately small airway.
+1016/56/2231	Actigraphy is an activity-based sleep-wakefulness monitoring method that provides continuous objective data of patients' sleep with night-to-night variability.
+1016/56/2268	[7] [8] Up to 75% of children with psychiatric disorders such as major depression, anxiety disorders, attention-deficit/ hyperactivity disorder (ADHD), or posttraumatic stress disorder have reported symptoms of insomnia, bedtime resistance, bedtime refusal, nocturnal fears, and nightmares.
+1016/35/1370	Children are especially susceptible to consequences of sleep disruption.
+1016/45/1840	For some children, a brief late afternoon nap and reducing stress is helpful.
+1016/22/982	Preschool children may also feel anxiety around the issue of toilet training and bedwetting.
+1016/21/948	Sometimes medications your child might be taking can be alerting and contribute to difficulty falling asleep.
+1016/54/2153	Childhood sleep disorders are one of the most common complaints brought to family doctors, with nearly half of new mothers complaining of infant sleep problems.
+1016/53/2066	These children can be socially inept, and their lack of interpersonal skills may cause them a multitude of difficulties.
+1016/1/9	A predictable, calming bedtime routine is often the key to a good night's sleep.
+1016/8/520	Nightmares are distinguished from night terrors in that the child can remember a nightmare.
+1016/8/483	The parents should settle the child in his/her own bedroom, the lights in the house should be generally turned down and a nightlight should be allowed during the night.
+1016/23/987	Daytime sleepiness resulting from fragmented or disturbed sleep is often manifested in young children by behaviors such as increased activity, aggression, impulsivity, acting out behavior, poor concentration, and inattention.
+1016/45/1905	The preschooler will probably need bedtime rituals as a way of winding down.
+1016/36/1426	Sleep training techniques are not going to help a child who has a sleeping disorder or medical condition because they have no control over their snoring or other symptoms.
+1016/8/526	For those children with full post-traumatic stress disorder and associated nightmares, one may suppress REM sleep using tricyclic antidepressants (imipramine) so as to provide settled sleep for a few weeks.
+1016/56/2276	Diphenhydramine hydrochloride is the most commonly used agent in children for sleep initiation problems.
+1016/43/1782	A child with sleep terrors will scream uncontrollably and appear to be awake, but is confused and can't communicate.
+1016/12/772	Dysomnias are a broad classification of sleeping disorders that make it difficult to get to sleep or stay asleep.
+1016/79/2909	If your child shows signs of daytime tiredness, yet sleeps within the range of recommended hours, consult your pediatrician.
+1016/63/2445	Childhood maltreatmentincluding rejection by a child's mother, harsh discipline, physical or sexual abuse or disruptive changes in caregiverswas identified through parental reports during childhood years, objective observations of behavior and participants' own reports once they reached adulthood.
+1016/63/2447	Individuals with current depression and a history of childhood maltreatment were more likely to have a high level of inflammation at age 32, as measured by the presence of the chemical high-sensitivity C-reactive protein in the blood.
+1016/37/1482	Parents who do sleep with their children have been criticized as it is not a widely adopted approach.
+1016/11/706	Babies and children have to test our rules in order to make sure they are real.
+1016/53/2097	If your ADHD or ODD child frequently misbehaves, it is your obligation as a parent to teach your child how to improve his behavior.
+1016/1/25	Sleep may be more appealing if everyone slows down before bedtime.
+1016/12/802	A sleep specialist will examine your child and ask you and your child questions about his/her snoring and sleep behavior.
+1016/75/2775	Complex carbohydrates, as well as turkey, peanut butter, bananas, soy and dairy products (which all contain tryptophan) can help you get your sleep on.
+1016/45/1823	Stress and excessive fatigue are also thought to be factors.
+1016/9/567	Generally, parents and carers must be comfortable with the strategy in order for it to be effective.
+1016/8/482	The parents may be putting the child down in a room other than his/hers.
+1016/4/151	Many children will have the odd nightmare and will not be suffering from stress or worry.
+1016/79/2940	Losing sleep can undo the rejuvenating effects learning has on the brain.
+1016/77/2886	Common problems included child sleep (small problem (31.6%), moderate / large problem (21.9%)), eating (32.4%) and adherence with physiotherapy (50.4%).
+1016/22/975	Toddlers are far more physically active than infants, and their sleeping behavior and the timing of sleep cycles reflects their maturing brains.
+1016/42/1756	If a child is experiencing daytime behavior problems or mood disturbances, it's important to assess if it is stemming from an underlying sleep disorder and to seek treatment.
+1016/34/1281	Some children are happier if a dim light is kept switched on all through the night.
+1016/21/962	If your child suffers from a sleep disorder such as sleep apnea, sleep walking, sleep terrors, restless legs syndrome, he may need a referral to a sleep specialist.
+1016/4/128	Try to encourage your child to settle to sleep alone and institute a consistent bedtime routine.
