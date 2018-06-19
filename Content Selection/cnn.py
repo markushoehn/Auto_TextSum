@@ -1,6 +1,7 @@
 from keras.models import Sequential
 from keras.callbacks import ModelCheckpoint, EarlyStopping
 from keras.layers import *
+from keras import regularizers
 from keras.layers.normalization import BatchNormalization
 import numpy as np
 import random
@@ -26,7 +27,7 @@ vocab_size = emb_matrix.shape[0]
 
 def train_model(batch_size, optimizer, number_conv_layers, number_filters, kernel_sizes, acts):
 
-    best_model_path_early_stopping = 'best_model_cnn_early_stopping.hdf5'
+    best_model_path_early_stopping = 'early_stopping_temp.hdf5'
 
     # specify model
     model = Sequential()
@@ -97,4 +98,10 @@ def hyper_parameter_opt(number_of_settings):
 
 
 # run some settings
-hyper_parameter_opt(20)
+# hyper_parameter_opt(20)
+model, loss, accuracy, precision, recall, f1_score = train_model(batch_size=150, optimizer='adagrad',
+                                                                 number_conv_layers=2,
+                                                                 number_filters=[47, 42], kernel_sizes=[6, 6],
+                                                                 acts=['relu', 'relu'])
+print('Loss:', loss, ', accuracy:', accuracy, ', precision:', precision, ', recall:', recall, ',f1 score:', f1_score)
+model.save_weights('best_model_cnn_new2.hdf5')
