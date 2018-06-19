@@ -15,19 +15,21 @@ with open(input_file) as f:
     for line in f:
         sent_id, sentence, label = line.split('\t')
         prep_sent_tokens = simple_preprocess(sentence)
-        indices = []
-        for tok in prep_sent_tokens:
-            try:
-                indices.append(emb_dict[tok])
-            except KeyError:
-                indices.append(emb_dict['__oov__'])
-        if len(indices) > 0:
-            data_x.append(indices)
-            vocab.update(indices)
-            if int(label) == 0:
-                data_y.append((1, 0))
-            else:
-                data_y.append((0, 1))
+        # take only sentences with min 5 and max 50 tokens
+        if 5 <= len(prep_sent_tokens) <= 50:
+            indices = []
+            for tok in prep_sent_tokens:
+                try:
+                    indices.append(emb_dict[tok])
+                except KeyError:
+                    indices.append(emb_dict['__oov__'])
+            if len(indices) > 0:
+                data_x.append(indices)
+                vocab.update(indices)
+                if int(label) == 0:
+                    data_y.append((1, 0))
+                else:
+                    data_y.append((0, 1))
 data_x = pad_sequences(data_x, maxlen=pad_length)
 data = list(zip(data_x, data_y))
 vocab_size = max(vocab) + 1

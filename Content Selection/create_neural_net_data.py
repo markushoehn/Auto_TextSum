@@ -2,6 +2,8 @@ import numpy as np
 import random
 
 
+# create data for neural net and save as numpy arrays
+
 # METHOD FOR AVERAGING THE WORD EMBEDDINGS OF A SENTENCE
 
 

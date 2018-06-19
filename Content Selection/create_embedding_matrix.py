@@ -1,5 +1,7 @@
 import numpy as np
 
+# load pre-trained embeddings and save them into a matrix and dictionary
+
 embedding_file_path = 'data/glove.6B.300d.txt'
 vector_size = 300
 

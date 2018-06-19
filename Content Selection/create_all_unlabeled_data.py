@@ -1,6 +1,8 @@
 import xml.etree.ElementTree
 from gensim.utils import simple_preprocess
 
+# create unlabeled data for all 49 topics and save it as txt files
+
 # list of all source file paths
 sentences_source_files = ['..\AutoTS_Corpus\DIP2017_source_10' + str(format(i, '02d')) + '.xml'
                           for i in range(1, 51)]

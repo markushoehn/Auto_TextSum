@@ -1,5 +1,7 @@
 import gensim
 
+# apply windowing and save windowed data
+
 complete_labeled_data_file = open('data/labeled_data_complete.txt', 'r')
 complete_list = complete_labeled_data_file.readlines()
 number_instances = len(complete_list)
@@ -51,5 +53,3 @@ for i in range(number_instances):
     # write on new files
     feature_file_raw.write(new_line_raw)
     feature_file_preprocessed.write(new_line_preprocessed)
-
-
