@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
-from blackbox import compare, which, SENTENCE_SPECIFIC, SENTENCE_GENERAL, SENTENCE_SIMILAR
-		
+import xml.dom.minidom
+from blackbox import SENTENCE_SPECIFIC, SENTENCE_GENERAL, SENTENCE_SIMILAR
+
 class Bubble(object):
 	""" tree class for bubbles and nuggets and trash """
 	def __init__(self):
@@ -9,7 +10,11 @@ class Bubble(object):
 		self.bubbles = []
 		self.trash = []
 
-	def write(trees):
+	def pretty(string):
+		reparsed = xml.dom.minidom.parseString(string)
+		return reparsed.toprettyxml(indent="\t")
+
+	def write(trees, path):
 		root = ET.Element('root')
 
 		""" TOOD: should add Nuggets and Bubbles objects individually"""
@@ -19,17 +24,20 @@ class Bubble(object):
 					index = str(n.GetIX())
 					ET.SubElement(root, 'Nugget', id=index)
 				for bubble in sub.bubbles:
-					b = ET.SubElement(root, 'Bubble', name="name")
+					b = ET.SubElement(root, 'Bubble', name="")
 					traverse(b, bubble)
 
 		for bubbles in trees:
-			b = ET.SubElement(root, 'Bubble', name="name")
+			b = ET.SubElement(root, 'Bubble', name="")
 			traverse(b, bubbles)
 
 		trash = ET.SubElement(root, 'Trash')
-		""" TOOD: add any elements that are not added yet to trash"""
+		string = Bubble.pretty(ET.tostring(root, encoding="unicode"))
 
-		ET.dump(root)
+		with open(path, 'w') as f:
+			f.write(string)
+
+		# ET.dump(root)
 
 	def createListTree(list):
 		print("creating Tree of Length: "  + str(len(list)))
@@ -55,28 +63,28 @@ class Bubble(object):
 		draw_rec(0, self)
 		print("Trash: (" + str(len(self.trash)) + ")")
 
-	def insert(self, item):
+	def insert(self, item, blackbox):
 		if self.nuggets:
-			res = compare(item, self.nuggets)
+			res = blackbox.compare(item, self.nuggets)
 			if(res == SENTENCE_SPECIFIC):
 				# go down
 				if self.bubbles:
-					num = which(item, self.bubbles)
+					num = blackbox.which(item, self.bubbles)
 					if(num >= 0):
-						self.bubbles[num].insert(item)
+						self.bubbles[num].insert(item, blackbox)
 						return
-				newtree = Bubble()
-				newtree.nuggets.append(item)
-				self.bubbles.append(newtree)
+				temp = Bubble()
+				temp.nuggets.append(item)
+				self.bubbles.append(temp)
 			if(res == SENTENCE_GENERAL):
 				# insert ahead
-				newtree = Bubble()
-				newtree.nuggets = self.nuggets
-				newtree.bubbles = self.bubbles
+				temp = Bubble()
+				temp.nuggets = self.nuggets
+				temp.bubbles = self.bubbles
 				self.nuggets = []
 				self.nuggets.append(item)
 				self.bubbles = []
-				self.bubbles.append(newtree)
+				self.bubbles.append(temp)
 			if(res == SENTENCE_SIMILAR):
 				self.nuggets.append(item)
 		else:
@@ -100,7 +108,7 @@ def test():
 	Tree.write([tree])
 
 def main():
-	print("Wrtiing demo tree:")
+	print("writing demo tree:")
 	test()
 
 if __name__ == "__main__":
