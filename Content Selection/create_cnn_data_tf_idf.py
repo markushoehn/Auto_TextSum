@@ -9,7 +9,7 @@ stopword_list = stopword_file.read().split('\n')
 # take raw sentences
 input_file = 'data/labeled_data_complete.txt'
 # load embedding dictionary
-emb_dict = np.load('data/numpy_data/embedding_dictionary300.npy').item()
+emb_dict = np.load('data/numpy_data/embedding_dictionary300_tf_idf.npy').item()
 data_x = []
 data_y = []
 vocab = {0}
@@ -26,7 +26,7 @@ with open(input_file) as f:
             indices = []
             for tok in prep_sent_tokens:
                 try:
-                    indices.append(emb_dict[tok])
+                    indices.append(emb_dict[tok + '_' + topic_id + '_' + doc_id])
                     in_vocab_words += 1
                 except KeyError:
                     indices.append(emb_dict['__oov__'])
@@ -57,9 +57,9 @@ dev_x, dev_y = np.array(dev_x), np.array(dev_y)
 test_x, test_y = np.array(test_x), np.array(test_y)
 
 # save data
-np.save('data/numpy_data/x_train_cnn300.npy', train_x)
-np.save('data/numpy_data/y_train_cnn300.npy', train_y)
-np.save('data/numpy_data/x_dev_cnn300.npy', dev_x)
-np.save('data/numpy_data/y_dev_cnn300.npy', dev_y)
-np.save('data/numpy_data/x_test_cnn300.npy', test_x)
-np.save('data/numpy_data/y_test_cnn300.npy', test_y)
+np.save('data/numpy_data/x_train_cnn300_tf_idf.npy', train_x)
+np.save('data/numpy_data/y_train_cnn300_tf_idf.npy', train_y)
+np.save('data/numpy_data/x_dev_cnn300_tf_idf.npy', dev_x)
+np.save('data/numpy_data/y_dev_cnn300_tf_idf.npy', dev_y)
+np.save('data/numpy_data/x_test_cnn300_tf_idf.npy', test_x)
+np.save('data/numpy_data/y_test_cnn300_tf_idf.npy', test_y)

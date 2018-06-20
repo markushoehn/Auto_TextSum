@@ -1,8 +1,6 @@
 1003/11/118	Empower your students by encouraging them to participate in activities of the whole group or in smaller groups."
 1003/12/168	Physical : your child being hit, kicked pinched, any form of violence
 1003/32/586	Parents can get in big trouble when their kids skip school , sometimes even facing fines and jail time themselves.
-1003/23/468	Is your child failing, being bullied, under the influence of alcohol or drugs, or does he have physical problems?
-1003/32/588	Are parents to blame when their children skip school, or should the kids be held accountable - or does the answer lie somewhere in the middle?
 1003/11/141	Teachers will meet and discuss the best alternative for that child, Please note, An IEP or 504 does not mean a parent is off the hook for their child's behavior.
 1003/32/590	If a parent SENDS the child the parent should not be held accountable for the child skipping out.
 1003/23/433	If your child's grades are dropping, rule number one is to become an investigator.
@@ -21,20 +19,9 @@
 1003/54/867	Adults can also help kids learn to play together, include each other, mend hurt feelings, and repair broken friendships.
 1003/11/128	Students need to be taught respect from home.
 1003/44/717	Radical solutions can sometimes do more harm than good.
-1003/22/393	Do your kids have interaction with other kids in the program or just with the teacher like you talked about above?
 1003/4/63	Teachers, principals, parents, and lunchroom helpers at school can all help to stop bullying.
 1003/32/597	Officers have an option of giving kids a warning, taking them home, or booking them if the child is suspended or has been expelled, and the parents can't be reached.
 1003/12/207	Self Defence Classes - Not merely teaching your child to fight back.
 1003/4/55	Bullies tend to bully kids who don't stick up for themselves.
 1003/48/782	A great person to share your thoughts and feelings with is your school counselor.
 1003/31/577	Some students benefit from structured phonics; other students require a more language-based approach.
-1003/12/204	ensure that the school takes action, maintaining contact and pressure until you are satisfied
-1003/15/243	Talk to an adult you trust, such as a parent, guidance counselor, or both.
-1003/14/227	If you feel disorganized or like you can't keep up with your schoolwork, your teachers and school counselors want to help.
-1003/23/471	If there's an anxiety issue at play, a visit to your child's pediatrician to determine whether counseling is in order might be your best course of action.
-1003/14/222	Your mom, dad, relative, teacher, or school counselor will be able to help you.
-1003/12/184	becomes more agressive than usual, perhaps even bullying other children or younger siblings
-1003/54/866	If you or someone you know is being treated meanly or bullied by members of a clique, telling an adult is important.
-1003/12/166	Bullying can take many different forms, the common thread being the perpetrators need to make the victim feel miserable.
-1003/1/21	If enough kids get together, peers can pressure each other into doing what's right!
-1003/23/439	And for still others, drug and alcohol use may be the cause of falling grades.

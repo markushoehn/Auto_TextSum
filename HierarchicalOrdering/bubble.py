@@ -16,8 +16,6 @@ class Bubble(object):
 
 	def write(trees, path):
 		root = ET.Element('root')
-
-		""" TOOD: should add Nuggets and Bubbles objects individually"""
 		def traverse(root, sub):
 			if type(sub) is Bubble:
 				for n in sub.nuggets:
@@ -36,8 +34,6 @@ class Bubble(object):
 
 		with open(path, 'w') as f:
 			f.write(string)
-
-		# ET.dump(root)
 
 	def createListTree(list):
 		print("creating Tree of Length: "  + str(len(list)))

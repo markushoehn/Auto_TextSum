@@ -3,7 +3,10 @@ from keras.preprocessing.sequence import pad_sequences
 from keras.models import Sequential
 from keras.layers import *
 from gensim.utils import simple_preprocess
-import nltk
+
+# load stopword list
+stopword_file = open('data/stopwords.txt', 'r')
+stopword_list = stopword_file.read().split('\n')
 
 
 def write_predictions(topic_number):
@@ -21,14 +24,8 @@ def write_predictions(topic_number):
             sent_id, sentence = line.split('\t')
             sentence_dict[sent_id] = sentence
             prep_sent_tokens = simple_preprocess(sentence)
-            pos_tags = nltk.pos_tag(prep_sent_tokens, tagset='universal')
-            contains_verb = False
-            for tag in pos_tags:
-                if tag[1] == 'VERB':
-                    contains_verb = True
-                    break
-            # only take sentence if there are between 5 and 50 and if there is a verb in it
-            if 5 <= len(prep_sent_tokens) <= 50 and contains_verb:
+            # only take sentence if there are between 5 and 50
+            if 5 <= len(prep_sent_tokens) <= 50:
                 indices = []
                 for tok in prep_sent_tokens:
                     try:
@@ -79,6 +76,4 @@ def write_predictions(topic_number):
         prediction_file.write(id_sorted[i] + '\t' + sentence_dict[id_sorted[i]])
 
 
-for topic in range(1045, 1050):
-    if not topic == 1009:
-        write_predictions(topic)
+write_predictions(1001)
