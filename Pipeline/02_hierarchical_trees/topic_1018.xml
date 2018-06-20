@@ -1,1 +1,46 @@
-<root><Bubble name="name"><Nugget id="1018/5/102" /><Nugget id="1018/11/220" /><Nugget id="1018/25/581" /><Bubble name="name"><Nugget id="1018/67/1057" /><Nugget id="1018/43/825" /><Bubble name="name"><Nugget id="1018/17/378" /><Nugget id="1018/17/384" /><Bubble name="name"><Nugget id="1018/43/837" /><Bubble name="name"><Nugget id="1018/26/589" /><Bubble name="name"><Nugget id="1018/71/1159" /><Bubble name="name"><Nugget id="1018/70/1137" /><Nugget id="1018/42/805" /><Nugget id="1018/2/28" /><Bubble name="name"><Nugget id="1018/73/1178" /><Bubble name="name"><Nugget id="1018/42/797" /><Nugget id="1018/17/383" /><Nugget id="1018/17/388" /><Nugget id="1018/69/1110" /><Nugget id="1018/34/712" /><Nugget id="1018/16/364" /><Nugget id="1018/17/382" /><Nugget id="1018/3/90" /><Nugget id="1018/5/136" /><Nugget id="1018/18/395" /><Nugget id="1018/31/662" /><Nugget id="1018/15/318" /><Nugget id="1018/5/99" /><Nugget id="1018/25/575" /><Nugget id="1018/3/74" /><Nugget id="1018/15/350" /><Bubble name="name"><Nugget id="1018/16/366" /><Bubble name="name"><Nugget id="1018/5/117" /><Nugget id="1018/5/124" /><Nugget id="1018/24/570" /><Nugget id="1018/5/121" /><Nugget id="1018/30/643" /><Nugget id="1018/24/560" /><Nugget id="1018/5/105" /><Nugget id="1018/16/371" /><Nugget id="1018/3/69" /><Nugget id="1018/16/365" /><Nugget id="1018/2/21" /><Nugget id="1018/17/385" /><Nugget id="1018/5/130" /><Nugget id="1018/24/566" /><Nugget id="1018/33/707" /><Nugget id="1018/3/88" /><Bubble name="name"><Nugget id="1018/30/642" /><Bubble name="name"><Nugget id="1018/71/1157" /><Bubble name="name"><Nugget id="1018/3/78" /><Bubble name="name"><Nugget id="1018/1/1" /></Bubble></Bubble></Bubble></Bubble></Bubble></Bubble></Bubble></Bubble></Bubble></Bubble><Bubble name="name"><Nugget id="1018/75/1207" /></Bubble></Bubble></Bubble><Bubble name="name"><Nugget id="1018/20/514" /></Bubble></Bubble><Bubble name="name"><Nugget id="1018/68/1084" /></Bubble></Bubble><Bubble name="name"><Nugget id="1018/32/696" /></Bubble></Bubble><Trash /></root>
+<?xml version="1.0" ?>
+<root>
+	<Bubble name="">
+		<Nugget id="1018/1/1"/>
+		<Nugget id="1018/5/117"/>
+		<Nugget id="1018/24/570"/>
+		<Nugget id="1018/2/21"/>
+		<Nugget id="1018/5/130"/>
+		<Nugget id="1018/33/707"/>
+		<Nugget id="1018/34/712"/>
+		<Nugget id="1018/5/136"/>
+		<Bubble name="">
+			<Nugget id="1018/3/78"/>
+			<Nugget id="1018/71/1157"/>
+			<Nugget id="1018/5/124"/>
+			<Nugget id="1018/24/560"/>
+			<Nugget id="1018/5/105"/>
+			<Nugget id="1018/16/365"/>
+			<Nugget id="1018/17/385"/>
+			<Nugget id="1018/24/566"/>
+			<Nugget id="1018/3/90"/>
+			<Bubble name="">
+				<Nugget id="1018/30/642"/>
+				<Nugget id="1018/5/121"/>
+				<Nugget id="1018/30/643"/>
+				<Nugget id="1018/42/797"/>
+				<Nugget id="1018/16/364"/>
+				<Bubble name="">
+					<Nugget id="1018/16/371"/>
+					<Nugget id="1018/3/69"/>
+					<Nugget id="1018/16/366"/>
+					<Nugget id="1018/3/88"/>
+					<Nugget id="1018/17/388"/>
+					<Nugget id="1018/17/382"/>
+					<Bubble name="">
+						<Nugget id="1018/17/383"/>
+						<Bubble name="">
+							<Nugget id="1018/69/1110"/>
+						</Bubble>
+					</Bubble>
+				</Bubble>
+			</Bubble>
+		</Bubble>
+	</Bubble>
+	<Trash/>
+</root>
