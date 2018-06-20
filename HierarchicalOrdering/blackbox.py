@@ -7,19 +7,24 @@ from functools import reduce
 SENTENCE_SIMILAR = "similar"
 SENTENCE_GENERAL = "general"
 SENTENCE_SPECIFIC = "speficic"
-THRESHOLD = 0.09
+THRESHOLD = 0.25
 
 class Blackbox(object):
 	""" blackbox where the magic happens """
 	def __init__(self):
 		super(Blackbox, self).__init__()
 		self.table = []
-		self.dict = {}
+		self.enableGeneralSentences = False
+		# self.synsets = dict([(w,wn.synsets(w)[0]) for w in self.stopwords])
+
+	def setGeneralSentences(val):
+		self.enableGeneralSentences = val
+
 
 	def add(self, sentencelist):
 		self.table = [item for sublist in sentencelist for item in sublist.GetWordsWithoutStopwords()]
 
-	def nltk_path_similarity(self, lista,listb):
+	def nltk_path_similarity(self, lista, listb):
 		def sim(x,y):
 			try:
 				a = wn.synsets(y)[0]
@@ -27,14 +32,17 @@ class Blackbox(object):
 				res = a.path_similarity(b)
 			except Exception as e:
 				return 0
-			return res
+			if(res):
+				return res
+			return 0
 
-		def both(a,b):
-			return [[sim(x,y) for y in b] for x in a]
+		result = [[sim(x,y) for y in listb] for x in lista]
+		flatten = [max(b) for b in result]
 
-		result = both(lista, listb)
-
-		value = reduce((lambda x, y: x + y), [a for b in result for a in b if a]) / len([a for b in result for a in b])
+		#flatten = [a for b in result for a in b]
+		#flatten = [a for a in flatten if a and a != 0]
+		value = reduce((lambda x, y: x + y), flatten) / len(flatten)
+		#value = median(flatten)
 		return value
 
 	def tf(self, word, sentence):
@@ -52,29 +60,34 @@ class Blackbox(object):
 			value += self.tf(word, sentence) * self.idf(word, table)
 		return value / len(sentence)
 
-	# compares two sentences
-	# returns similar, if they are similar in meaning
-	# return genereal when the first is more summarizing
-	# return specific when the second is mor summarizing
 	def compare(self, sentence, nuggets):
-		wordListFirst = sentence.GetWordsWithoutStopwords()
-		wordListSecond = [item for sublist in nuggets for item in sublist.GetWordsWithoutStopwords()]
-
-		result = self.nltk_path_similarity(wordListFirst, wordListSecond)
-
-		if(result >= THRESHOLD ):
-			return SENTENCE_SIMILAR
+		"""
+		compares two sentences
+		returns similar, if they are similar in meaning
+		return genereal when the first is more summarizing
+		return specific when the second is mor summarizing
+		"""
 		
-		resultFirst = self.tfidf(wordListFirst, self.table)
-		resultSecond = self.tfidf(wordListSecond, self.table)
+		sentenceList = sentence.GetWordsWithoutStopwords()
+		nuggetsList2 = [self.tfidf(sublist.GetWordsWithoutStopwords(), self.table) for sublist in nuggets]
 
-		if(resultFirst >= resultSecond):
-			return SENTENCE_SPECIFIC
+		if(self.enableGeneralSentences):
+			result = self.nltk_path_similarity(sentenceList, nuggetsList)
+			if(result >= THRESHOLD):
+				return SENTENCE_SIMILAR
+		
+		sentenceResult = self.tfidf(sentenceList, self.table)
+		nuggetsResult = reduce((lambda x,y: x+y), nuggetsList2) / len(nuggetsList2)
+
+		if(sentenceResult >= nuggetsResult):
+			return SENTENCE_SIMILAR
 		else:
-			return SENTENCE_GENERAL
+			return SENTENCE_SPECIFIC
 
 	def get_all_words(self, bubble):
-		# TODO: go over all sub bubbles
+		"""
+		return all words in a bubble
+		"""
 		listofwords = []
 		for x in bubble.nuggets:
 			listofwords.extend(x.GetWordsWithoutStopwords())
@@ -83,20 +96,19 @@ class Blackbox(object):
 		#		listofwords.extend(self.get_all_words(x))
 		return listofwords
 
-
-	# compares a list of Bubbles against an item
-	# return which is the best fit for the item
-	# returning -1 means that none fit
 	def which(self, sentence, bubbles):
+		"""
+		compares a list of Bubbles against an item
+		return which is the best fit for the item
+		returning -1 means that none fit
+		"""
 		wordListFirst = sentence.GetWordsWithoutStopwords()
 		
 		# calculate values for sentence and bubbles
 		bubbleValues = []
 		for x in bubbles:
 			wordListSecond = self.get_all_words(x)
-			bubbleValues.append(self.tfidf(wordListSecond, self.table))
-
-		sentenceValue = self.tfidf(wordListFirst, self.table)
+			bubbleValues.append(self.nltk_path_similarity(wordListFirst, wordListSecond))
 
 		# find the hightest value
 		valueIndex = -1
@@ -107,7 +119,7 @@ class Blackbox(object):
 				value = x
 
 		# return either
-		if(value > sentenceValue):
+		if(value > THRESHOLD):
 			return valueIndex
 
 
