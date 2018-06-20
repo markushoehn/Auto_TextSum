@@ -10,23 +10,24 @@
 	</Bubble>
 	<Bubble name="">
 		<Nugget id="1049/90/5680"/>
-		<Nugget id="1049/62/4388"/>
-		<Nugget id="1049/44/3368"/>
+		<Nugget id="1049/41/3071"/>
 		<Nugget id="1049/48/3666"/>
 		<Bubble name="">
-			<Nugget id="1049/41/3071"/>
-			<Bubble name="">
-				<Nugget id="1049/55/4011"/>
-			</Bubble>
-		</Bubble>
-		<Bubble name="">
-			<Nugget id="1049/15/1160"/>
-			<Nugget id="1049/46/3462"/>
-			<Nugget id="1049/3/235"/>
+			<Nugget id="1049/62/4388"/>
 			<Nugget id="1049/46/3465"/>
-			<Nugget id="1049/10/773"/>
 			<Bubble name="">
-				<Nugget id="1049/15/1255"/>
+				<Nugget id="1049/15/1160"/>
+				<Nugget id="1049/46/3462"/>
+				<Nugget id="1049/10/773"/>
+				<Bubble name="">
+					<Nugget id="1049/55/4011"/>
+				</Bubble>
+				<Bubble name="">
+					<Nugget id="1049/3/235"/>
+					<Bubble name="">
+						<Nugget id="1049/15/1255"/>
+					</Bubble>
+				</Bubble>
 			</Bubble>
 		</Bubble>
 		<Bubble name="">
@@ -46,10 +47,15 @@
 		<Nugget id="1049/67/4508"/>
 		<Nugget id="1049/10/844"/>
 		<Nugget id="1049/89/5616"/>
-		<Nugget id="1049/3/237"/>
+		<Bubble name="">
+			<Nugget id="1049/3/237"/>
+		</Bubble>
 		<Bubble name="">
 			<Nugget id="1049/44/3392"/>
 		</Bubble>
+	</Bubble>
+	<Bubble name="">
+		<Nugget id="1049/44/3368"/>
 	</Bubble>
 	<Bubble name="">
 		<Nugget id="1049/47/3523"/>

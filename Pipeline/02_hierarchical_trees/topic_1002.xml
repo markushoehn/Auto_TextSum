@@ -2,16 +2,20 @@
 <root>
 	<Bubble name="">
 		<Nugget id="1002/3/169"/>
-		<Nugget id="1002/28/534"/>
 		<Bubble name="">
-			<Nugget id="1002/38/680"/>
+			<Nugget id="1002/28/534"/>
+			<Bubble name="">
+				<Nugget id="1002/38/680"/>
+			</Bubble>
+		</Bubble>
+		<Bubble name="">
+			<Nugget id="1002/3/168"/>
 		</Bubble>
 	</Bubble>
 	<Bubble name="">
 		<Nugget id="1002/1/8"/>
-		<Nugget id="1002/27/519"/>
 		<Bubble name="">
-			<Nugget id="1002/3/168"/>
+			<Nugget id="1002/27/519"/>
 		</Bubble>
 	</Bubble>
 	<Bubble name="">

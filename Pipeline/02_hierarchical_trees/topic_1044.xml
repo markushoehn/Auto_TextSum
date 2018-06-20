@@ -3,37 +3,63 @@
 	<Bubble name="">
 		<Nugget id="1044/82/3583"/>
 		<Nugget id="1044/31/1215"/>
-		<Nugget id="1044/20/721"/>
-		<Nugget id="1044/31/1165"/>
-		<Nugget id="1044/14/432"/>
-		<Nugget id="1044/5/196"/>
-		<Nugget id="1044/4/100"/>
-		<Nugget id="1044/2/8"/>
 		<Nugget id="1044/23/967"/>
-		<Nugget id="1044/24/1004"/>
-		<Nugget id="1044/5/128"/>
 		<Nugget id="1044/62/2836"/>
 		<Nugget id="1044/41/1843"/>
-		<Nugget id="1044/5/193"/>
-		<Nugget id="1044/41/1884"/>
-		<Nugget id="1044/64/3113"/>
-		<Nugget id="1044/62/2833"/>
-		<Nugget id="1044/24/997"/>
 		<Nugget id="1044/12/330"/>
 		<Bubble name="">
-			<Nugget id="1044/37/1499"/>
-			<Nugget id="1044/49/2108"/>
-			<Nugget id="1044/26/1063"/>
-			<Nugget id="1044/4/95"/>
-			<Nugget id="1044/37/1482"/>
-			<Nugget id="1044/12/363"/>
+			<Nugget id="1044/20/721"/>
+			<Nugget id="1044/64/3113"/>
 			<Bubble name="">
-				<Nugget id="1044/38/1632"/>
+				<Nugget id="1044/14/432"/>
+				<Bubble name="">
+					<Nugget id="1044/24/1004"/>
+				</Bubble>
+				<Bubble name="">
+					<Nugget id="1044/37/1482"/>
+				</Bubble>
+			</Bubble>
+			<Bubble name="">
+				<Nugget id="1044/5/128"/>
+			</Bubble>
+		</Bubble>
+		<Bubble name="">
+			<Nugget id="1044/5/196"/>
+			<Nugget id="1044/41/1884"/>
+			<Bubble name="">
+				<Nugget id="1044/37/1499"/>
+				<Nugget id="1044/62/2833"/>
+				<Bubble name="">
+					<Nugget id="1044/49/2108"/>
+					<Nugget id="1044/24/997"/>
+				</Bubble>
+				<Bubble name="">
+					<Nugget id="1044/26/1063"/>
+				</Bubble>
 			</Bubble>
 			<Bubble name="">
 				<Nugget id="1044/82/3529"/>
+				<Bubble name="">
+					<Nugget id="1044/4/95"/>
+					<Bubble name="">
+						<Nugget id="1044/12/363"/>
+					</Bubble>
+				</Bubble>
 			</Bubble>
 		</Bubble>
+		<Bubble name="">
+			<Nugget id="1044/4/100"/>
+		</Bubble>
+		<Bubble name="">
+			<Nugget id="1044/2/8"/>
+			<Nugget id="1044/5/193"/>
+			<Bubble name="">
+				<Nugget id="1044/38/1632"/>
+			</Bubble>
+		</Bubble>
+	</Bubble>
+	<Bubble name="">
+		<Nugget id="1044/31/1165"/>
 	</Bubble>
 	<Bubble name="">
 		<Nugget id="1044/63/3008"/>

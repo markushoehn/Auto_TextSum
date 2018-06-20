@@ -8,6 +8,7 @@ SENTENCE_SIMILAR = "similar"
 SENTENCE_GENERAL = "general"
 SENTENCE_SPECIFIC = "speficic"
 THRESHOLD = 0.25
+SPECIFIC_INCREASE = 1.45
 
 class Blackbox(object):
 	""" blackbox where the magic happens """
@@ -79,10 +80,10 @@ class Blackbox(object):
 		sentenceResult = self.tfidf(sentenceList, self.table)
 		nuggetsResult = reduce((lambda x,y: x+y), nuggetsList2) / len(nuggetsList2)
 
-		if(sentenceResult >= nuggetsResult):
-			return SENTENCE_SIMILAR
-		else:
+		if(sentenceResult < SPECIFIC_INCREASE * nuggetsResult):
 			return SENTENCE_SPECIFIC
+		else:
+			return SENTENCE_SIMILAR
 
 	def get_all_words(self, bubble):
 		"""
@@ -106,8 +107,8 @@ class Blackbox(object):
 		
 		# calculate values for sentence and bubbles
 		bubbleValues = []
-		for x in bubbles:
-			wordListSecond = self.get_all_words(x)
+		for bubble in bubbles:
+			wordListSecond = self.get_all_words(bubble)
 			bubbleValues.append(self.nltk_path_similarity(wordListFirst, wordListSecond))
 
 		# find the hightest value
@@ -117,6 +118,8 @@ class Blackbox(object):
 			if(value < x):
 				valueIndex = index
 				value = x
+
+		#print("sentence: ", value, " bubbles:", bubbleValues)
 
 		# return either
 		if(value > THRESHOLD):

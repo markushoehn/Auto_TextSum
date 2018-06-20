@@ -4,7 +4,6 @@
 		<Nugget id="1036/74/3498"/>
 		<Nugget id="1036/19/1265"/>
 		<Nugget id="1036/56/2897"/>
-		<Nugget id="1036/28/1766"/>
 		<Nugget id="1036/7/631"/>
 		<Bubble name="">
 			<Nugget id="1036/57/2920"/>
@@ -18,22 +17,37 @@
 		</Bubble>
 		<Bubble name="">
 			<Nugget id="1036/15/1055"/>
-			<Nugget id="1036/28/1746"/>
-			<Nugget id="1036/20/1349"/>
-			<Nugget id="1036/81/3712"/>
-			<Nugget id="1036/17/1161"/>
-			<Nugget id="1036/13/955"/>
-			<Nugget id="1036/14/1040"/>
-			<Nugget id="1036/29/1847"/>
-			<Nugget id="1036/36/2234"/>
+			<Nugget id="1036/28/1766"/>
 			<Bubble name="">
-				<Nugget id="1036/36/2027"/>
-				<Nugget id="1036/14/1021"/>
-				<Nugget id="1036/34/2019"/>
+				<Nugget id="1036/28/1746"/>
+				<Nugget id="1036/81/3712"/>
 				<Bubble name="">
-					<Nugget id="1036/7/706"/>
+					<Nugget id="1036/20/1349"/>
+					<Bubble name="">
+						<Nugget id="1036/36/2027"/>
+						<Nugget id="1036/14/1021"/>
+						<Nugget id="1036/14/1040"/>
+						<Bubble name="">
+							<Nugget id="1036/17/1161"/>
+							<Bubble name="">
+								<Nugget id="1036/36/2234"/>
+							</Bubble>
+						</Bubble>
+					</Bubble>
 				</Bubble>
 			</Bubble>
+			<Bubble name="">
+				<Nugget id="1036/7/706"/>
+			</Bubble>
+			<Bubble name="">
+				<Nugget id="1036/13/955"/>
+			</Bubble>
+		</Bubble>
+		<Bubble name="">
+			<Nugget id="1036/34/2019"/>
+		</Bubble>
+		<Bubble name="">
+			<Nugget id="1036/29/1847"/>
 		</Bubble>
 	</Bubble>
 	<Bubble name="">
@@ -46,9 +60,9 @@
 		<Nugget id="1036/3/344"/>
 		<Nugget id="1036/20/1366"/>
 		<Nugget id="1036/6/574"/>
-		<Nugget id="1036/6/567"/>
 		<Bubble name="">
 			<Nugget id="1036/52/2863"/>
+			<Nugget id="1036/6/567"/>
 		</Bubble>
 	</Bubble>
 	<Trash/>

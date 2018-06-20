@@ -5,33 +5,43 @@
 		<Nugget id="1048/15/521"/>
 		<Bubble name="">
 			<Nugget id="1048/17/586"/>
-			<Nugget id="1048/46/2038"/>
 			<Bubble name="">
 				<Nugget id="1048/1/8"/>
+				<Nugget id="1048/46/2038"/>
 			</Bubble>
+		</Bubble>
+		<Bubble name="">
+			<Nugget id="1048/60/3007"/>
 		</Bubble>
 	</Bubble>
 	<Bubble name="">
 		<Nugget id="1048/19/709"/>
 		<Nugget id="1048/63/3114"/>
-		<Nugget id="1048/15/516"/>
-		<Nugget id="1048/54/2754"/>
-		<Nugget id="1048/25/1008"/>
 		<Nugget id="1048/27/1172"/>
-		<Nugget id="1048/25/998"/>
 		<Nugget id="1048/18/636"/>
-		<Nugget id="1048/42/1840"/>
-		<Nugget id="1048/31/1326"/>
 		<Bubble name="">
 			<Nugget id="1048/77/3628"/>
-			<Nugget id="1048/15/494"/>
-			<Nugget id="1048/16/549"/>
-			<Nugget id="1048/13/423"/>
-			<Nugget id="1048/31/1367"/>
+			<Nugget id="1048/15/516"/>
+			<Nugget id="1048/42/1840"/>
 			<Bubble name="">
-				<Nugget id="1048/26/1149"/>
-				<Nugget id="1048/60/3007"/>
-				<Nugget id="1048/19/710"/>
+				<Nugget id="1048/15/494"/>
+				<Nugget id="1048/54/2754"/>
+				<Bubble name="">
+					<Nugget id="1048/16/549"/>
+					<Bubble name="">
+						<Nugget id="1048/26/1149"/>
+						<Nugget id="1048/13/423"/>
+						<Bubble name="">
+							<Nugget id="1048/19/710"/>
+							<Bubble name="">
+								<Nugget id="1048/31/1367"/>
+							</Bubble>
+						</Bubble>
+					</Bubble>
+				</Bubble>
+				<Bubble name="">
+					<Nugget id="1048/25/998"/>
+				</Bubble>
 			</Bubble>
 			<Bubble name="">
 				<Nugget id="1048/60/3000"/>
@@ -40,7 +50,9 @@
 	</Bubble>
 	<Bubble name="">
 		<Nugget id="1048/46/2079"/>
-		<Nugget id="1048/22/829"/>
+		<Bubble name="">
+			<Nugget id="1048/22/829"/>
+		</Bubble>
 		<Bubble name="">
 			<Nugget id="1048/46/2076"/>
 		</Bubble>
@@ -49,7 +61,13 @@
 		<Nugget id="1048/43/1892"/>
 	</Bubble>
 	<Bubble name="">
+		<Nugget id="1048/25/1008"/>
+	</Bubble>
+	<Bubble name="">
 		<Nugget id="1048/42/1850"/>
+	</Bubble>
+	<Bubble name="">
+		<Nugget id="1048/31/1326"/>
 	</Bubble>
 	<Bubble name="">
 		<Nugget id="1048/25/1084"/>

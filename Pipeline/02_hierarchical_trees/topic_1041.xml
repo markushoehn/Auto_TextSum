@@ -3,51 +3,69 @@
 	<Bubble name="">
 		<Nugget id="1041/7/858"/>
 		<Nugget id="1041/7/688"/>
-		<Nugget id="1041/88/5754"/>
-		<Nugget id="1041/88/6528"/>
 		<Nugget id="1041/28/1845"/>
-		<Nugget id="1041/62/4035"/>
-		<Nugget id="1041/88/5689"/>
-		<Nugget id="1041/65/4541"/>
-		<Nugget id="1041/88/5790"/>
-		<Nugget id="1041/2/296"/>
 		<Nugget id="1041/55/3235"/>
 		<Bubble name="">
-			<Nugget id="1041/7/656"/>
-			<Nugget id="1041/57/3447"/>
-			<Nugget id="1041/7/725"/>
-			<Nugget id="1041/65/4542"/>
+			<Nugget id="1041/88/5754"/>
 			<Bubble name="">
-				<Nugget id="1041/7/723"/>
-				<Nugget id="1041/88/6328"/>
+				<Nugget id="1041/7/656"/>
+				<Nugget id="1041/88/5689"/>
 				<Bubble name="">
-					<Nugget id="1041/62/3932"/>
+					<Nugget id="1041/88/6528"/>
+					<Bubble name="">
+						<Nugget id="1041/88/5790"/>
+					</Bubble>
 				</Bubble>
 			</Bubble>
 			<Bubble name="">
-				<Nugget id="1041/86/5488"/>
-				<Nugget id="1041/88/6003"/>
-			</Bubble>
-			<Bubble name="">
 				<Nugget id="1041/3/398"/>
-				<Nugget id="1041/33/2109"/>
 				<Nugget id="1041/66/4761"/>
-				<Nugget id="1041/88/5977"/>
 				<Bubble name="">
-					<Nugget id="1041/85/5434"/>
+					<Nugget id="1041/88/5977"/>
 				</Bubble>
 			</Bubble>
 		</Bubble>
 		<Bubble name="">
 			<Nugget id="1041/19/1358"/>
 		</Bubble>
+		<Bubble name="">
+			<Nugget id="1041/62/3932"/>
+		</Bubble>
 	</Bubble>
 	<Bubble name="">
 		<Nugget id="1041/62/3993"/>
+		<Bubble name="">
+			<Nugget id="1041/57/3447"/>
+			<Bubble name="">
+				<Nugget id="1041/7/723"/>
+			</Bubble>
+		</Bubble>
 	</Bubble>
 	<Bubble name="">
 		<Nugget id="1041/81/5267"/>
 		<Nugget id="1041/7/792"/>
+	</Bubble>
+	<Bubble name="">
+		<Nugget id="1041/86/5488"/>
+		<Nugget id="1041/62/4035"/>
+		<Bubble name="">
+			<Nugget id="1041/7/725"/>
+		</Bubble>
+		<Bubble name="">
+			<Nugget id="1041/33/2109"/>
+			<Nugget id="1041/65/4541"/>
+			<Nugget id="1041/2/296"/>
+			<Bubble name="">
+				<Nugget id="1041/85/5434"/>
+				<Nugget id="1041/65/4542"/>
+				<Bubble name="">
+					<Nugget id="1041/88/6003"/>
+				</Bubble>
+			</Bubble>
+		</Bubble>
+	</Bubble>
+	<Bubble name="">
+		<Nugget id="1041/88/6328"/>
 	</Bubble>
 	<Bubble name="">
 		<Nugget id="1041/7/818"/>

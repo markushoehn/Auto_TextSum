@@ -2,16 +2,19 @@
 <root>
 	<Bubble name="">
 		<Nugget id="1020/65/4090"/>
-		<Nugget id="1020/60/3806"/>
-		<Nugget id="1020/17/993"/>
-		<Nugget id="1020/69/4300"/>
+		<Bubble name="">
+			<Nugget id="1020/60/3806"/>
+		</Bubble>
 		<Bubble name="">
 			<Nugget id="1020/8/305"/>
-			<Nugget id="1020/89/5743"/>
-			<Nugget id="1020/16/956"/>
-			<Nugget id="1020/36/2218"/>
 			<Bubble name="">
-				<Nugget id="1020/71/4422"/>
+				<Nugget id="1020/89/5743"/>
+				<Bubble name="">
+					<Nugget id="1020/16/956"/>
+					<Bubble name="">
+						<Nugget id="1020/36/2218"/>
+					</Bubble>
+				</Bubble>
 			</Bubble>
 		</Bubble>
 		<Bubble name="">
@@ -20,14 +23,14 @@
 				<Nugget id="1020/52/3469"/>
 			</Bubble>
 		</Bubble>
-		<Bubble name="">
-			<Nugget id="1020/74/4546"/>
-		</Bubble>
 	</Bubble>
 	<Bubble name="">
 		<Nugget id="1020/89/5777"/>
 		<Bubble name="">
 			<Nugget id="1020/89/5615"/>
+		</Bubble>
+		<Bubble name="">
+			<Nugget id="1020/37/2260"/>
 		</Bubble>
 	</Bubble>
 	<Bubble name="">
@@ -39,20 +42,16 @@
 	<Bubble name="">
 		<Nugget id="1020/31/1792"/>
 		<Nugget id="1020/43/2667"/>
-		<Nugget id="1020/69/4221"/>
 		<Nugget id="1020/46/2892"/>
 		<Nugget id="1020/46/2980"/>
 		<Bubble name="">
-			<Nugget id="1020/74/4537"/>
-			<Nugget id="1020/71/4463"/>
-			<Nugget id="1020/69/4314"/>
-			<Nugget id="1020/89/5719"/>
+			<Nugget id="1020/74/4546"/>
+			<Bubble name="">
+				<Nugget id="1020/69/4221"/>
+			</Bubble>
 		</Bubble>
 		<Bubble name="">
 			<Nugget id="1020/89/5636"/>
-		</Bubble>
-		<Bubble name="">
-			<Nugget id="1020/37/2260"/>
 		</Bubble>
 	</Bubble>
 	<Bubble name="">
@@ -63,6 +62,21 @@
 	</Bubble>
 	<Bubble name="">
 		<Nugget id="1020/71/4397"/>
+	</Bubble>
+	<Bubble name="">
+		<Nugget id="1020/74/4537"/>
+		<Nugget id="1020/71/4463"/>
+		<Nugget id="1020/17/993"/>
+		<Nugget id="1020/69/4300"/>
+		<Bubble name="">
+			<Nugget id="1020/69/4314"/>
+		</Bubble>
+		<Bubble name="">
+			<Nugget id="1020/89/5719"/>
+		</Bubble>
+		<Bubble name="">
+			<Nugget id="1020/71/4422"/>
+		</Bubble>
 	</Bubble>
 	<Trash/>
 </root>
