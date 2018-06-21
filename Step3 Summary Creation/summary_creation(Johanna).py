@@ -1,15 +1,17 @@
+import xml
 from xml.dom import minidom
 import xml.etree.ElementTree as ET
 import os
 import re
+import math
 from sumy.summarizers.luhn import LuhnSummarizer
 from sumy.summarizers.lsa import LsaSummarizer
 from sumy.summarizers.text_rank import TextRankSummarizer
 from sumy.summarizers.lex_rank import LexRankSummarizer
 from sumy.summarizers.kl import KLSummarizer
 from sumy.parsers.plaintext import PlaintextParser
-from sumy.nlp.tokenizers import Tokenizer 
-
+from sumy.nlp.tokenizers import Tokenizer
+from summa import summarizer
 
 
 
@@ -172,41 +174,117 @@ def create_lsa_summary():
 
 
 # Create a summary using the sumy implementation of the TextRank summarizer
-def create_textrank_summary():
+def create_textrank_summary(max_chars):
     for filename in os.listdir(TREES_SOURCE_PATH):
+        chars = 0
         if filename.endswith('.xml'):
             name = re.search('topic_(.*)\.xml', filename)
             input_path = create_input(name.group(1))
-            with open(SUM_PATH + name.group(1) + '_TextRank_Group5.txt', 'w', encoding='utf8') as summary:
+            path = SUM_PATH + name.group(1) 
+            with open(path + '_TextRank_Group5.txt', 'w', encoding='utf8') as summary:
                 summary.write("====================== General Summary of " + name.group(1) + " ======================\n")
                 parser = PlaintextParser.from_file(input_path, Tokenizer("english"))
                 summarizer = TextRankSummarizer()
 
                 s = summarizer(parser.document, 3)
-
+                
                 for sentence in s:
-                    summary.write(str(sentence) + '\n')
+                    if (chars + len(str(sentence)) <= max_chars):
+                        summary.write(str(sentence) + '\n')
+                        chars += len(str(sentence))
+
+            expand_textrank(name.group(1), path, max_chars, chars)
 
 
+
+
+def expand_textrank(filename, sum_path, max_chars, chars):
+    with open(sum_path + '_TextRank_Group5.txt', 'r', encoding='utf8') as summary:
+        with open (sum_path + '_expanded_TextRank_Group5.txt', 'w', encoding='utf8') as o:
+            
+            for line in summary:
+                o.write(line)
+                
+            nugget_data = get_nuggets_from_file(filename)
+            xml_content = xml.etree.ElementTree.parse(TREES_SOURCE_PATH + 'topic_' + filename + '.xml').getroot()
+            sorted_list = getBubblesSortedByTreeSize(xml_content.findall('Bubble'))
+            for bubble in sorted_list:
+                shortest_nugget, shortest_nugget_size = getShortestNugget(bubble, nugget_data)
+                if(chars + shortest_nugget_size <= max_chars):
+                    o.write(shortest_nugget + '\n')
+                    chars += shortest_nugget_size
+
+
+
+# Select from the given bubble the shortest nugget (sentence).
+def getShortestNugget(bubble, nugget_data):
+    shortest_nugget_text = None
+    shortest_nugget_size = math.inf
+    for nugget in bubble.findall('Nugget'):
+        size = len(nugget_data.get(nugget.get("id"))[0])
+        if(size < shortest_nugget_size):
+            shortest_nugget_text = nugget_data.get(nugget.get("id"))[0]
+            shortest_nugget_size = size
+    return shortest_nugget_text, shortest_nugget_size
+
+
+# Sort the bubbles at the root layer in such an order that the
+# bubbles which are the root of the largest trees are first
+# in the list.
+def getBubblesSortedByTreeSize(list_of_bubbles):
+    sorted_list = []
+    for bubble in list_of_bubbles:
+        amount_of_nuggets = len(bubble.findall('Nugget'))
+        list_of_sub_bubbles = bubble.findall('Bubble')
+        while list_of_sub_bubbles != []:
+            sub_bubble = list_of_sub_bubbles.pop()
+            amount_of_nuggets += len(sub_bubble.findall('Nugget'))
+            list_of_sub_bubbles.extend(sub_bubble.findall('Bubble'))
+        sorted_list.append((amount_of_nuggets, bubble))
+    sorted_list.sort(key = lambda x : x[0], reverse = True)
+    return [x for (y,x) in sorted_list]
+        
 
 # Create a summary using the sumy implementation of the KL divergence summarizer
-def create_kl_summary():
+def create_kl_summary(max_chars):
     for filename in os.listdir(TREES_SOURCE_PATH):
+        chars = 0
         if filename.endswith('.xml'):
             name = re.search('topic_(.*)\.xml', filename)
             input_path = create_input(name.group(1))
+            length = 0
             with open(SUM_PATH + name.group(1) + '_KL_Group5.txt', 'w', encoding='utf8') as summary:
+                
                 summary.write("====================== General Summary of " + name.group(1) + " ======================\n")
                 parser = PlaintextParser.from_file(input_path, Tokenizer("english"))
                 summarizer = KLSummarizer()
 
-                s = summarizer(parser.document, 4)
+                s = summarizer(parser.document, 4)                
 
                 for sentence in s:
-                    summary.write(str(sentence) + '\n')
+                    if (chars + len(str(sentence)) <= max_chars):
+                        summary.write(str(sentence) + '\n')
+                        chars += len(str(sentence))
+                
 
 
 
+def create_another():
+    for filename in os.listdir(TREES_SOURCE_PATH):
+        if filename.endswith('.xml'):
+            name = re.search('topic_(.*)\.xml', filename)
+            input_text = ''
+            nugget_data = get_nuggets_from_file(name.group(1))
+            xmldoc = ET.parse(TREES_SOURCE_PATH + 'topic_' + name.group(1) + '.xml')
+            root = xmldoc.getroot()
+                
+            for nugget in root.iter('Nugget'):
+                input_text = input_text + ' ' + nugget_data.get(nugget.get('id'))[0]
+
+            with open(SUM_PATH + name.group(1) + '_Summ_Group5.txt', 'w', encoding='utf8') as summary:
+                summary.write("====================== General Summary of " + name.group(1) + " ======================\n")
+                s = summarizer.summarize(input_text, words = 90)
+                summary.write(s)
 
 
 # helper
@@ -220,14 +298,15 @@ def create_input(filename):
                 
         for nugget in root.iter('Nugget'):
             input_text = input_text + ' ' + nugget_data.get(nugget.get('id'))[0]
+            
 
         i.write(input_text)
         
         return path
         
 
-    
 
+   
                 
 
 
@@ -238,6 +317,7 @@ def create_input(filename):
 #create_lexrank_summary()
 #create_luhn_summary()
 #create_lsa_summary()
-create_textrank_summary()
-create_kl_summary()
+create_textrank_summary(600)
+create_kl_summary(600)
+#create_another()
 
