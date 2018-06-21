@@ -2,6 +2,7 @@ from xml.dom import minidom
 import xml.etree.ElementTree
 import os
 import math
+import re
 
 
 # The path where files with the nuggets are stored.
@@ -163,10 +164,10 @@ def create_overview_summary_2(max_amount_of_chars):
             print("\n====================== " + filename + " ======================")
             xml_content = xml.etree.ElementTree.parse(HIERARCHIES_SOURCE_PATH + filename).getroot()
             get_nuggets_from_file(filename)
-
+            first_sentence, first_length = first(xml_content)
             sorted_list = getBubblesSortedByTreeSize(xml_content.findall('Bubble'))
             list_of_nugget_ids = []
-            amount_of_chars = 0
+            amount_of_chars = first_length
             for bubble in sorted_list:
                 shortest_nugget, shortest_nugget_size = getShortestNugget(bubble)
                 if amount_of_chars + shortest_nugget_size <= max_amount_of_chars:
@@ -177,14 +178,36 @@ def create_overview_summary_2(max_amount_of_chars):
             print("amount of sentences: ", len(list_of_nugget_ids))
             # print("amount of words: ", amount_of_words)
             print("amount of characters: ", amount_of_chars, "\n")
-            summary_file = open(SUMMARIES_PATH + "summary_" + get_file_id(filename) + ".txt", "w", encoding='utf-8')
-            summary_file.write("Summary of document file " + filename + "\n\n")
-            for i in range(0, len(list_of_nugget_ids)):
-                nugget = NUGGET_DATA[list_of_nugget_ids[i]][0]
-                summary_file.write(nugget + "\n" if i < len(list_of_nugget_ids) - 1 else nugget)
-                print(nugget, end=' ')
-            summary_file.close()
+            with open(SUMMARIES_PATH + "summary_" + get_file_id(filename) + ".txt", "w", encoding='utf-8') as summary_file:
+                summary_file.write("Summary of document file " + filename + "\n\n")
+                if(first_sentence != None):
+                    summary_file.write(first_sentence + '\n')
+                for i in range(0, len(list_of_nugget_ids)):
+                    nugget = NUGGET_DATA[list_of_nugget_ids[i]][0]
+                    summary_file.write(nugget + "\n" if i < len(list_of_nugget_ids) - 1 else nugget)
+                    print(nugget, end=' ')
+            
 
+
+
+def first(content):
+    possible_sentences = list()
+    length = 0
+
+    for nugget in content.iter('Nugget'):
+        sentence = NUGGET_DATA[nugget.get('id')][0]
+        if('is a ' in sentence or 'is an ' in sentence):
+            possible_sentences.append(sentence)
+
+    print(possible_sentences)
+    if(len(possible_sentences) >= 1):
+        first_sentence = possible_sentences[0]
+        length = len(first_sentence)
+    else:
+        first_sentence = None
+    print(first_sentence)
+    return first_sentence, length
+    
 
 # Select from the given bubble the shortest nugget (sentence).
 def getShortestNugget(bubble):
@@ -220,5 +243,5 @@ USING_TEST_DATA = False
 NUGGETS_SOURCE_PATH = "../Pipeline/01_selected_nuggets/"
 HIERARCHIES_SOURCE_PATH = "../Pipeline/02_hierarchical_trees/"
 # create_complete_overview_summary()
-create_overview_summary(max_amount_of_chars = 600)
-# create_overview_summary_2(max_amount_of_chars = 600)
+#create_overview_summary(max_amount_of_chars = 600)
+create_overview_summary_2(max_amount_of_chars = 600)
