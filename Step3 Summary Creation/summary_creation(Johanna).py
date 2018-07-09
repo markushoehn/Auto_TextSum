@@ -18,7 +18,7 @@ from summa import summarizer
 # The path where files with the hierarchies and nuggets are stored.
 TREES_SOURCE_PATH = "../Pipeline/02_hierarchical_trees/"
 NUGGET_PATH = "../Pipeline/01_selected_nuggets/"
-SUM_PATH = "../Step3 Summary Creation/Summaries/"
+SUM_PATH = "C:\\Users\\jojoh\\Documents\\6. Semester\\AutoTS\\Abgabe\\"
 
 
 # Get all nugget information from a file with the given name.
@@ -84,26 +84,6 @@ def create_overview_summary():
                         if(grandchild.tag == 'Nugget' and grandchild in root.findall('./Bubble/Bubble/Nugget[1]')):
                             overview.write(grandchild.get('id') + '\t' + nugget_data.get(grandchild.get('id'))[0] + '\n')
 
-
-
-# Create a summary for a given subtopic
-def create_subtopic_summary(topic_descr):
-    path = SUM_PATH + 'subtopic_summary.txt'
-    with open(path, 'w', encoding='utf8') as subtopic:
-        for filename in os.listdir(TREES_SOURCE_PATH):
-            if filename.endswith(".xml"):
-                subtopic.write("\n====================== " + filename + " ====================== Subtopic: " + topic_descr + " ======================\n")
-                nugget_data = get_nuggets_from_file(filename[:-4])
-                xmldoc = ET.parse(TREES_SOURCE_PATH + filename)
-                root = xmldoc.getroot()
-                for bubble in root.iter('Bubble'):
-                    bubble_name = bubble.get('name')
-                    if topic_descr in bubble_name:
-                        subtopic.write(bubble_name + '\n')
-                        for nugget in bubble.iter('Nugget'):
-                            subtopic.write(nugget.get('id') + '\t' + nugget_data.get(nugget.get('id'))[0] + '\n')
-
-        remove_duplicates(path)
     
 
 
@@ -192,7 +172,7 @@ def create_textrank_summary(max_chars):
                     if (chars + len(str(sentence)) <= max_chars):
                         summary.write(str(sentence) + '\n')
                         chars += len(str(sentence))
-
+            
             expand_textrank(name.group(1), path, max_chars, chars)
 
 
@@ -269,10 +249,12 @@ def create_kl_summary(max_chars):
 
 
 
-def create_another():
+def create_another(max_chars):
     for filename in os.listdir(TREES_SOURCE_PATH):
+        chars = 0
         if filename.endswith('.xml'):
             name = re.search('topic_(.*)\.xml', filename)
+            path = SUM_PATH + name.group(1) 
             input_text = ''
             nugget_data = get_nuggets_from_file(name.group(1))
             xmldoc = ET.parse(TREES_SOURCE_PATH + 'topic_' + name.group(1) + '.xml')
@@ -281,10 +263,40 @@ def create_another():
             for nugget in root.iter('Nugget'):
                 input_text = input_text + ' ' + nugget_data.get(nugget.get('id'))[0]
 
-            with open(SUM_PATH + name.group(1) + '_Summ_Group5.txt', 'w', encoding='utf8') as summary:
+            with open(path + '_Group5.txt', 'w', encoding='utf8') as summary:
                 summary.write("====================== General Summary of " + name.group(1) + " ======================\n")
-                s = summarizer.summarize(input_text, words = 90)
-                summary.write(s)
+                s = summarizer.summarize(input_text, words = 90, split=True)
+            
+                for sentence in s:
+                    
+                    if(chars + len(sentence) <= max_chars): 
+                        summary.write('\n' + sentence)
+                        chars +=  len(sentence)
+
+            #expand_summ(name.group(1), path, max_chars, chars)
+
+
+
+
+def expand_summ(filename, sum_path, max_chars, chars):
+    with open(sum_path + '_Summ_Group5.txt', 'r', encoding='utf8') as summary:
+        with open (sum_path + '_expanded_Summ_Group5.txt', 'w', encoding='utf8') as o:
+            
+            for line in summary:
+                o.write(line)
+                
+            nugget_data = get_nuggets_from_file(filename)
+            xml_content = xml.etree.ElementTree.parse(TREES_SOURCE_PATH + 'topic_' + filename + '.xml').getroot()
+            sorted_list = getBubblesSortedByTreeSize(xml_content.findall('Bubble'))
+            for bubble in sorted_list:
+                shortest_nugget, shortest_nugget_size = getShortestNugget(bubble, nugget_data)
+                if(chars + shortest_nugget_size <= max_chars):
+                    o.write('\n' + shortest_nugget)
+                    chars += shortest_nugget_size
+
+    
+
+
 
 
 # helper
@@ -312,12 +324,11 @@ def create_input(filename):
 
 #create_baseline_summary()
 #create_overview_summary()
-#create_subtopic_summary('treatment')
 #create_gensim_summary()
 #create_lexrank_summary()
 #create_luhn_summary()
 #create_lsa_summary()
-create_textrank_summary(600)
-create_kl_summary(600)
-#create_another()
+#create_textrank_summary(600)
+#create_kl_summary(600)
+create_another(600)
 
