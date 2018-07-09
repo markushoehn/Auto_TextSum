@@ -1,0 +1,88 @@
+<?xml version="1.0" ?>
+<root>
+	<Bubble name="">
+		<Nugget id="1019/62/1917"/>
+	</Bubble>
+	<Bubble name="">
+		<Nugget id="1019/62/1913"/>
+		<Nugget id="1019/66/1981"/>
+		<Bubble name="">
+			<Nugget id="1019/27/813"/>
+			<Bubble name="">
+				<Nugget id="1019/8/275"/>
+			</Bubble>
+		</Bubble>
+		<Bubble name="">
+			<Nugget id="1019/47/1490"/>
+			<Bubble name="">
+				<Nugget id="1019/51/1609"/>
+				<Bubble name="">
+					<Nugget id="1019/42/1373"/>
+				</Bubble>
+			</Bubble>
+			<Bubble name="">
+				<Nugget id="1019/51/1662"/>
+			</Bubble>
+		</Bubble>
+		<Bubble name="">
+			<Nugget id="1019/8/295"/>
+			<Bubble name="">
+				<Nugget id="1019/1/35"/>
+				<Bubble name="">
+					<Nugget id="1019/51/1687"/>
+				</Bubble>
+			</Bubble>
+		</Bubble>
+		<Bubble name="">
+			<Nugget id="1019/58/1887"/>
+			<Bubble name="">
+				<Nugget id="1019/58/1852"/>
+			</Bubble>
+		</Bubble>
+		<Bubble name="">
+			<Nugget id="1019/21/674"/>
+			<Bubble name="">
+				<Nugget id="1019/41/1324"/>
+			</Bubble>
+		</Bubble>
+	</Bubble>
+	<Bubble name="">
+		<Nugget id="1019/50/1592"/>
+	</Bubble>
+	<Bubble name="">
+		<Nugget id="1019/74/2069"/>
+	</Bubble>
+	<Bubble name="">
+		<Nugget id="1019/10/441"/>
+		<Bubble name="">
+			<Nugget id="1019/51/1618"/>
+		</Bubble>
+	</Bubble>
+	<Bubble name="">
+		<Nugget id="1019/51/1671"/>
+	</Bubble>
+	<Bubble name="">
+		<Nugget id="1019/15/561"/>
+		<Nugget id="1019/55/1791"/>
+		<Nugget id="1019/1/55"/>
+		<Bubble name="">
+			<Nugget id="1019/51/1613"/>
+		</Bubble>
+		<Bubble name="">
+			<Nugget id="1019/31/1070"/>
+		</Bubble>
+		<Bubble name="">
+			<Nugget id="1019/48/1521"/>
+		</Bubble>
+	</Bubble>
+	<Bubble name="">
+		<Nugget id="1019/31/1098"/>
+	</Bubble>
+	<Bubble name="">
+		<Nugget id="1019/51/1698"/>
+	</Bubble>
+	<Bubble name="">
+		<Nugget id="1019/55/1793"/>
+	</Bubble>
+	<Trash/>
+</root>
