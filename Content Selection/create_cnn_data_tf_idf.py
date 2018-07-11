@@ -24,11 +24,13 @@ with open(input_file) as f:
         # take only sentences with min 5 and max 50 tokens
         if 5 <= len(prep_sent_tokens) <= 50:
             indices = []
-            for tok in prep_sent_tokens:
+            tokens_without_stopwords = [token for token in prep_sent_tokens if token not in stopword_list]
+            for tok in tokens_without_stopwords:
                 try:
                     indices.append(emb_dict[tok + '_' + topic_id + '_' + doc_id])
                     in_vocab_words += 1
                 except KeyError:
+                    print(tok + '_' + topic_id + '_' + doc_id)
                     indices.append(emb_dict['__oov__'])
                     out_of_vocab_words += 1
             if len(indices) > 0:

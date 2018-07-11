@@ -89,8 +89,8 @@ def sentence_features(id_and_sentences):
 
     # create features for most topic specific words
     features = {}
-    for word in word_features[topic_id]:
-        features['contains({})'.format(word)] = (word in sentence_words)
+    #for word in word_features[topic_id]:
+    #    features['contains({})'.format(word)] = (word in sentence_words)
 
     # add position in document as feature (blockwise)
     rel_pos_in_doc = int(sentence_id) / number_of_sentences_in_doc[doc_id]

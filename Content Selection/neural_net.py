@@ -83,4 +83,4 @@ def hyper_parameter_opt(number_of_settings):
                   ', Hidden layer dimensions:', layer_dim, ', Activation functions:', act, ', Window size:', wind_size)
 
 
-hyper_parameter_opt(20)
+hyper_parameter_opt(5)

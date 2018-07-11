@@ -9,9 +9,9 @@ import random
 # convolutional neural network and hyper parameter optimization
 
 # load data
-x_train, y_train = np.load('data/numpy_data/x_train_cnn300.npy'), np.load('data/numpy_data/y_train_cnn300.npy')
-x_dev, y_dev = np.load('data/numpy_data/x_dev_cnn300.npy'), np.load('data/numpy_data/y_dev_cnn300.npy')
-x_test, y_test = np.load('data/numpy_data/x_test_cnn300.npy'), np.load('data/numpy_data/y_test_cnn300.npy')
+x_train, y_train = np.load('data/numpy_data/x_train_cnn300_tf_idf.npy'), np.load('data/numpy_data/y_train_cnn300_tf_idf.npy')
+x_dev, y_dev = np.load('data/numpy_data/x_dev_cnn300_tf_idf.npy'), np.load('data/numpy_data/y_dev_cnn300_tf_idf.npy')
+x_test, y_test = np.load('data/numpy_data/x_test_cnn300_tf_idf.npy'), np.load('data/numpy_data/y_test_cnn300_tf_idf.npy')
 train_size, dev_size, test_size = x_train.shape[0], x_dev.shape[0], x_test.shape[0]
 
 # specify some parameters
@@ -21,7 +21,7 @@ patience = 2
 train_verbose = 1
 
 # load embedding matrix
-emb_matrix = np.load('data/numpy_data/embedding_matrix300.npy')
+emb_matrix = np.load('data/numpy_data/embedding_matrix300_tf_idf.npy')
 vocab_size = emb_matrix.shape[0]
 
 

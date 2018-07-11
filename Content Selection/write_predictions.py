@@ -76,4 +76,4 @@ def write_predictions(topic_number):
         prediction_file.write(id_sorted[i] + '\t' + sentence_dict[id_sorted[i]])
 
 
-write_predictions(1001)
+write_predictions(1050)
