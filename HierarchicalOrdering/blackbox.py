@@ -60,13 +60,14 @@ class Blackbox(object):
 		for word in sentence:
 			value += self.tf(word, sentence) * self.idf(word, table)
 		return value / len(sentence)
+		
 
 	def compare(self, sentence, nuggets):
 		"""
-		compares two sentences
+		compares sentences against list of nuggest
 		returns similar, if they are similar in meaning
 		return genereal when the first is more summarizing
-		return specific when the second is mor summarizing
+		return specific when the second is more summarizing
 		"""
 		
 		sentenceList = sentence.GetWordsWithoutStopwords()
