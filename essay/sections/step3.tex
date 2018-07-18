@@ -1,3 +1,64 @@
 % !TeX root = ..\essay.tex
 
-\subsection{Step 2 - Creating Summaries from Hierarchies}
+\subsection{Step 3 - Creating Summaries from Hierarchies}
+After the second step of the pipeline our system will have constructed hierarchies,
+as explained in the previous chapter. To summarize the result of the step: Each
+hierarchy file contains the relevant sentences of one of the topics. The hierarchies
+themselves consist of XML trees which should represents subtopics of the topics.
+The bubbles, which are nodes of the trees, can have multiple nuggets, which in
+our system are always complete sentences. The task of the third pipeline step
+was now to construct summaries out of these hierarchy files. We focused on
+creating general summaries over the complete topic instead of only focusing on
+subtopics. The challenge is here the length of the summaries, because they should
+contain only about 600 characters. It is therefore important to select
+representative sentences and arrange them in a meaningful way, so that the end
+result has a high quality. The quality of each summary was later rated by members
+of other teams regarding the following criteria:
+\begin{itemize}
+    \item Grammaticality
+    \item Non-Redundancy
+    \item Referential Clarity
+    \item Focus
+    \item Structure
+    \item Coherence
+    \item Readability
+    \item Information Content
+    \item Spelling
+    \item Length
+    \item Overall Quality
+\end{itemize}
+The result of this rating is given in chapter~\ref{ch:evaluation}.
+
+Because our system uses complete sentences as nuggets, grammatically and spelling
+where not a big problem, at least when the source texts were written well. The
+first thing we concentrated on was to select sentences in a way that the structure
+of the summary feels natural and focused. To achieve this we arrived at the
+concept of traversing a hierarchy tree and it's nuggets in the same way a depth
+first search would do it. The idea behind this approach is that it resembles the
+way a human would talk about topics and subtopics. It starts with a really general
+explanation of a topic and becomes more and more specific, before than switching
+to other subtopics, becoming there more and more specific and doing the same for
+other topics. When the end result of the second pipeline step has a high quality
+and therefore a good structure of the sentences, our summaries would automatically
+also be really good. The challenge was now of course to create summaries that
+have only a specific length. We cut the deeper bubbles of the hierarchy until the
+nuggets would sum up to the requested summary length. This means that the summaries
+would still contain the general information about the subtopics but not became
+as specific about each.
+
+After it was revealed that the amount of characters per summary should not be
+higher that 600, our approach had to be changed because such very short summaries
+would result in the depth first search only looking into one subtopic, and even
+there just in the general nuggets, without reaching the other subtopics. Our new
+approach was than to order the trees according to their size and selecting from
+the largest trees nuggets of the roots. The idea behind this is that a large tree
+size (measured by the amount of nuggets) means that the subtopic represented by
+this tree contains a lot of information and should therefore be included in the
+summary. From each tree root we selected the shortest sentence and included it
+into the summary. By doing this we could cover more subtree and had therefore a
+wider range of information that could be covered. Selecting the sentences from
+the roots was done because for such a short summary it would not make sense to
+go into detail and take sentences from deeper within the hierarchies. This new
+approach still resulted in good summaries. They where not so much focused and so
+good structured anymore as before, because they jumped from subtopic to subtopic
+but for a short summaries about the complete topic this is of course unavoidable.
