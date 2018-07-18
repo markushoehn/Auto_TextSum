@@ -102,3 +102,10 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# LaTeX related files
+essay/**/*.aux
+essay/**/*.out
+essay/**/*.pdf
+essay/**/*.log
+essay/**/*.synctex.gz
