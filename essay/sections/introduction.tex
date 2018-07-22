@@ -1,3 +1,23 @@
 % !TeX root = ..\essay.tex
 
 \section{Introduction}
+Automatic text summarization is the task of automatically creating summaries from
+given text sources. For the project described in this report the process was
+divided into three pipeline steps:
+\begin{itemize}
+    \item Step 1 - Content Selection: The task here was to select relevant
+        nuggets (sentences or part of sentences) out of the input. The
+        input consisted of important sentences that were extracted from
+        documents and covered 49 topics.
+    \item Step 2 - Creating Hierarchies: The task of this step was to create
+        hierarchies that represented the structure of the nuggets from the
+        previous step and ordered them into subtopics.
+    \item Step 3 - Creating Summaries from Hierarchies: In the last step the
+        hierarchies of the second step had to be converted into short summaries.
+        The summaries could be either about the complete topic or subtopics.
+\end{itemize}
+Our group chose to do all three pipeline steps and create general summaries
+without focusing on just a few subtopics. The implementation process and
+the results will be further explained in the following chapter. In
+chapter~\ref{ch:evaluation} information about the quality of the resulting
+summaries are also given in the form of an evaluation.
