@@ -38,27 +38,39 @@ first search would do it. The idea behind this approach is that it resembles the
 way a human would talk about topics and subtopics. It starts with a really general
 explanation of a topic and becomes more and more specific, before than switching
 to other subtopics, becoming there more and more specific and doing the same for
-other topics. When the end result of the second pipeline step has a high quality
+other subtopics. This structure feels natural, since a human would not randomly
+jump between subtopics in a summary, but elaborate them one after another.
+When relevant sentences were selected in the first step of the
+pipeline and the end result of the second pipeline step has a high quality
 and therefore a good structure of the sentences, our summaries would automatically
-also be really good. The challenge was now of course to create summaries that
-have only a specific length. We cut the deeper bubbles of the hierarchy until the
+also be really good. During the development we first tested the third step with
+the given 10 gold standard hierarchies of the corpus, since the other steps were
+not completely implemented yet. Here the result was of course especially good,
+because the hierarchies of the corpus were done by three human annotators
+instead of computer-generated. When we later used the automatically generated
+hierarchies of our previous pipeline steps, the result thankfully still seemed
+to be acceptably good, which proofed the quality of the other pipeline steps.
+The challenge was now of course to create summaries that
+had only a specific length. We cut the deeper bubbles of the hierarchy until the
 nuggets would sum up to the requested summary length. This means that the summaries
 would still contain the general information about the subtopics but not became
 as specific about each.
 
 After it was revealed that the amount of characters per summary should not be
-higher that 600, our approach had to be changed because such very short summaries
+higher than 600, which depending on the sentence length most of the time
+corresponded to about 4 to 8 sentences, our approach had to be changed because
+such very short summaries
 would result in the depth first search only looking into one subtopic, and even
 there just in the general nuggets, without reaching the other subtopics. Our new
 approach was than to order the trees according to their size and selecting from
 the largest trees nuggets of the roots. The idea behind this is that a large tree
-size (measured by the amount of nuggets) means that the subtopic represented by
+size (measured by the amount of nuggets in the tree) means that the subtopic represented by
 this tree contains a lot of information and should therefore be included in the
 summary. From each tree root we selected the shortest sentence and included it
-into the summary. By doing this we could cover more subtree and had therefore a
+into the summary. By doing this we could cover more subtrees and had therefore a
 wider range of information that could be covered. Selecting the sentences from
 the roots was done because for such a short summary it would not make sense to
 go into detail and take sentences from deeper within the hierarchies. This new
-approach still resulted in good summaries. They where not so much focused and so
+approach still resulted in good summaries. They where unfortunately not as much focused and
 good structured anymore as before, because they jumped from subtopic to subtopic
-but for a short summaries about the complete topic this is of course unavoidable.
+but for such short summaries about the complete topics this is of course unavoidable.
