@@ -1,3 +1,101 @@
 % !TeX root = ..\essay.tex
 
+% Notes from slides
+
+% Erfolg der Methode
+% 	Nutzung der Methode in der Literatur
+% 	Ergebnisse auf anderen Corpora/Daten
+% Literaturrecherche
+% 	Erweiterungen der Methode
+% 	Kritik der Methode
+% Ver-/Anwendung der Methode
+% theoretischer Bezug
+% Praktischer Bezug
+% Verwendbarkeit
+% Beschreibung der Methodik
+% Bewertung der Methode
+% Verwendung von (Fach-)Begriffen richtig und konsistent
+% Mit eigenen Worten
+% Wissenschaftliches Arbeiten
+% Korrekte Zitierweise
+% Weiterf¨uhrende Ideen und Gedanken
+
+% What is the prob­lem that the au­thors tried to solve in this paper?
+% How does this prob­lem re­late to the topic of the sem­i­nar and to other talks in the sem­i­nar?
+% How can I ex­plain the au­thors' so­lu­tion in the best way?
+% How did the au­thors demon­strate that the so­lu­tion works?
+
+
 \subsection{Step 2 - Creating Hierarchies}
+
+\subsection{Introduction}
+
+In the second step of our pipeline we created tree hierarchies out of the sentences that were selected in the first step. The results of the content selection created a list of sentences for each topic. Our system took those sentences and created a tree with each branching tree indicating a new sub topic. Each node of a tree contained one or more sentences. At the top is a root level with multiple trees that differ in the topics of their sentences. 
+
+This tree hierarchies is build for the third step to better distinguish between topics of sentences. Each resulting tree should contain sentences that are similar in meaning and topic. At the top of each tree should be the most general sentence and at the bottom the most specific sentence.
+
+
+\subsection{Method}
+
+Insert()
+• recursive function
+• inserts new nuggets
+
+Which()
+ find right Bubble for Nugget
+ uses NLTK path_similarity()
+
+compare()
+ find right position for Nugget
+ compare TF-IDF scores
+
+\subsection{Experimental Setup}
+
+?
+
+\subsection{Experimental Results}
+
+• We tried Annotation Tool from AIPHES
+• 11 percent similarity average against Gold standard (same as Random Trees)
+• but
+• 1300 Nuggets in gold standard versus 30 Nuggets we used
+• less Nuggets showed more similarity
+• our algorithm is slow (>30 min) with 300+ Nuggets
+• Find „right“ balance instead
+• 1-5 Nuggets in each Bubble
+• 5+ Bubbles in root node
+
+Show evaluation of AIPHES:
+	number of root trees
+	Average Depth
+	Gold standart vs Random Tree vs our solution
+
+sometimes resulting tree's were strange
+-> remove insert UP from insert, just go down
+trust in the pre-sort sentences
+pre-sort sentences ourself? step one is already doing that
+
+\subsection{Discussion}
+
+hard to find other papers on this specific topic on building hierarchies
+hard to do evaluation of performance on system
+
+Is there a best (gold standard) hierarchy?
+Problem: How to define similarity of hierarchies?
+
+future stuff
+which and compare function can be improved which improves overall system
+do some kind of clustering to insert into 4-5 trees and then use our solution for subtrees
+use word vectors or sentence vectors for comparing function
+
+hard to define similar when we want general / specific
+
+\subsection{Conclusions}
+
+3 functions which our algoithm was made of
+system results were okay?
+hard to messure
+
+
+%\subsection{Bibliography}
+% added at the end
