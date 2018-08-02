@@ -106,6 +106,6 @@ venv.bak/
 # LaTeX related files
 essay/**/*.aux
 essay/**/*.out
-essay/**/*.pdf
+essay/essay.pdf
 essay/**/*.log
 essay/**/*.synctex.gz
