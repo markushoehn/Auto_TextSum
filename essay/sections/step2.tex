@@ -42,12 +42,26 @@ Our method can be descriped in three steps. First we defined an recursive functi
 \textbf{Insert}\\
 
 % TODO: insert images
-%\begin{figure}[H]
-%	\centering
-%	\includegraphics[trim=50 500 500 100]{img/step2_func.pdf}
-%	\caption{JSD score}
-%	\label{fig:jsd}
-%\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=3cm 10cm 15cm 5.8cm, clip=true, width= \textwidth]{img/step2_func.pdf}
+	\caption{Bubble and Nugget}
+	\label{fig:jsd}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=14cm 10cm 2.5cm 5.5cm, clip=true, width= \textwidth]{img/step2_func.pdf}
+	\caption{Insert}
+	\label{fig:jsd}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=3cm 3cm 3cm 11cm, clip=true, width= \textwidth]{img/step2_func.pdf}
+	\caption{Three Steps}
+	\label{fig:jsd}
+\end{figure}
 
 The insert function takes a nugget and inserts it into the given tree. It runs resursivly over the tree and calls the Which and Compare functions to determine where to go. Each step it first calls the Compare function which takes the current list of nuggets and the nugget which should be inserted. It returns the position where to insert the given nugget. There are three decicions to consider.
 
