@@ -64,16 +64,14 @@ def write_predictions(topic_number):
     def get_nugget_prob(list_elem):
         return list_elem[1][1]
     id_and_pred.sort(reverse=True, key=get_nugget_prob)
-    id_sorted, _ = zip(*id_and_pred)
+    id_sorted, pred_sorted = zip(*id_and_pred)
 
     ##########################
-    # SET NUGGET PERCENTAGE
-    nugget_percentage = 0.05
+    number_nuggets = 30
     ##########################
     # write predictions on file
     prediction_file = open('data/predictions_cnn/nuggets_' + str(topic_number) + '.txt', mode='a')
-    for i in range(int(input_len*nugget_percentage)):
+    for i in range(number_nuggets):
         prediction_file.write(id_sorted[i] + '\t' + sentence_dict[id_sorted[i]])
 
-
-write_predictions(1050)
+write_predictions(1001)
