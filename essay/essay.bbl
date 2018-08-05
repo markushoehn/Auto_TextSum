@@ -1,4 +1,4 @@
-\begin{thebibliography}{5}
+\begin{thebibliography}{6}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -34,6 +34,12 @@ Mohit Iyyer, Varun Manjunatha, Jordan Boyd-Graber, and Hal Daum{\'e}~III.
 Armand Joulin, Edouard Grave, Piotr Bojanowski, and Tomas Mikolov.
 \newblock Bag of tricks for efficient text classification.
 \newblock \emph{arXiv preprint arXiv:1607.01759}, 2016.
+
+\bibitem[Louis(2009)]{louis}
+Annie Louis.
+\newblock {SIMetrix: Summary Input similarity Metrics}, 2009.
+\newblock URL \url{http://homepages.inf.ed.ac.uk/alouis/IEval2.html}.
+\newblock Accessed: August 2018.
 
 \bibitem[{\v R}eh{\r u}{\v r}ek and Sojka(2010)]{rehurek_lrec}
 Radim {\v R}eh{\r u}{\v r}ek and Petr Sojka.
