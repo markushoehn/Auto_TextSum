@@ -25,7 +25,7 @@
 % How can I ex­plain the au­thors' so­lu­tion in the best way?
 % How did the au­thors demon­strate that the so­lu­tion works?
 
-
+\newpage
 \subsection{Step 2 - Creating Hierarchies}
 
 \subsection{Introduction}
@@ -37,33 +37,27 @@ The tree hierarchies are build for the third step to better distinguish between 
 
 \subsection{Method}
 
+To prepare the Nuggets for the rest of this method we removed stopwords and words with length lower then three, tokenized the words and we stemmed the words. For a list of stopwords, tokenization and stemming we used NLTK.
+
+% TODO https://www.nltk.org/
+
 Our method can be descriped in three steps. First we defined an recursive function to insert an sentence into the resulting tree. Then we defined two functions to determinate where to go in the tree. These functions also implement how similarity and specific/general sentences are calculated.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=3cm 10cm 15cm 5.8cm, clip=true]{img/step2_func.pdf}
+	\caption{new Nuggets and Bubble with Nugget}
+	\label{fig:jsd}
+\end{figure}
 \textbf{Insert}\\
 
-% TODO: insert images
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim=3cm 10cm 15cm 5.8cm, clip=true, width= \textwidth]{img/step2_func.pdf}
-	\caption{Bubble and Nugget}
-	\label{fig:jsd}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[trim=14cm 10cm 2.5cm 5.5cm, clip=true, width= \textwidth]{img/step2_func.pdf}
-	\caption{Insert}
-	\label{fig:jsd}
-\end{figure}
-
+The insert function takes a nugget and inserts it into the given tree. It runs resursivly over the tree and calls the Which and Compare functions to determine where to go. Each step it first calls the Compare function which takes the current list of nuggets and the nugget which should be inserted. It returns the position where to insert the given nugget. There are three decicions to consider.
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=3cm 3cm 3cm 11cm, clip=true, width= \textwidth]{img/step2_func.pdf}
-	\caption{Three Steps}
+	\caption{Three results of Insert}
 	\label{fig:jsd}
 \end{figure}
-
-The insert function takes a nugget and inserts it into the given tree. It runs resursivly over the tree and calls the Which and Compare functions to determine where to go. Each step it first calls the Compare function which takes the current list of nuggets and the nugget which should be inserted. It returns the position where to insert the given nugget. There are three decicions to consider.
 
 \begin{description}
 \item [Append] It appends the given nugget to the current list of nuggets.
@@ -75,16 +69,44 @@ The insert function takes a nugget and inserts it into the given tree. It runs r
 
 The Which function takes a list of Bubbles and the current Nugget to insert and returns the best position to insert the Nugget. This function tries to find the similarity of each Bubble to the current Nugget. Each Bubble can contain 1 to n Nuggets at the top level and multiple other in their silbings. We only take the 1 to n Nuggets in the top level and compare each word of each Nugget with NLTK path similarity.
 
-% TODO: describe path similarity
-% TODO: link nltk webpage
-% Return a score denoting how similar two word senses are, based on the shortest path that connects the senses in the is-a (hypernym/hypnoym) taxonomy. The score is in the range 0 to 1. By default, there is now a fake root node added to verbs so for cases where previously a path could not be found---and None was returned---it should return a value. The old behavior can be achieved by setting simulate_root to be False. A score of 1 represents identity i.e. comparing a sense with itself will return 1.
+% result = [[sim(x,y) for y in listb] for x in lista]
+% flatten = [max(b) for b in result]
+% value = reduce((lambda x, y: x + y), flatten) / len(flatten)
+
+We calculate the similarity for each list of Nuggets of each Bubble against our given Nugget. This is done by calculating the path similarity for each word of the list of Nuggets against each word of the given Nugget. We take the maximal value for each word and then take the average of the list. We take the maximum of the list and compare it against a self defined threshold value. The higher this threshold is the more new Bubbles are created and the lower the deeper the tree hierachy is.
+
+The NLTK path similarity returns a score that describes how similar two words are. The similarity is calculated by taking the shortest path that connects the senses of the words. The similarity value is in the range of 0 to 1.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=14cm 10cm 7cm 5.5cm, clip=true]{img/step2_func.pdf}
+	\caption{Which Function}
+	\label{fig:jsd}
+\end{figure}
+
 
 \textbf{Compare}\\
 
-The compare function takes the current list of Nuggets and the Nugget which should be inserted and returns where to insert it (See List of decisions in Insert function). We calculate the TF-IDF scores for the current nugget and the list of nuggets against the whole document. We do this because we want to find which Nugget is more important, aka more general or specific.
+The compare function takes the current list of Nuggets and the Nugget which should be inserted and returns where to insert it (See List of decisions in Insert function). The goal of the compare function is to find which Nugget is more general or specific. We calculate the TF-IDF scores for the current nugget and the list of nuggets against the whole document. We do this because we want to find which Nugget is more important for the document.
 
-% TODO: link original tf idf paper
-%In information retrieval, tf–idf or TFIDF, short for term frequency–inverse document frequency, is a numerical statistic that is intended to reflect how important a word is to a document in a collection or corpus.[1] It is often used as a weighting factor in searches of information retrieval, text mining, and user modeling. The tf-idf value increases proportionally to the number of times a word appears in the document and is offset by the frequency of the word in the corpus, which helps to adjust for the fact that some words appear more frequently in general. Tf-idf is one of the most popular term-weighting schemes today; 83% of text-based recommender systems in digital libraries use tf-idf. Variations of the tf–idf weighting scheme are often used by search engines as a central tool in scoring and ranking a document's relevance given a user query. tf–idf can be successfully used for stop-words filtering in various subject fields, including text summarization and classification.
+TF-IDF is short for term frequency-inverse document frequency. The value increases by to the number of times a word appears in the document and is compensated by the frequency of the word in the document. This is done because some words appear more frequently in general. 
+
+
+% sentenceList = sentence.GetWordsWithoutStopwords()
+% sentenceResult = self.tfidf(sentenceList, self.table)
+% nuggetsList2 = [self.tfidf(sublist.GetWordsWithoutStopwords(), self.table) for sublist in nuggets]
+% nuggetsResult = reduce((lambda x,y: x+y), nuggetsList2) / len(nuggetsList2)
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim=22.5cm 12.5cm 2.5cm 5.5cm, clip=true]{img/step2_func.pdf}
+	\caption{Compare Function}
+	\label{fig:jsd}
+\end{figure}
+
+
+We thought about how we could improve our method and figured that an inital sorting of the Nuggets would help. This is already provided by the content selection of step 1. The best Nuggets apear at the beginning of the list. These Nuggets should be at the top of the hierarchy. We removed the Insert Above step from our insert function so that no Nuggets are inserted above. The Nuggets at the beginning of the list are now at the top of our hierarchy and the Nuggets further from the top are inserted deeper into the hierarchy. After we did this the quality of our resulting trees improved.
 
 \subsection{Experimental Setup}
 
@@ -92,46 +114,50 @@ We used Python and NLTK.
 
 \subsection{Experimental Results}
 
-We tried Annotation Tool from AIPHES
-11 percent similarity average against Gold standard (same as Random Trees)
-but
-1300 Nuggets in gold standard versus 30 Nuggets we used
-less Nuggets showed more similarity
-our algorithm is slow (>30 min) with 300+ Nuggets
-Find „right“ balance instead
-1-5 Nuggets in each Bubble
-5+ Bubbles in root node
+% https://github.com/AIPHES/HierarchicalSummarization
 
-Show evaluation of AIPHES:
-	number of root trees
-	Average Depth
-	Gold standart vs Random Tree vs our solution
+For the evaluation of the hierarchies we used the Annotation Tool from AIPHES. This tool was recommended in the lecture and can compare hierarchies against each other. It displays tree similarity of two given hierarchies and against random trees. It also shows network statistics such as number of subtrees, subtree depth, average depth, total number of bubbles and average branching.
 
-sometimes resulting tree's were strange
-therefore remove insert UP from insert, just go down
-trust in the pre-sort sentences
-pre-sort sentences ourself? step one is already doing that
+We first used our result of our method against the given gold standard. An issue was that our hierarchy only consists of 30 Nuggets instead of the 100 to 1400 Nuggets in the given gold standard. We were not sure how this changes the result of the Annotation Tool. The results showed an average of 35 percent similarity. See figure TODO for the plotted similarity of the 10 topics.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim= 0 120 0 120,width=\textwidth]{img/sim_v1.pdf}
+	\caption{Graph Similarity with 30 Nuggets}
+	\label{fig:spc}
+\end{figure}
+
+We then ran our algorithm with all Nuggets to see how this changes the output of the Annotation Tool. The issue here is that these Nuggets were not sorted by the content selection of our pipeline. The sorting of the Nuggets plays a major role in how our tree is build since we removed the Insert Above step.
+
+The similarity values of all three comparisons are very close. We concluded that the similarity is only noise and the tress differ too much.
+
+Because our algorithm took a long time (up to 1 hour for one topic) for all Nuggets we could not use this evaluation intensivly to improve our method. Instead we tried to find a good balance for the number of Nuggets in each Bubble and the number of Bubbles in the root node. We applied a smoothing for the compare function to decrease the TF-IDF score when more Nuggets are present in the Bubble.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim= 0 120 0 120,width=\textwidth]{img/sim_v2.pdf}
+	\caption{Graph Similarity with n Nuggets}
+	\label{fig:spc}
+\end{figure}
+
+
 
 \subsection{Discussion}
 
-hard to find other papers on this specific topic on building hierarchies
-hard to do evaluation of performance on system
+% hard to do evaluation of performance on system
 
-Is there a best (gold standard) hierarchy?
-Problem: How to define similarity of hierarchies?
+% Is there a best (gold standard) hierarchy?
+% Problem: How to define similarity of hierarchies?
 
-future stuff
-which and compare function can be improved which improves overall system
-do some kind of clustering to insert into 4-5 trees and then use our solution for subtrees
-use word vectors or sentence vectors for comparing function
 
-hard to define similar when we want general / specific
+This method can be easily improved by improving the two given functions which improve the overall system. For example word embedding could be used to find similar Nuggets for the Which function. A clusting algorithm could be used to pre-sort the Nuggets into trees before inserting them. The Compare function could be improved by using another term-weighting scheme or combining multiple.
+
+
+% TODO: hard to define similar when we want general / specific
 
 \subsection{Conclusions}
 
-3 functions which our algoithm was made of
-system results were okay?
-hard to messure
+Our hierarchial ordering consists of three major parts. The recursive insert function, the Which function to determine where to insert a Nugget and the Compare function to determine the position to insert the Nugget. We tested our method with the AIPHES Annotation Tool and evaluated the results.
 
 
 %\subsection{Bibliography}
