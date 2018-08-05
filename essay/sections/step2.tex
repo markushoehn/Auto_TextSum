@@ -25,17 +25,16 @@
 % How can I ex­plain the au­thors' so­lu­tion in the best way?
 % How did the au­thors demon­strate that the so­lu­tion works?
 
-\newpage
 \subsection{Step 2 - Creating Hierarchies}
 
-\subsection{Introduction}
+\subsubsection{Introduction}
 
 In the second step of our pipeline we created tree hierarchies out of the sentences that were selected in the first step. The results of the content selection created a list of sentences for each topic. Our system took those sentences and created a tree with each branching tree indicating a new sub topic. Each node of a tree contained one or more sentences. At the top is a root level with multiple trees that differ in the topics of their sentences. 
 
 The tree hierarchies are build for the third step to better distinguish between topics of sentences. Each resulting tree should contain sentences that are similar in meaning and topic. At the top of each tree should be the most general sentence and at the bottom the most specific sentence.
 
 
-\subsection{Method}
+\subsubsection{Method}
 
 To prepare the Nuggets for the rest of this method we removed stopwords and words with length lower then three, tokenized the words and we stemmed the words. For a list of stopwords, tokenization and stemming we used NLTK.
 
@@ -108,11 +107,11 @@ TF-IDF is short for term frequency-inverse document frequency. The value increas
 
 We thought about how we could improve our method and figured that an inital sorting of the Nuggets would help. This is already provided by the content selection of step 1. The best Nuggets apear at the beginning of the list. These Nuggets should be at the top of the hierarchy. We removed the Insert Above step from our insert function so that no Nuggets are inserted above. The Nuggets at the beginning of the list are now at the top of our hierarchy and the Nuggets further from the top are inserted deeper into the hierarchy. After we did this the quality of our resulting trees improved.
 
-\subsection{Experimental Setup}
+\subsubsection{Experimental Setup}
 
 We used Python and NLTK.
 
-\subsection{Experimental Results}
+\subsubsection{Experimental Results}
 
 % https://github.com/AIPHES/HierarchicalSummarization
 
@@ -142,7 +141,7 @@ Because our algorithm took a long time (up to 1 hour for one topic) for all Nugg
 
 
 
-\subsection{Discussion}
+\subsubsection{Discussion}
 
 % hard to do evaluation of performance on system
 
@@ -155,10 +154,10 @@ This method can be easily improved by improving the two given functions which im
 
 % TODO: hard to define similar when we want general / specific
 
-\subsection{Conclusions}
+\subsubsection{Conclusions}
 
 Our hierarchial ordering consists of three major parts. The recursive insert function, the Which function to determine where to insert a Nugget and the Compare function to determine the position to insert the Nugget. We tested our method with the AIPHES Annotation Tool and evaluated the results.
 
 
-%\subsection{Bibliography}
+%\subsubsection{Bibliography}
 % added at the end
