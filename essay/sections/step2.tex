@@ -48,7 +48,7 @@ Our method can be described in three steps. First, we defined a recursive functi
 \end{figure}
 \subsubsubsection{\textbf{Insert function}}
 
-The insert function takes a nugget and inserts it into the given tree. It runs recursively over the tree and calls the Which and Compare functions to determine where to go. Each step it first calls the Compare function which takes the current list of nuggets and the nugget which should be inserted. It returns the position where to insert the given nugget. There are three decicions to consider.
+The insert function takes a nugget and inserts it into the given tree. It runs recursively over the tree and calls the Which and Compare functions to determine where to go. Each step it first calls the Compare function which takes the current list of nuggets and the nugget which should be inserted. It returns the position where to insert the given nugget. There are three decisions to consider.
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=3.5cm 3cm 3cm 11cm, clip=true, width= \textwidth]{img/step2_func.pdf}
@@ -80,7 +80,7 @@ The NLTK path similarity returns a score that describes how similar two words ar
 
 \subsubsubsection{\textbf{Compare}}
 
-The compare function takes the current list of Nuggets and the Nugget which should be inserted and returns where to insert it (See List of decicions in Insert function). The goal of the compare function is to find which Nugget is more general or specific. We calculate the TF-IDF scores for the current nugget and the list of nuggets against the whole document. We do this because we want to find which Nugget is more important for the document.
+The compare function takes the current list of Nuggets and the Nugget which should be inserted and returns where to insert it (see list of decisions in Insert function). The goal of the compare function is to find which Nugget is more general or specific. We calculate the TF-IDF scores for the current nugget and the list of nuggets against the whole document. We do this because we want to find which Nugget is more important for the document.
 
 TF-IDF is short for term frequency-inverse document frequency. The value increases by to the number of times a word appears in the document and is compensated by the frequency of the word in the document. This is done because some words appear more frequently in general. 
 

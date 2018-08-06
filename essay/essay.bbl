@@ -1,4 +1,4 @@
-\begin{thebibliography}{7}
+\begin{thebibliography}{9}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -57,5 +57,21 @@ Radim {\v R}eh{\r u}{\v r}ek and Petr Sojka.
 \newblock In \emph{Proceedings of the LREC 2010 Workshop on New Challenges for
   NLP Frameworks}, pages 45--50, Valletta, Malta, May 2010. ELRA.
 \newblock \url{http://is.muni.cz/publication/884893/en}.
+
+\bibitem[Steven~Bird(2018)]{nltk}
+Ewan~Klein Steven~Bird, Edward~Loper.
+\newblock {Natural Language Toolkit}, 2018.
+\newblock URL \url{https://www.nltk.org/}.
+\newblock Accessed: August 2018.
+
+\bibitem[Tauchmann et~al.(2018)Tauchmann, Arnold, Hanselowski, Meyer, and
+  Mieskes]{Tauchmann.et.al.2018.LREC}
+Christopher Tauchmann, Thomas Arnold, Andreas Hanselowski, Christian~M. Meyer,
+  and Margot Mieskes.
+\newblock Beyond generic summarization: A multi-faceted hierarchical
+  summarization corpus of large heterogeneous data.
+\newblock In \emph{Proceedings of the 11th International Conference on Language
+  Resources and Evaluation (LREC)}, May 2018.
+\newblock (to appear).
 
 \end{thebibliography}
