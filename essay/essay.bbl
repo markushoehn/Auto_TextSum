@@ -1,4 +1,4 @@
-\begin{thebibliography}{6}
+\begin{thebibliography}{7}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -18,6 +18,16 @@ Mi{\v s}o Belica.
 \newblock sumy 0.7.0.
 \newblock July 2017.
 \newblock URL \url{https://pypi.org/project/sumy}.
+
+\bibitem[Borkin et~al.(2013)Borkin, Vo, Bylinskii, Isola, Sunkavalli, Oliva,
+  and Pfister]{vis_mem}
+M.~A. Borkin, A.~A. Vo, Z.~Bylinskii, P.~Isola, S.~Sunkavalli, A.~Oliva, and
+  H.~Pfister.
+\newblock What makes a visualization memorable?
+\newblock \emph{IEEE Transactions on Visualization and Computer Graphics},
+  19\penalty0 (12):\penalty0 2306--2315, Dec 2013.
+\newblock ISSN 1077-2626.
+\newblock \doi{10.1109/TVCG.2013.234}.
 
 \bibitem[Iyyer et~al.(2015)Iyyer, Manjunatha, Boyd-Graber, and
   Daum{\'e}~III]{iyyer2015deep}
