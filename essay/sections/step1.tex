@@ -44,16 +44,21 @@ Attendance and tardies!
 
 
 We also filtered out sentences which contain phrases or characters like "I", "?", "We" in order to discard personal opinions.\\
-After testing some diverse hyperparameter configurations, we defined ranges for which seem to work good. The table below shows the ranges we choose and our final parameters. \\
-\begin{center}
-\begin{tabular}{ l | c | c } \\
-Hyperparameter & Specified Range & Final Parameter \\ \hline
-Batch size & $[120, 180]$ & 150 \\
-Number of convolutional layers & $[1, 2]$ & 2 \\
-Filter sizes per layer & $[4, 7]$ & $6$ (Layer 1), $6$ (Layer 2) \\
-Number of filters per layer & $[30, 60]$ & $47$ (Layer 1), $42$ (Layer 2) \\
-Optimizer & [Adam, SGD, Adagrad] & Adagrad
-\end{tabular}
-\end{center}
+After testing some diverse hyperparameter configurations, we defined ranges for which seem to work good. Table~\ref{tab:step1hyperhyper} shows the ranges we choose and our final parameters. 
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\textwidth}{l|XX } \toprule
+		Hyperparameter & Specified Range & Final Parameter \\ \midrule
+		Batch size & $[120, 180]$ & 150 \\
+		Number of convolutional layers & $[1, 2]$ & 2 \\
+		Filter sizes per layer & $[4, 7]$ & $6$ (Layer 1), $6$ (Layer 2) \\
+		Number of filters per layer & $[30, 60]$ & $47$ (Layer 1), $42$ (Layer 2) \\
+		Optimizer & [Adam, SGD, Adagrad] & Adagrad \\ \bottomrule
+	\end{tabularx}
+	\caption{ranges for hyperparameters}
+	\label{tab:step1hyperhyper}
+\end{table}
+
 We searched for the optimal hyperparameters with the help of random search and early stopping. This means, that the program received the predefined ranges, as well as the training, development and validation set. It generated random configurations within the given ranges, trained the network on the training set and evaluated the model after each epoch. If performance decreased on the development set, the program finished training in order to prevent overfitting and to save ressources. If the new model beat the currently best one, it is stored and the best results are udated. Since this task is very computation heavy, we used the Lichtenberg Cluster \footnote[4]{\url{http://www.hhlr.tu-darmstadt.de}} to do this for us. As a general restraint for the results, we decided to only allow models that have a recall of at least 5\% but a precision as high as possible. Recall and precision seem to behave anti-proportional, therefore we have to choose which one of them is more important to us. Since we want to create meaningful and well readable summarizations which are not very long anyway, precision is of a much greater importance to us. \\
 Our final parameters provided a recall of 5.9\% and a precision of 52\%. We noticed that for some topics which have a high number of documents the amount of predicted nuggets was very large and analogously for smaller topics the number of nuggets was very small. This led us to the decision that we always use the 30 sentences with the highest probability of being nuggets as input to the next pipeline step. This guarantees enough material to work with in later steps while using only those nuggets we are most confident in.\\
