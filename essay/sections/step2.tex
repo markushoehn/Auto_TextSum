@@ -1,30 +1,5 @@
 % !TeX root = ..\essay.tex
 
-% Notes from slides
-
-% Erfolg der Methode
-% 	Nutzung der Methode in der Literatur
-% 	Ergebnisse auf anderen Corpora/Daten
-% Literaturrecherche
-% 	Erweiterungen der Methode
-% 	Kritik der Methode
-% Ver-/Anwendung der Methode
-% theoretischer Bezug
-% Praktischer Bezug
-% Verwendbarkeit
-% Beschreibung der Methodik
-% Bewertung der Methode
-% Verwendung von (Fach-)Begriffen richtig und konsistent
-% Mit eigenen Worten
-% Wissenschaftliches Arbeiten
-% Korrekte Zitierweise
-% Weiterfuehrende Ideen und Gedanken
-
-% What is the prob­lem that the au­thors tried to solve in this paper?
-% How does this prob­lem re­late to the topic of the sem­i­nar and to other talks in the sem­i­nar?
-% How can I ex­plain the au­thors' so­lu­tion in the best way?
-% How did the au­thors demon­strate that the so­lu­tion works?
-
 \subsection{Step 2 - Creating Hierarchies}
 
 \subsubsection{Introduction}
@@ -33,10 +8,9 @@ In the second step of our pipeline, we created tree hierarchies out of the sente
 
 The tree hierarchies are built for the third step to better distinguish between topics of sentences. Each resulting tree should contain sentences that are similar in meaning and topic. At the top of each tree should be the most general sentence and at the bottom the most specific sentence.
 
-
 \subsubsection{Method}
 
-To prepare the Nuggets for the rest of this method we removed stopwords and words with a length lower than three, tokenized the words and we stemmed the words. For a list of stopwords, tokenization and stemming we used NLTK \cite{nltk}.
+To prepare the Nuggets for the rest of this method we removed stopwords and words with a length lower than three, tokenized the words and we stemmed the words. For a list of stopwords, tokenization and stemming we used NLTK by \cite{nltk}.
 
 Our method can be described in three steps. First, we defined a recursive function to insert a sentence into the resulting tree. Then we defined two functions to determinate where to go in the tree. These functions also implement how similarity and specific/general sentences are calculated.
 
@@ -77,7 +51,6 @@ The NLTK path similarity returns a score that describes how similar two words ar
 	\label{fig:which}
 \end{figure}
 
-
 \subsubsubsection{\textbf{Compare}}
 
 The compare function takes the current list of Nuggets and the Nugget which should be inserted and returns where to insert it (see list of decisions in Insert function). The goal of the compare function is to find which Nugget is more general or specific. We calculate the TF-IDF scores for the current nugget and the list of nuggets against the whole document. We do this because we want to find which Nugget is more important for the document.
@@ -96,7 +69,7 @@ We thought about how we could improve our method and figured that an initial sor
 
 \subsubsection{Experimental Results}
 
-For the evaluation of the hierarchies, we used the \textit{Annotation Tool} from AIPHES \cite{Tauchmann.et.al.2018.LREC}. This tool was recommended in the lecture and can compare hierarchies against each other. It displays tree similarity of two given hierarchies and against random trees. It also shows network statistics such as the number of subtrees, subtree depth, average depth, total number of bubbles and average branching.
+For the evaluation of the hierarchies, we used the \textit{Annotation Tool} from \cite{Tauchmann.et.al.2018.LREC}. This tool was recommended in the lecture and can compare hierarchies against each other. It displays tree similarity of two given hierarchies and against random trees. It also shows network statistics such as the number of subtrees, subtree depth, average depth, total number of bubbles and average branching.
 
 We first used the result of our method against the given gold standard. An issue was that our hierarchy only consists of 30 Nuggets instead of the 100 to 1400 Nuggets in the gold standard. We were not sure how this changes the result of the Annotation Tool. The results showed an average of 35 percent similarity. See figure \ref{fig:graph30} for the plotted similarity of the 10 topics.
 
@@ -120,21 +93,16 @@ Because our algorithm took a long time (up to 1 hour for one topic) for all Nugg
 	\label{fig:graphn}
 \end{figure}
 
-
-
 \subsubsection{Discussion}
 
-% hard to do an evaluation of performance on the system
+We found it difficult to efficiently evaluate our system for multiple reasons. First, the gold standard is a merged hierarchy from three human anotators and prone to bias. A gold standard is therefore not nessecarily the best hierarchy possible. Trying to optimise towards the gold standard might be problematic. It can skew the result towards this specific solution. This raises the question if there even is one best hierarchy.
 
-% Is there a best (gold standard) hierarchy?
-% Problem: How to define similarity of hierarchies?
+With limited training data available we decided against a neural network approach. Instead we defined three parts of our system that can be independetly optimized to improve the overall system. We tried to adjust the parameters, such as thresholds, to increase the quality of our solution. We measured different statistics which we optimized our parameters.
 
+We also found it diffucult to define general and specific sentences. These are very different from sentence similarity and document topics. We instead tried to find the more important sentences by using TF-IDF in our compare function.
 
-This method can be easily improved by improving the two given functions which improve the overall system. For example, word embedding could be used to find similar Nuggets for the Which function. A clustering algorithm could be used to pre-sort the Nuggets into trees before inserting them. The compare function could be improved by using another term-weighting scheme or combining multiple.
-
-
-% TODO: hard to define similar when we want general or specific
+There are multiple forms of improvement possible for the future. For example, word embedding could be used to find similar Nuggets for the which function. A clustering algorithm could be used to pre-sort the Nuggets into trees before inserting them. The compare function could be improved by using another term-weighting scheme or combining multiple.
 
 \subsubsection{Conclusions}
 
-Our hierarchical ordering consists of three major parts. The recursive insert function, the Which function to determine where to insert a Nugget and the compare function to determine the position to insert the Nugget. We tested our method with the AIPHES \textit{Annotation Tool} and evaluated the results.
+Our hierarchical ordering consists of three major parts which we descriped. The recursive insert function, the which function to determine where to insert a Nugget and the compare function to determine the position to insert the Nugget. We tested our method with the AIPHES \textit{Annotation Tool} and evaluated the results.
