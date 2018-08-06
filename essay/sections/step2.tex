@@ -36,7 +36,7 @@ The tree hierarchies are built for the third step to better distinguish between 
 
 \subsubsection{Method}
 
-To prepare the Nuggets for the rest of this method we removed stopwords and words with a length lower than three, tokenized the words and we stemmed the words. For a list of stopwords, tokenization and stemming we used NLTK.
+To prepare the Nuggets for the rest of this method we removed stopwords and words with a length lower than three, tokenized the words and we stemmed the words. For a list of stopwords, tokenization and stemming we used NLTK \citep{nltk}.
 
 % TODO https://www.nltk.org/
 
@@ -46,27 +46,27 @@ Our method can be described in three steps. First, we defined a recursive functi
 	\centering
 	\includegraphics[trim=3cm 10cm 15cm 5.8cm, clip=true]{img/step2_func.pdf}
 	\caption{new Nuggets and Bubble with Nugget}
-	\label{fig:jsd}
+	\label{fig:nuggetbubble}
 \end{figure}
-\textbf{Insert}\\
+\subsubsubsection{\textbf{Insert function}}
 
 The insert function takes a nugget and inserts it into the given tree. It runs recursively over the tree and calls the Which and Compare functions to determine where to go. Each step it first calls the Compare function which takes the current list of nuggets and the nugget which should be inserted. It returns the position where to insert the given nugget. There are three decicions to consider.
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim=3cm 3cm 3cm 11cm, clip=true, width= \textwidth]{img/step2_func.pdf}
+	\includegraphics[trim=3.5cm 3cm 3cm 11cm, clip=true, width= \textwidth]{img/step2_func.pdf}
 	\caption{Three results of Insert}
-	\label{fig:jsd}
+	\label{fig:insert}
 \end{figure}
 
 \begin{description}
 \item [Append] It appends the given nugget to the current list of nuggets.
-\item [Go Down] We call Which to determine in which bubble to go recursively. The Which function returns the best Bubble to insert. The function then calls itself recursively in this Bubble.
+\item [Go Down] We call Which to determine in which bubble to go recursively. The which function returns the best Bubble to insert. The function then calls itself recursively in this Bubble.
 \item [Insert Above] A new Bubble is created and inserted above the current Bubble and the pointers between the Bubbles are pointed to their new positions.
 \end{description}
 
-\textbf{Which}\\
+\subsubsubsection{\textbf{Which}}
 
-The Which function takes a list of Bubbles and the current Nugget to insert and returns the best position to insert the Nugget. This function tries to find the similarity of each Bubble to the current Nugget. Each Bubble can contain 1 to n Nuggets at the top level and multiple other in their siblings. We only take the 1 to n Nuggets in the top level and compare each word of each Nugget with NLTK path similarity.
+The which function takes a list of Bubbles and the current Nugget to insert and returns the best position to insert the Nugget. This function tries to find the similarity of each Bubble to the current Nugget. Each Bubble can contain 1 to n Nuggets at the top level and multiple other in their siblings. We only take the 1 to n Nuggets in the top level and compare each word of each Nugget with NLTK path similarity.
 
 % result = [[sim(x,y) for y in listb] for x in lista]
 % flatten = [max(b) for b in result]
@@ -80,11 +80,11 @@ The NLTK path similarity returns a score that describes how similar two words ar
 	\centering
 	\includegraphics[trim=14cm 10cm 7cm 5.5cm, clip=true]{img/step2_func.pdf}
 	\caption{Which Function}
-	\label{fig:jsd}
+	\label{fig:which}
 \end{figure}
 
 
-\textbf{Compare}\\
+\subsubsubsection{\textbf{Compare}}
 
 The compare function takes the current list of Nuggets and the Nugget which should be inserted and returns where to insert it (See List of decicions in Insert function). The goal of the compare function is to find which Nugget is more general or specific. We calculate the TF-IDF scores for the current nugget and the list of nuggets against the whole document. We do this because we want to find which Nugget is more important for the document.
 
@@ -101,7 +101,7 @@ TF-IDF is short for term frequency-inverse document frequency. The value increas
 	\centering
 	\includegraphics[trim=22.5cm 12.5cm 2.5cm 5.5cm, clip=true]{img/step2_func.pdf}
 	\caption{Compare Function}
-	\label{fig:jsd}
+	\label{fig:compare}
 \end{figure}
 
 
@@ -115,28 +115,28 @@ We used Python and NLTK.
 
 % https://github.com/AIPHES/HierarchicalSummarization
 
-For the evaluation of the hierarchies, we used the Annotation Tool from AIPHES. This tool was recommended in the lecture and can compare hierarchies against each other. It displays tree similarity of two given hierarchies and against random trees. It also shows network statistics such as the number of subtrees, subtree depth, average depth, total number of bubbles and average branching.
+For the evaluation of the hierarchies, we used the \textit{Annotation Tool} from AIPHES \citep{Tauchmann.et.al.2018.LREC}. This tool was recommended in the lecture and can compare hierarchies against each other. It displays tree similarity of two given hierarchies and against random trees. It also shows network statistics such as the number of subtrees, subtree depth, average depth, total number of bubbles and average branching.
 
-We first used the result of our method against the given gold standard. An issue was that our hierarchy only consists of 30 Nuggets instead of the 100 to 1400 Nuggets in the given gold standard. We were not sure how this changes the result of the Annotation Tool. The results showed an average of 35 percent similarity. See figure TODO for the plotted similarity of the 10 topics.
+We first used the result of our method against the given gold standard. An issue was that our hierarchy only consists of 30 Nuggets instead of the 100 to 1400 Nuggets in the gold standard. We were not sure how this changes the result of the Annotation Tool. The results showed an average of 35 percent similarity. See figure \ref{fig:graph30} for the plotted similarity of the 10 topics.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim= 0 120 0 120,width=\textwidth]{img/sim_v1.pdf}
+	\includegraphics[trim= 0 130 0 130,width=\textwidth]{img/sim_v1.pdf}
 	\caption{Graph Similarity with 30 Nuggets}
-	\label{fig:spc}
+	\label{fig:graph30}
 \end{figure}
 
-We then ran our algorithm with all Nuggets to see how this changes the output of the Annotation Tool. The issue here is that these Nuggets were not sorted by the content selection of our pipeline. The sorting of the Nuggets plays a major role in how our tree is built since we removed the Insert Above step.
+We then ran our algorithm with all Nuggets to see how this changes the output of the \textit{Annotation Tool}. The issue here is that these Nuggets were not sorted by the content selection of our pipeline. The sorting of the Nuggets plays a major role in how our tree is built since we removed the Insert Above step.
 
-The similarity values of all three comparisons are very close. We concluded that the similarity is only noise and the trees differ too much.
+The result can be seen in figure \ref{fig:graphn}. The similarity values of all three comparisons are very close. We concluded that the similarity is only noise and the trees differ too much.
 
 Because our algorithm took a long time (up to 1 hour for one topic) for all Nuggets we could not use this evaluation intensively to improve our method. Instead, we tried to find a good balance for the number of Nuggets in each Bubble and the number of Bubbles in the root node. We applied a smoothing for the compare function to decrease the TF-IDF score when more Nuggets are present in the Bubble.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim= 0 120 0 120,width=\textwidth]{img/sim_v2.pdf}
+	\includegraphics[trim= 0 130 0 130,width=\textwidth]{img/sim_v2.pdf}
 	\caption{Graph Similarity with n Nuggets}
-	\label{fig:spc}
+	\label{fig:graphn}
 \end{figure}
 
 
@@ -149,14 +149,14 @@ Because our algorithm took a long time (up to 1 hour for one topic) for all Nugg
 % Problem: How to define similarity of hierarchies?
 
 
-This method can be easily improved by improving the two given functions which improve the overall system. For example, word embedding could be used to find similar Nuggets for the Which function. A clustering algorithm could be used to pre-sort the Nuggets into trees before inserting them. The Compare function could be improved by using another term-weighting scheme or combining multiple.
+This method can be easily improved by improving the two given functions which improve the overall system. For example, word embedding could be used to find similar Nuggets for the Which function. A clustering algorithm could be used to pre-sort the Nuggets into trees before inserting them. The compare function could be improved by using another term-weighting scheme or combining multiple.
 
 
 % TODO: hard to define similar when we want general or specific
 
 \subsubsection{Conclusions}
 
-Our hierarchical ordering consists of three major parts. The recursive insert function, the Which function to determine where to insert a Nugget and the Compare function to determine the position to insert the Nugget. We tested our method with the AIPHES Annotation Tool and evaluated the results.
+Our hierarchical ordering consists of three major parts. The recursive insert function, the Which function to determine where to insert a Nugget and the compare function to determine the position to insert the Nugget. We tested our method with the AIPHES \textit{Annotation Tool} and evaluated the results.
 
 
 %\subsubsection{Bibliography}
