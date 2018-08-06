@@ -40,9 +40,10 @@ The insert function takes a nugget and inserts it into the given tree. It runs r
 
 The which function takes a list of Bubbles and the current Nugget to insert and returns the best position to insert the Nugget. This function tries to find the similarity of each Bubble to the current Nugget. Each Bubble can contain 1 to n Nuggets at the top level and multiple other in their siblings. We only take the 1 to n Nuggets in the top level and compare each word of each Nugget with NLTK path similarity.
 
-We calculate the similarity for each list of Nuggets of each Bubble against our given Nugget. This is done by calculating the path similarity for each word of the list of Nuggets against each word of the given Nugget. We take the maximal value for each word and then take the average of the list. We take the maximum of the list and compare it against a self-defined threshold value. The higher this threshold is the more new Bubbles are created and the lower the deeper the tree hierarchy is.
-
 The NLTK path similarity returns a score that describes how similar two words are. The similarity is calculated by taking the shortest path that connects the senses of the words. The similarity value is in the range of 0 to 1.
+
+We calculate the similarity for each list of Nuggets of each Bubble against our given Nugget. This is done by calculating the path similarity for each word of the list of Nuggets against each word of the given Nugget. We take the maximal value for each word and then take the average of the list. We take the maximum of the list and compare it against a self-defined threshold value. The higher this threshold is, the more new Bubbles are created and the deeper the tree hierarchy becomes.
+
 
 \begin{figure}[H]
 	\centering
