@@ -36,9 +36,7 @@ The tree hierarchies are built for the third step to better distinguish between 
 
 \subsubsection{Method}
 
-To prepare the Nuggets for the rest of this method we removed stopwords and words with a length lower than three, tokenized the words and we stemmed the words. For a list of stopwords, tokenization and stemming we used NLTK \citep{nltk}.
-
-% TODO https://www.nltk.org/
+To prepare the Nuggets for the rest of this method we removed stopwords and words with a length lower than three, tokenized the words and we stemmed the words. For a list of stopwords, tokenization and stemming we used NLTK \cite{nltk}.
 
 Our method can be described in three steps. First, we defined a recursive function to insert a sentence into the resulting tree. Then we defined two functions to determinate where to go in the tree. These functions also implement how similarity and specific/general sentences are calculated.
 
@@ -68,10 +66,6 @@ The insert function takes a nugget and inserts it into the given tree. It runs r
 
 The which function takes a list of Bubbles and the current Nugget to insert and returns the best position to insert the Nugget. This function tries to find the similarity of each Bubble to the current Nugget. Each Bubble can contain 1 to n Nuggets at the top level and multiple other in their siblings. We only take the 1 to n Nuggets in the top level and compare each word of each Nugget with NLTK path similarity.
 
-% result = [[sim(x,y) for y in listb] for x in lista]
-% flatten = [max(b) for b in result]
-% value = reduce((lambda x, y: x + y), flatten) / len(flatten)
-
 We calculate the similarity for each list of Nuggets of each Bubble against our given Nugget. This is done by calculating the path similarity for each word of the list of Nuggets against each word of the given Nugget. We take the maximal value for each word and then take the average of the list. We take the maximum of the list and compare it against a self-defined threshold value. The higher this threshold is the more new Bubbles are created and the lower the deeper the tree hierarchy is.
 
 The NLTK path similarity returns a score that describes how similar two words are. The similarity is calculated by taking the shortest path that connects the senses of the words. The similarity value is in the range of 0 to 1.
@@ -90,13 +84,6 @@ The compare function takes the current list of Nuggets and the Nugget which shou
 
 TF-IDF is short for term frequency-inverse document frequency. The value increases by to the number of times a word appears in the document and is compensated by the frequency of the word in the document. This is done because some words appear more frequently in general. 
 
-
-% sentenceList = sentence.GetWordsWithoutStopwords()
-% sentenceResult = self.tfidf(sentenceList, self.table)
-% nuggetsList2 = [self.tfidf(sublist.GetWordsWithoutStopwords(), self.table) for sublist in nuggets]
-% nuggetsResult = reduce((lambda x,y: x+y), nuggetsList2) / len(nuggetsList2)
-
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=22.5cm 12.5cm 2.5cm 5.5cm, clip=true]{img/step2_func.pdf}
@@ -107,15 +94,9 @@ TF-IDF is short for term frequency-inverse document frequency. The value increas
 
 We thought about how we could improve our method and figured that an initial sorting of the Nuggets would help. This is already provided by the content selection of step 1. The best Nuggets appear at the beginning of the list. These Nuggets should be at the top of the hierarchy. We removed the Insert Above step from our insert function so that no Nuggets are inserted above. The Nuggets at the beginning of the list are now at the top of our hierarchy and the Nuggets further from the top are inserted deeper into the hierarchy. After we did this the quality of our resulting trees improved.
 
-\subsubsection{Experimental Setup}
-
-We used Python3 and NLTK.
-
 \subsubsection{Experimental Results}
 
-% https://github.com/AIPHES/HierarchicalSummarization
-
-For the evaluation of the hierarchies, we used the \textit{Annotation Tool} from AIPHES \citep{Tauchmann.et.al.2018.LREC}. This tool was recommended in the lecture and can compare hierarchies against each other. It displays tree similarity of two given hierarchies and against random trees. It also shows network statistics such as the number of subtrees, subtree depth, average depth, total number of bubbles and average branching.
+For the evaluation of the hierarchies, we used the \textit{Annotation Tool} from AIPHES \cite{Tauchmann.et.al.2018.LREC}. This tool was recommended in the lecture and can compare hierarchies against each other. It displays tree similarity of two given hierarchies and against random trees. It also shows network statistics such as the number of subtrees, subtree depth, average depth, total number of bubbles and average branching.
 
 We first used the result of our method against the given gold standard. An issue was that our hierarchy only consists of 30 Nuggets instead of the 100 to 1400 Nuggets in the gold standard. We were not sure how this changes the result of the Annotation Tool. The results showed an average of 35 percent similarity. See figure \ref{fig:graph30} for the plotted similarity of the 10 topics.
 
@@ -130,7 +111,7 @@ We then ran our algorithm with all Nuggets to see how this changes the output of
 
 The result can be seen in figure \ref{fig:graphn}. The similarity values of all three comparisons are very close. We concluded that the similarity is only noise and the trees differ too much.
 
-Because our algorithm took a long time (up to 1 hour for one topic) for all Nuggets we could not use this evaluation intensively to improve our method. Instead, we tried to find a good balance for the number of Nuggets in each Bubble and the number of Bubbles in the root node. We applied a smoothing for the compare function to decrease the TF-IDF score when more Nuggets are present in the Bubble.
+Because our algorithm took a long time (up to 1 hour for one topic) for all Nuggets and the results were difficult to interpret, we could not use this evaluation intensively to improve our method. Instead, we tried to find a good balance for the number of Nuggets in each Bubble and the number of Bubbles in the root node. We applied a smoothing for the compare function to decrease the TF-IDF score when more Nuggets are present in the Bubble. This helped to increase the quality of our hierarchies.
 
 \begin{figure}[H]
 	\centering
@@ -157,7 +138,3 @@ This method can be easily improved by improving the two given functions which im
 \subsubsection{Conclusions}
 
 Our hierarchical ordering consists of three major parts. The recursive insert function, the Which function to determine where to insert a Nugget and the compare function to determine the position to insert the Nugget. We tested our method with the AIPHES \textit{Annotation Tool} and evaluated the results.
-
-
-%\subsubsection{Bibliography}
-% added at the end
