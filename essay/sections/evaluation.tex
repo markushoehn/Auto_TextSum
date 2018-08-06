@@ -48,7 +48,7 @@ The annotators had also the opportunity to comment each criteria for each summar
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim= 0 150 0 150,width=\textwidth]{img/jsd.pdf}
+	\includegraphics[trim=0 150 0 150, width=\textwidth]{img/jsd.pdf}
 	\caption{JSD score}
 	\label{fig:jsd}
 \end{figure}
@@ -56,22 +56,52 @@ The annotators had also the opportunity to comment each criteria for each summar
 
 \subsection{Scores per Criteria}
 
+First we analized our average score per criteria against the average score per critera over all groups. The results are shown in figure~\ref{fig:spc}.
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim= 0 150 0 150,width=\textwidth]{img/scores_per_criteria.pdf}
+	\includegraphics[trim=0 150 0 150, width=\textwidth]{img/scores_per_criteria.pdf}
 	\caption{scores per criteria}
 	\label{fig:spc}
 \end{figure}
 
-\subsection{why so good / bad}
-free text analysis per criteria
+There are only two criteria our group is signifiant worse than the average, "non-redundancy" and "length". On the other hand there are several criteria we are better than the average, e.g. "referential clarity" or "focus".
+
+For a better understanding of these values, we have to make a closer look at the free text comments.
+In table~\ref{tab:evacomments} you can see an overview with all criteria, the number of comments and the main points.
+
+\begin{table}[H]
+	\begin{tabularx}{\textwidth}{llX} \toprule
+		criteria & \# & main point \\ \midrule
+		Grammaticality      & 25 & puncuation incl. periods, parenthesis  \\
+		Non-Redundancy      & 19 & repetition resp. multiple definitions \\
+		Referential Clarity & 11 & unsolved reference \\
+		Focus               & 17 & one sentence does not fit \\
+		Structure           & 13 & order of sentences \\
+		Coherence           & 9  & lack of information due to bad sentence connection \\
+		Readability         & 21 & punctuation and too long sentences \\
+		Information Content & 15 & one sentence does not fit \\
+		Spelling            & 17 & punctuation and case-related problems \\
+		Length              & 31 & not exactly 600 characters \\
+		Overall Quality     & 14 & lack of information, structure, or length \\ \bottomrule
+	\end{tabularx}
+	\caption{evaluation criteria}
+	\label{tab:evacomments}
+\end{table}
+
+criteria not independent.
+punctuation often written for multiple criteria, readability as result of structure, coherence, spelling, grammar.
+
+overall should be average of all but only in n cases its really true.
+
+You can see that the annotaters give more comments for criteria we are not so good at as in other ones.
 
 
 \subsection{box plot}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim= 0 150 0 150,width=\textwidth]{img/box.pdf}
+	\includegraphics[trim=0 150 0 150, width=\textwidth]{img/box.pdf}
 	\caption{statistical values over all topics per group}
 	\label{fig:svg}
 \end{figure}
@@ -81,7 +111,7 @@ free text analysis per criteria
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim= 0 150 0 150,width=\textwidth]{img/score_per_topic.pdf}
+	\includegraphics[trim=0 150 0 150, width=\textwidth]{img/score_per_topic.pdf}
 	\caption{scores per topic}
 	\label{fig:spt}
 \end{figure}
@@ -91,7 +121,7 @@ free text analysis per criteria
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[trim= 0 150 0 150,width=\textwidth]{img/score_per_topic_sorted.pdf}
+	\includegraphics[trim=0 150 0 150, width=\textwidth]{img/score_per_topic_sorted.pdf}
 	\caption{scores per topic sorted ascending}
 	\label{fig:spts}
 \end{figure}
