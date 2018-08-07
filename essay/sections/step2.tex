@@ -30,11 +30,21 @@ The insert function takes a nugget and inserts it into the given tree. It runs r
 	\label{fig:insert}
 \end{figure}
 
-\begin{description}
-\item [Append] It appends the given nugget to the current list of nuggets.
-\item [Go Down] We call Which to determine in which bubble to go recursively. The which function returns the best Bubble to insert. The function then calls itself recursively in this Bubble.
-\item [Insert Above] A new Bubble is created and inserted above the current Bubble and the pointers between the Bubbles are pointed to their new positions.
-\end{description}
+%\begin{description}
+%\item [Append] It appends the given nugget to the current list of nuggets.
+%\item [Go Down] We call Which to determine in which bubble to go recursively. The which function returns the best Bubble to insert. The function then calls itself recursively in this Bubble.
+%\item [Insert Above] A new Bubble is created and inserted above the current Bubble and the pointers between the Bubbles are pointed to their new positions.
+%\end{description}
+
+\begin{table}[H]
+	\centering
+	\begin{tabularx}{\textwidth}{lX}
+		\textbf{Append} & It appends the given nugget to the current list of nuggets. \\
+		\textbf{Go Down} & We call Which to determine in which bubble to go recursively. The which function returns the best Bubble to insert. The function then calls itself recursively in this Bubble.\\
+		\textbf{Insert Above} & A new Bubble is created and inserted above the current Bubble and the pointers between the Bubbles are pointed to their new positions.
+	\end{tabularx}
+\end{table}
+
 
 \subsubsubsection{\textbf{Which}}
 
@@ -48,7 +58,7 @@ We calculate the similarity for each list of Nuggets of each Bubble against our 
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=14cm 10cm 7cm 5.5cm, clip=true]{img/step2_func.pdf}
-	\caption{Which Function}
+	\caption{Which function}
 	\label{fig:which}
 \end{figure}
 
@@ -61,7 +71,7 @@ TF-IDF is short for term frequency-inverse document frequency. The value increas
 \begin{figure}[H]
 	\centering
 	\includegraphics[trim=22.5cm 12.5cm 2.5cm 5.5cm, clip=true]{img/step2_func.pdf}
-	\caption{Compare Function}
+	\caption{Compare function}
 	\label{fig:compare}
 \end{figure}
 
